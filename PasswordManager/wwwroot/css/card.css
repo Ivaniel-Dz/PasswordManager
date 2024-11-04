@@ -1,0 +1,31 @@
+﻿.container {
+    width: 82%;
+    background-color: rgb(243 244 246);
+}
+
+.card-list {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.btn-add {
+    background-color: #181C14;
+    color: white;
+    padding: 0 10px;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    border-radius: 6px;
+}
+
+.icon-search {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 50%;
+}
+
+.input-search {
+    padding-left: 40px;
+}

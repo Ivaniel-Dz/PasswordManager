@@ -1,0 +1,86 @@
+﻿@{
+	ViewData["Title"] = "Contraseñas";
+}
+
+<!-- Container Main -->
+<section class="container py-4 overflow-auto">
+    <!-- Boton de agregar Nuevo -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fs-2">Tus contraseñas</h2>
+        <button class="btn-add">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+                <path d="M9 12h6"></path>
+                <path d="M12 9v6"></path>
+            </svg>
+            Agregar contraseña
+        </button>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="mb-4 position-relative">
+        <svg class="icon-search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
+            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+            <path d="M21 21l-6 -6"></path>
+        </svg>
+        <input type="text" class="form-control input-search bg-white" placeholder="Buscar contraseña">
+    </div>
+
+    <!-- Lista de contraseñas -->
+    <div class="card-main overflow-auto">
+        <div class="d-flex flex-column gap-3">
+            <!-- Ejemplo de tarjeta de contraseña -->
+            <div class="card-list">
+                <div class="card-titulo d-flex justify-content-between align-items-center pb-2">
+                    <h5 class="card-title mb-0 text-sm font-weight-medium">Título de ejemplo</h5>
+                    <div class="avatar" style="height: 36px; width: 36px;">
+                        <img src="https://www.google.com/s2/favicons?domain=example.com&sz=32" alt="Icono" class="rounded-circle" style="height: 100%; width: 100%;">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="text-muted mb-1 small">Usuario</div>
+                    <div class="font-weight-medium">ejemplo@correo.com</div>
+                </div>
+                <div class="card-detalles">
+                    <button class="btn btn-outline-secondary btn-sm w-100">Ver detalles</button>
+                </div>
+            </div>
+            <!-- Fin de ejemplo de tarjeta -->
+        </div>
+    </div>
+</section>
+
+<!-- CSS -->
+<style>
+    .container {
+        width: 82%;
+        background-color: rgb(243 244 246);
+    }
+
+    .card-list {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+    }
+
+    .btn-add {
+        background-color: #181C14;
+        color: white;
+        padding: 0 10px;
+        padding-bottom: 6px;
+        padding-top: 6px;
+        border-radius: 6px;
+    }
+
+    .icon-search {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 50%;
+    }
+
+    .input-search {
+        padding-left: 40px;
+    }
+</style>
