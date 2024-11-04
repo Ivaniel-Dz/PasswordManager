@@ -1,0 +1,52 @@
+﻿<link rel="stylesheet" href="~/css/card.css" />
+
+<section class="card-main">
+
+	<div class="card-container">
+		<div class="titulo">
+			<h2>Agregar nueva contraseña</h2>
+			<p>
+				Ingresa los detalles de la nueva contraseña aquí. Asegúrate de usar una contraseña fuerte y única.
+			</p>
+		</div>
+
+		<form class="card-info">
+			<div class="info-input">
+				<label for="titulo">Título</label>
+				<input type="text" name="titulo" value="" required/>
+			</div>
+
+			<div class="info-input">
+				<label for="usuario">Usuario</label>
+				<input type="text" name="usuario" value="" />
+			</div>
+
+			<div class="info-input">
+				<label class="password">Contraseña</label>
+				<input type="password" name="password" value="" required />
+			</div>
+
+			<div class="info-input">
+				<label for="url">URL</label>
+				<input type="url" name="url" value="" required />
+			</div>
+
+			<div class="info-input">
+				<label for="categoria">Categoría</label>
+				<select name="categorio" required>
+					<option> Sitio web </option>
+					<option> Aplicación </option>
+					<option> Tarjeta </option>
+					<option> Otro </option>
+				</select>
+			</div>
+
+			<div class="box-btn">
+				<button type="submit">Guardar contraseña</button>
+			</div>
+
+		</form>
+
+	</div>
+
+</section>
