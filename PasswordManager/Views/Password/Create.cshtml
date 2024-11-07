@@ -1,4 +1,6 @@
-﻿@{
+﻿@model PasswordManager.Models.Password
+
+@{
 	ViewData["Title"] = "Nuevo Contraseña";
 }
 
@@ -15,29 +17,30 @@
 		</div>
 
 		<form class="card-info" asp-controller="Password" asp-action="Create" method="post">
+
 			<div class="info-input">
 				<label for="titulo">Título</label>
-				<input type="text" id="titulo" required />
+				<input type="text" id="titulo" asp-for="Titulo" required />
 			</div>
 
 			<div class="info-input">
 				<label for="usuario">Usuario/Email</label>
-				<input type="text" id="usuario" required/>
+				<input type="text" id="usuario" asp-for="UserEmail" required/>
 			</div>
 
 			<div class="info-input">
 				<label class="password">Contraseña</label>
-				<input type="password" id="password" required />
+				<input type="password" id="password" asp-for="PasswordHash" required />
 			</div>
 
 			<div class="info-input">
 				<label for="url">URL</label>
-				<input type="url" id="url" required />
+				<input type="url" id="url" asp-for="URL" required />
 			</div>
 
 			<div class="info-input">
 				<label for="categoria">Categoría</label>
-				<select id="categorio" required>
+				<select id="categorio" asp-for="Categoria" required>
 					<option value="">Selecciona una categoría</option>
 					<option value="Sitio web">Sitio web</option>
 					<option value="Aplicación">Aplicación</option>
@@ -49,6 +52,14 @@
 			<div class="box-btn">
 				<button type="submit">Guardar contraseña</button>
 			</div>
+
+			<!-- Mwnsaje de Alerta -->
+			@if (TempData["Mensaje"] != null)
+			{
+				<div class="alert alert-warning text-center" role="alert">
+					@TempData["Mensaje"]
+				</div>
+			}
 
 		</form>
 

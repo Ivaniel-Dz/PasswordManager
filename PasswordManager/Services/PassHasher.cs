@@ -5,7 +5,7 @@ namespace PasswordManager.Services
 {
     public class PassHasher
     {
-        // Confirmado que este método es correcto para hashing simple sin sal.
+        // Metodo para Encriptar en formado (Hash) para Crear Cuenta Login
         public string EncryptPass(string texto)
         {
             using (SHA256 sha256Hash = SHA256.Create())

@@ -16,8 +16,9 @@ builder.Services.AddDbContext<AppDBContext>( options =>
 
 // Registrar servicios personalizados
 builder.Services.AddSingleton<PassHasher>(); // Servicio singleton para servicios personalizadas
+builder.Services.AddSingleton<PassEncryptor>();
 
-// Autenticacion de Login
+// Autenticacion de Login con Cookie (Claim)
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -37,8 +38,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Ejecución de Autenticación
-app.UseAuthentication();
+// Middleware
+app.UseAuthentication(); // Middleware de Autenticación
 
 app.UseAuthorization();
 

@@ -1,37 +1,39 @@
-﻿<link rel="stylesheet" href="~/css/style.css" />
+﻿@model PasswordManager.Models.Password
+
+<link rel="stylesheet" href="~/css/style.css" />
 
 <!-- Title -->
 <div class="content-title">
-	<h2 class="title-url">Facebook</h2>
-	<img class="title-icon" src="https://www.google.com/s2/favicons?domain=https://es-la.facebook.com/" alt="Alternate Text" />
+    <h2 class="title-url">@Model.Titulo</h2>
+    <img class="title-icon" src="https://www.google.com/s2/favicons?domain=@Model.URL" alt="Alternate Text" />
 </div>
 
 <!-- User -->
 <div class="content-info">
-	<h2 class="info-title">Usuario</h2>
-	<h3 class="info-user">user@example.com</h3>
+    <h2 class="info-title">Usuario</h2>
+    <h3 class="info-user">@Model.UserEmail</h3>
 </div>
 
 <!-- Password -->
 <div class="content-info">
-	<h2 class="info-title">Contraseña</h2>
-	<h3 class="info-user">12345</h3>
+    <h2 class="info-title">Contraseña</h2>
+    <h3 class="info-user">@Model.PasswordHash</h3>
 </div>
 
 <!-- URL -->
 <div class="content-info">
-	<h2 class="info-title">URL</h2>
-	<h3 class="info-user">https://es-la.facebook.com/</h3>
+    <h2 class="info-title">URL</h2>
+    <h3 class="info-user">@Model.URL</h3>
 </div>
 
 <!-- Categoría -->
 <div class="content-info">
-	<h2 class="info-title">Categoría</h2>
-	<h3 class="info-user">Sitio Web</h3>
+    <h2 class="info-title">Categoría</h2>
+    <h3 class="info-user">@Model.Categoria</h3>
 </div>
-
 
 <!-- Button card -->
 <div class="box-btn">
-	<a class="btn-link">Editar</a>
+    <a class="btn-link" asp-controller="Password" asp-action="Update" asp-route-id="@Model.Id">Editar</a>
+    <a class="btn-link delete" asp-controller="Password" asp-action="Delete" asp-route-id="@Model.Id">Eliminar</a>
 </div>
