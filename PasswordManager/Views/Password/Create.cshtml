@@ -1,4 +1,8 @@
-﻿<link rel="stylesheet" href="~/css/card.css" />
+﻿@{
+	ViewData["Title"] = "Inicio";
+}
+
+<link rel="stylesheet" href="~/css/card.css" />
 
 <section class="card-main">
 
@@ -10,34 +14,35 @@
 			</p>
 		</div>
 
-		<form class="card-info">
+		<form class="card-info" asp-controller="Password" asp-action="Create" method="post">
 			<div class="info-input">
 				<label for="titulo">Título</label>
-				<input type="text" name="titulo" value="" required/>
+				<input type="text" id="titulo" required />
 			</div>
 
 			<div class="info-input">
-				<label for="usuario">Usuario</label>
-				<input type="text" name="usuario" value="" />
+				<label for="usuario">Usuario/Email</label>
+				<input type="text" id="usuario" required/>
 			</div>
 
 			<div class="info-input">
 				<label class="password">Contraseña</label>
-				<input type="password" name="password" value="" required />
+				<input type="password" id="password" required />
 			</div>
 
 			<div class="info-input">
 				<label for="url">URL</label>
-				<input type="url" name="url" value="" required />
+				<input type="url" id="url" required />
 			</div>
 
 			<div class="info-input">
 				<label for="categoria">Categoría</label>
-				<select name="categorio" required>
-					<option> Sitio web </option>
-					<option> Aplicación </option>
-					<option> Tarjeta </option>
-					<option> Otro </option>
+				<select id="categorio" required>
+					<option value="">Selecciona una categoría</option>
+					<option value="Sitio web">Sitio web</option>
+					<option value="Aplicación">Aplicación</option>
+					<option value="Tarjeta">Tarjeta</option>
+					<option value="Otro">Otro</option>
 				</select>
 			</div>
 

@@ -1,15 +1,16 @@
 ﻿@{
-	ViewData["Title"] = "Contraseñas";
+	ViewData["Title"] = "Inicio";
 }
 
 <link rel="stylesheet" href="~/css/style.css" />
+<link rel="stylesheet" href="~/css/modal.css" />
 
 <section class="main-box">
 	<!-- Header -->
 	<div class="box-title">
 		<h2 class="title-text">Tus Contraseñas</h2>
 
-		<a class="btn-add">
+		<a class="btn-add" asp-controller="Password" asp-action="Create">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
 				<path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
 				<path d="M9 12h6"></path>
@@ -32,8 +33,8 @@
 	<div class="card-content">
 		<!-- Title card -->
 		<div class="content-title">
-			<h3 class="title-url">Google</h3>
-			<img class="title-icon" src="https://www.google.com/s2/favicons?domain=https://workspace.google.com/intl/es/gmail/" alt="Alternate Text" />
+			<h3 class="title-url">Facebook</h3>
+			<img class="title-icon" src="https://www.google.com/s2/favicons?domain=https://es-la.facebook.com/" alt="Alternate Text" />
 		</div>
 		<!-- Info card -->
 		<div class="content-info">
@@ -43,8 +44,21 @@
 
 		<!-- Footer card -->
 		<div class="box-footer">
-			<a class="footer-link" href="#">Ver detalles</a>
+			<button class="footer-link" id="openModalButton">Ver detalles</button>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div id="customModal" class="modal">
+		<div class="modal-content">
+			<span class="close-button">&times;</span>
+			<!-- Cargar el componente desde otro archivo -->
+			<partial name="Detalle" />
 		</div>
 	</div>
 
 </section>
+
+<script src="~/js/modal.js" asp-append-version="true"></script>
+
+

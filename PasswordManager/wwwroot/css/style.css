@@ -19,30 +19,32 @@
     justify-content: space-between;
 }
 
- .box-title .title-text{
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.box-title .btn-add {
-    background-color: #181C14;
-    color: white;
-    padding: 0 16px;
-    padding-bottom: 6px;
-    padding-top: 7px;
-    border-radius: 7px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-    .box-title .btn-add:hover {
-        background-color: white;
-        color: #181C14;
-        border: 2px solid #181C14;
-        cursor: pointer;
+    .box-title .title-text {
+        font-size: 24px;
+        font-weight: bold;
     }
+
+    .box-title .btn-add {
+        background-color: #181C14;
+        color: white;
+        padding: 0 16px;
+        padding-bottom: 6px;
+        padding-top: 7px;
+        border-radius: 7px;
+        border: 1px solid #181C14;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .box-title .btn-add:hover {
+            background-color: white;
+            color: #181C14;
+            border-radius: 7px;
+            border: 1px solid #181C14;
+            cursor: pointer;
+        }
 
 /*Barra de Busqueda*/
 .box-search {
@@ -56,29 +58,29 @@
     width: 100%;
 }
 
-.box-search .icon-search {
-    margin-right: 8px;
-    color: #555;
-}
-
-.box-search .search-btn {
-    border: none;
-    outline: none;
-    flex-grow: 1;
-    padding: 5px;
-    font-size: 14px;
-    background: transparent;
-    color: #333;
-}
-
-    .box-search .search-btn::placeholder {
-        color: #aaa;
+    .box-search .icon-search {
+        margin-right: 8px;
+        color: #555;
     }
 
-    .box-search .search-btn:focus {
+    .box-search .search-btn {
         border: none;
         outline: none;
+        flex-grow: 1;
+        padding: 5px;
+        font-size: 14px;
+        background: transparent;
+        color: #333;
     }
+
+        .box-search .search-btn::placeholder {
+            color: #aaa;
+        }
+
+        .box-search .search-btn:focus {
+            border: none;
+            outline: none;
+        }
 
 /*Card*/
 .card-content {
@@ -100,35 +102,63 @@
     justify-content: space-between;
 }
 
-.content-title .title-url {
-    font-size: 16px;
-}
+    .content-title .title-url {
+        font-size: 16px;
+    }
 
-.content-title .title-icon {
-    width: 28px;
-}
+    .content-title .title-icon {
+        width: 28px;
+    }
 
 /*Info card*/
 .content-info .info-title {
     font-size: 14px;
-    color: #555;
+    color: #333;
     margin-bottom: 0px;
-    font-weight:lighter;
+    font-weight: normal;
 }
 
 .content-info .info-user {
     font-size: 16px;
 }
 
+/*Button*/
 .box-footer {
     border-radius: 5px;
     border: 1px solid rgb(229 231 235);
 }
 
     .box-footer .footer-link {
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        padding: 4px;
+        border: none;
+        color: #181C14;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+/*Modal Link <a>*/
+.box-btn {
+    border-radius: 5px;
+    border: 1px solid rgb(229 231 235);
+}
+
+    .box-btn .btn-link {
         display: flex;
         justify-content: center;
         padding: 4px;
         text-decoration: none;
         color: #181C14;
+        transition: all 0.3s ease;
     }
+
+        .box-btn .btn-link:hover,
+        .box-footer .footer-link:hover {
+            border-radius: 5px;
+            border: 1px solid rgb(229 231 235);
+            background-color: #181C14;
+            color: #fff;
+            cursor: pointer;
+        }
