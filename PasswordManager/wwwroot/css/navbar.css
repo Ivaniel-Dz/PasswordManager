@@ -9,6 +9,15 @@ body {
     background-color: #313A46;
 }
 
-ul li a {
+.nav .nav-item .nav-link {
     font-size: 15px;
+}
+
+.nav .nav-item .nav-link:hover {
+    background-color: #6d7888;
+}
+
+
+.nav .nav-item .nav-link.active {
+    background-color: #6d7888;
 }

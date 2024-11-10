@@ -1,39 +1,42 @@
 ﻿@model PasswordManager.Models.Password
 
-<link rel="stylesheet" href="~/css/style.css" />
+<link rel="stylesheet" href="~/css/detalle.css" />
 
-<!-- Title -->
-<div class="content-title">
-    <h2 class="title-url">@Model.Titulo</h2>
-    <img class="title-icon" src="https://www.google.com/s2/favicons?domain=@Model.URL" alt="Alternate Text" />
-</div>
+<section class="container-info">
+    <!-- Title -->
+    <div class="info-title">
+        <h2 class="title-url">@Model.Titulo</h2>
+        <img class="title-icon" src="https://www.google.com/s2/favicons?domain=@Model.URL" alt="Alternate Text" />
+    </div>
 
-<!-- User -->
-<div class="content-info">
-    <h2 class="info-title">Usuario</h2>
-    <h3 class="info-user">@Model.UserEmail</h3>
-</div>
+    <!-- User -->
+    <div class="card-info">
+        <h2 class="info-subtitle">Usuario</h2>
+        <h3 class="info-content">@Model.UserEmail</h3>
+    </div>
 
-<!-- Password -->
-<div class="content-info">
-    <h2 class="info-title">Contraseña</h2>
-    <h3 class="info-user">@Model.PasswordHash</h3>
-</div>
+    <!-- Password -->
+    <div class="card-info">
+        <h2 class="info-subtitle">Contraseña</h2>
+        <h3 class="info-content">@Model.PasswordHash</h3>
+    </div>
 
-<!-- URL -->
-<div class="content-info">
-    <h2 class="info-title">URL</h2>
-    <h3 class="info-user">@Model.URL</h3>
-</div>
+    <!-- URL -->
+    <div class="card-info">
+        <h2 class="info-subtitle">URL</h2>
+        <h3 class="info-content">@Model.URL</h3>
+    </div>
 
-<!-- Categoría -->
-<div class="content-info">
-    <h2 class="info-title">Categoría</h2>
-    <h3 class="info-user">@Model.Categoria</h3>
-</div>
+    <!-- Categoría -->
+    <div class="card-info">
+        <h2 class="info-subtitle">Categoría</h2>
+        <h3 class="info-content">@Model.Categoria</h3>
+    </div>
 
-<!-- Button card -->
-<div class="box-btn">
-    <a class="btn-link" asp-controller="Password" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
-    <a class="btn-link delete" asp-controller="Password" asp-action="Delete" asp-route-id="@Model.Id">Eliminar</a>
-</div>
+    <!-- Button card -->
+    <div class="box-btn">
+        <a class="btn-primary" asp-controller="Password" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+        <a class="btn-secondary" asp-controller="Password" asp-action="Delete" asp-route-id="@Model.Id">Eliminar</a>
+    </div>
+
+</section>

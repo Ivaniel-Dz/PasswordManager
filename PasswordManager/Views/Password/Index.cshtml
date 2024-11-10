@@ -9,69 +9,78 @@
 
 <section class="main-box">
 	<!-- Header -->
-	<div class="box-title">
-		<h2 class="title-text">Mis Contraseñas</h2>
+	<header class="header-box">
+		<!-- Titulo -->
+		<div class="box-title">
+			<h2 class="title-text">Mis Contraseñas</h2>
+		</div>
 
-		<a class="btn-add" asp-controller="Password" asp-action="Create">
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
-				<path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
-				<path d="M9 12h6"></path>
-				<path d="M12 9v6"></path>
-			</svg>
-			Agregar Contraseña
-		</a>
-	</div>
+		<div class="group-box">
+			<!-- Barra de Busqueda -->
+			<div class="box-search">
+				<svg class="icon-search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
+					<path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+					<path d="M21 21l-6 -6"></path>
+				</svg>
+				<input class="search-btn" type="text" placeholder="Buscar Contraseña" />
+			</div>
+			<!-- Boton -->
+			<div class="box-button">
+				<a class="btn-add" asp-controller="Password" asp-action="Create">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
+						<path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+						<path d="M9 12h6"></path>
+						<path d="M12 9v6"></path>
+					</svg>
+					Agregar Contraseña
+				</a>
+			</div>
+		</div>
+	</header>
 
-	<!-- Barra de Busqueda -->
-	<div class="box-search">
-		<svg class="icon-search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
-			<path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
-			<path d="M21 21l-6 -6"></path>
-		</svg>
-		<input class="search-btn" type="text" placeholder="Buscar Contraseña" />
-	</div>
-
-	@if (Model.Any()){
-		@foreach (var password in Model)
-		{
+	<main class="main-container">
+		@if (Model.Any()){
+			@foreach (var password in Model)
+			{
 			<!-- Card -->
 			<div class="card-content">
-				<!-- Title card -->
-			<div class="content-title">
-				<h3 class="title-url">@password.Titulo</h3>
-				<img class="title-icon" src="https://www.google.com/s2/favicons?domain=@password.URL" alt="Alternate Text" />
-			</div>
-			<!-- Info card -->
-			<div class="content-info">
-				<h3 class="info-title">Usuario</h3>
-				<h3 class="info-user">@password.UserEmail</h3>
-			</div>
+					<!-- Title card -->
+				<div class="content-title">
+					<h3 class="title-url">@password.Titulo</h3>
+					<img class="title-icon" src="https://www.google.com/s2/favicons?domain=@password.URL" alt="Alternate Text" />
+				</div>
+				<!-- Info card -->
+				<div class="content-info">
+					<h3 class="info-title">Usuario</h3>
+					<h3 class="info-user">@password.UserEmail</h3>
+				</div>
 
-			<!-- Footer card -->
-			<div class="box-footer">
-				<button class="footer-link" onclick="openModal(@password.Id)">Ver detalles</button>
+				<!-- Footer card -->
+				<div class="box-footer">
+					<button class="footer-link" onclick="openModal(@password.Id)">Ver detalles</button>
+				</div>
 			</div>
-		</div>
+			}
+		} else {
+			<p>No tienes contraseñas guardadas.</p>
 		}
-	} else {
-		<p>No tienes contraseñas guardadas.</p>
-	}
 
-	<!-- Mwnsaje de Alerta -->
-	@if (TempData["Mensaje"] != null)
-	{
-		<div class="alert alert-warning text-center" role="alert">
-			@TempData["Mensaje"]
-		</div>
-	}
+		<!-- Mwnsaje de Alerta -->
+		@if (TempData["Mensaje"] != null)
+		{
+			<div class="alert alert-warning text-center" role="alert">
+				@TempData["Mensaje"]
+			</div>
+		}
 
-	<!-- Modal -->
-	<div id="customModal" class="modal">
-		<span class="close-button">&times;</span>
-		<div class="modal-content">
-			<!-- Cargar el contenido dinámico aquí -->
+		<!-- Modal -->
+		<div id="customModal" class="modal">
+			<span class="close-button">&times;</span>
+			<div class="modal-content">
+				<!-- Cargar el contenido dinámico aquí -->
+			</div>
 		</div>
-	</div>
+	</main>
 
 </section>
 
