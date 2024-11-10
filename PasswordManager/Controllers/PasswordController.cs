@@ -133,18 +133,99 @@ namespace PasswordManager.Controllers
             return RedirectToAction("Index", "Password");
         }
 
-        // Vista para Actualizar Password
+        // Vista para Editar Password
+        // Método para mostrar la vista de edición con los datos existentes
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            // Obtener el UserId desde los Claims del usuario autenticado
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        // Actualizar Password
+            if (userIdClaim == null)
+            {
+                TempData["Mensaje"] = "Usuario no autenticado.";
+                return Unauthorized(); // Redirige si no se encuentra el UserId
+            }
+
+            int userId = int.Parse(userIdClaim);
+
+            // Buscar la contraseña en la base de datos usando el id
+            var password = await _appDbContext.Passwords
+                .FirstOrDefaultAsync(p => p.Id == id && p.UserId == userId);
+
+            if (password == null)
+            {
+                TempData["Mensaje"] = "Contraseña no encontrada.";
+                return NotFound();
+            }
+
+            // Devolver la vista con el modelo de datos
+            return View(password);
+        }
+
+        // Método para actualizar los datos de la contraseña
+        [HttpPost]
+        public async Task<IActionResult> Edit(Password model)
+        {
+            // Asignar el UserId desde los Claims del usuario autenticado
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userIdClaim == null)
+            {
+                TempData["Mensaje"] = "Usuario no autenticado.";
+                return Unauthorized();
+            }
+
+            int userId = int.Parse(userIdClaim);  // Obtener el UserId del claim
+
+            // Buscar la contraseña en la base de datos usando model.Id
+            var password = await _appDbContext.Passwords
+                    .FirstOrDefaultAsync(p => p.Id == model.Id && p.UserId == userId);
+
+            if (password == null)
+            {
+                TempData["Mensaje"] = "Contraseña no encontrada.";
+                return NotFound();
+            }
+
+            // Actualizar solo si el valor es no nulo o no vacío
+            password.UserId = userId;  // Asignar el UserId al modelo
+            password.Titulo = !string.IsNullOrEmpty(model.Titulo) ? model.Titulo : password.Titulo;
+            password.UserEmail = !string.IsNullOrEmpty(model.UserEmail) ? model.UserEmail : password.UserEmail;
+            password.PasswordHash = !string.IsNullOrEmpty(model.PasswordHash) ? model.PasswordHash : password.PasswordHash;
+            password.URL = !string.IsNullOrEmpty(model.URL) ? model.URL : password.URL;
+            password.Categoria = !string.IsNullOrEmpty(model.Categoria) ? model.Categoria : password.Categoria;
+
+            // Actualizar la contraseña en la base de datos
+            _appDbContext.Passwords.Update(password);
+
+            // Guardar los cambios
+            await _appDbContext.SaveChangesAsync();
+
+            // Mensaje de confirmación
+            TempData["Mensaje"] = "Contraseña actualizada correctamente!";
+            return RedirectToAction(nameof(Index));  // Redirigir a la lista de contraseñas o vista principal
+        }
 
         // Eliminar Password
         [HttpGet]
 		public async Task<IActionResult> Delete(int id)
 		{
-			// Busca la contraseña segun el Id
-			var password = await _appDbContext.Passwords
+            // Obtener el UserId desde los Claims del usuario autenticado
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userIdClaim == null)
+            {
+                TempData["Mensaje"] = "Usuario no autenticado.";
+                return Unauthorized(); // Redirige si no se encuentra el UserId
+            }
+
+            int userId = int.Parse(userIdClaim);
+
+            // Busca la contraseña segun el Id
+            var password = await _appDbContext.Passwords
 				.Include(p => p.User)   // Incluye la relación con User
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .FirstOrDefaultAsync(p => p.Id == id && p.UserId == userId);
 
 			// Verifica si existe la contraseña
 			if(password == null)
@@ -152,6 +233,7 @@ namespace PasswordManager.Controllers
                 TempData["Mensaje"] = "Contraseña no encontrado.";
                 return RedirectToAction(nameof(Index));
             }
+
             // Elimina solo la contraseña, no el usuario
             _appDbContext.Passwords.Remove(password);
 			await _appDbContext.SaveChangesAsync();

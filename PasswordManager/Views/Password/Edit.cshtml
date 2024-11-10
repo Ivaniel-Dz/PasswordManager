@@ -1,0 +1,61 @@
+﻿@model PasswordManager.Models.Password
+
+@{
+    ViewData["Title"] = "Actualizar Contraseña";
+}
+
+<link rel="stylesheet" href="~/css/card.css" />
+
+<section class="card-main">
+    <div class="card-container">
+        <div class="titulo">
+            <h2>Actualización de la contraseña</h2>
+        </div>
+
+        <form class="card-info" asp-controller="Password" asp-action="Edit" method="post">
+
+            <div class="info-input">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" asp-for="Titulo" required />
+            </div>
+
+            <div class="info-input">
+                <label for="usuario">Usuario/Email</label>
+                <input type="text" id="usuario" asp-for="UserEmail" required />
+            </div>
+
+            <div class="info-input">
+                <label class="password">Contraseña</label>
+                <input type="password" id="password" asp-for="PasswordHash" />
+            </div>
+
+            <div class="info-input">
+                <label for="url">URL</label>
+                <input type="url" id="url" asp-for="URL" required />
+            </div>
+
+            <div class="info-input">
+                <label for="categoria">Categoría</label>
+                <select id="categorio" asp-for="Categoria" required>
+                    <option value="Sitio web">Sitio web</option>
+                    <option value="Aplicación">Aplicación</option>
+                    <option value="Tarjeta">Tarjeta</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="box-btn">
+                <button type="submit">Actualizar Contraseña</button>
+            </div>
+
+            <!-- Mensaje de Alerta -->
+            @if (TempData["Mensaje"] != null)
+            {
+                <div class="alert alert-warning text-center" role="alert">
+                    @TempData["Mensaje"]
+                </div>
+            }
+
+        </form>
+    </div>
+</section>
