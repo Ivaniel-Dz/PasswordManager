@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PasswordManager.Data;
@@ -21,12 +23,14 @@ namespace PasswordManager.Controllers
             _passHasher = passHasher;
         }
 
+
         // Método para la Vista de Registrar Usuario
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
+
 
         // Método de Registro de Usurio
         [HttpPost]
@@ -96,6 +100,7 @@ namespace PasswordManager.Controllers
             return View(modelView);
         }
 
+
         // Método para actualizar los datos del usuario
         [Authorize]
         [HttpPost]
@@ -138,5 +143,42 @@ namespace PasswordManager.Controllers
             TempData["Mensaje"] = "Usuario actualizado exitosamente.";
             return RedirectToAction(nameof(Index), "Password");
         }
+
+
+        //Método para Eliminar la Cuenta del Usuario
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                if (!int.TryParse(userIdClaim, out int currentUserId) || id != currentUserId)
+                {
+                    return Forbid();
+                }
+
+                var user = await _appDbContext.Users.FindAsync(id);
+                if (user == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                _appDbContext.Users.Remove(user);
+                await _appDbContext.SaveChangesAsync();
+
+                await HttpContext.SignOutAsync();
+
+                TempData["Mensaje"] = "La cuenta ha sido eliminada exitosamente.";
+                return RedirectToAction("Index", "Login");
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty, "Ocurrió un error al intentar eliminar la cuenta.");
+                return View("Error");
+            }
+        }
+
     }
 }

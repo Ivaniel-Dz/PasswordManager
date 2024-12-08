@@ -1,4 +1,5 @@
 ﻿@model PasswordManager.ViewModels.Usuario
+﻿@using System.Security.Claims;
 
 @{
     ViewData["Title"] = "Actualizar Perfil";
@@ -35,7 +36,7 @@
             </div>
 
             <!-- Submit button -->
-            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-3 w-10">Actualizar</button>
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-3 w-10">Actualizar</button>
 
             @if (TempData["Mensaje"] != null)
             {
@@ -45,5 +46,11 @@
             }
 
         </form>
+
+        <!-- Formulario de eliminación de cuenta -->
+        <form asp-controller="Usuario" asp-action="Delete" asp-route-id="@User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault()" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')">
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger btn-block mb-3 w-10">Eliminar Cuenta</button>
+        </form>
+
     </div>
 </div>
