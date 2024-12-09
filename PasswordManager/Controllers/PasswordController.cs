@@ -19,31 +19,41 @@ namespace PasswordManager.Controllers
             _appDbContext = appDbContext;
 			_passEncryptor = passEncryptor;
 		}
+        
+		// Mostrar la lista de contraseñas
+		[HttpGet]
+		public async Task<IActionResult> Index(string? term)
+		{
+			// Obtener el UserId desde los Claims
+			var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        // Mostrar la Lista de Password segun el Usuario
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            // Obtener el UserId desde los Claims del usuario autenticado
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			if (userIdClaim == null)
+			{
+				return Unauthorized();
+			}
 
-            if (userIdClaim == null)
-            {
-                return Unauthorized(); // Redirige si no se encuentra el UserId
-            }
+			int userId = int.Parse(userIdClaim);
 
-            int userId = int.Parse(userIdClaim);
+			// Filtrar las contraseñas por el término de búsqueda (si existe)
+			var passwords = await _appDbContext.Passwords
+				.Where(p => p.UserId == userId &&
+					(string.IsNullOrEmpty(term) ||
+					p.Titulo.Contains(term) ||
+					p.UserEmail.Contains(term) ||
+					p.Categoria.Contains(term)))
+				.ToListAsync();
 
-            // Filtrar las contraseñas por UserId
-            List<Password> lista = await _appDbContext.Passwords
-                .Where(p => p.UserId == userId)
-                .ToListAsync();
+			// Verificar si se encontraron resultados
+			if (!passwords.Any() && !string.IsNullOrEmpty(term))
+			{
+				TempData["Mensaje"] = $"No se encontraron resultados para '{term}'.";
+			}
 
-            return View(lista);
-        }
+			return View(passwords);
+		}
 
-        // Muestra un Password seleccionada
-        [HttpGet]
+		// Muestra un Password seleccionada
+		[HttpGet]
 		public async Task<IActionResult> Detalle(int id)
 		{
             // Obtener el UserId desde los Claims del usuario autenticado

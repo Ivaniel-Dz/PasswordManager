@@ -16,14 +16,17 @@
 		</div>
 
 		<div class="group-box">
-			<!-- Barra de Busqueda -->
+			<!-- Barra de Búsqueda -->
 			<div class="box-search">
-				<svg class="icon-search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
-					<path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
-					<path d="M21 21l-6 -6"></path>
-				</svg>
-				<input class="search-btn" type="text" placeholder="Buscar Contraseña" />
+				<form asp-controller="Password" asp-action="Index" method="get">
+					<svg class="icon-search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
+						<path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+						<path d="M21 21l-6 -6"></path>
+					</svg>
+					<input class="search-btn" type="text" name="term" placeholder="Buscar Contraseña" />
+				</form>
 			</div>
+
 			<!-- Boton -->
 			<div class="box-button">
 				<a class="btn-add" asp-controller="Password" asp-action="Create">
@@ -39,33 +42,36 @@
 	</header>
 
 	<main class="main-container">
-		@if (Model.Any()){
+		@if (Model.Any())
+		{
 			@foreach (var password in Model)
 			{
-			<!-- Card -->
-			<div class="card-content">
+				<!-- Card -->
+				<div class="card-content">
 					<!-- Title card -->
-				<div class="content-title">
-					<h3 class="title-url">@password.Titulo</h3>
-					<img class="title-icon" src="https://www.google.com/s2/favicons?domain=@password.URL" alt="Alternate Text" />
-				</div>
-				<!-- Info card -->
-				<div class="content-info">
-					<h3 class="info-title">Usuario</h3>
-					<h3 class="info-user">@password.UserEmail</h3>
-				</div>
+					<div class="content-title">
+						<h3 class="title-url">@password.Titulo</h3>
+						<img class="title-icon" src="https://www.google.com/s2/favicons?domain=@password.URL" alt="Alternate Text" />
+					</div>
+					<!-- Info card -->
+					<div class="content-info">
+						<h3 class="info-title">Usuario</h3>
+						<h3 class="info-user">@password.UserEmail</h3>
+					</div>
 
-				<!-- Footer card -->
-				<div class="box-footer">
-					<button class="footer-link" onclick="openModal(@password.Id)">Ver detalles</button>
+					<!-- Footer card -->
+					<div class="box-footer">
+						<button class="footer-link" onclick="openModal(@password.Id)">Ver detalles</button>
+					</div>
 				</div>
-			</div>
 			}
-		} else {
+		}
+		else
+		{
 			<p>No tienes contraseñas guardadas.</p>
 		}
 
-		<!-- Mwnsaje de Alerta -->
+		<!-- Mensaje de Alerta -->
 		@if (TempData["Mensaje"] != null)
 		{
 			<div class="alert alert-warning text-center" role="alert">
@@ -85,5 +91,3 @@
 </section>
 
 <script src="~/js/modal.js" asp-append-version="true"></script>
-
-
