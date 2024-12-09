@@ -42,7 +42,6 @@ namespace PasswordManager.Controllers
             return View(lista);
         }
 
-
         // Muestra un Password seleccionada
         [HttpGet]
 		public async Task<IActionResult> Detalle(int id)

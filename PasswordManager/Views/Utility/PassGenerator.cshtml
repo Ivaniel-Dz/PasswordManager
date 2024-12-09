@@ -1,0 +1,53 @@
+﻿@{
+	ViewData["Title"] = "Generador de Contraseña";
+}
+
+<link rel="stylesheet" href="~/css/style.css" />
+<link rel="stylesheet" href="~/css/generador.css" />
+
+<section class="main-box">
+	<!-- Header -->
+	<header class="header-box">
+		<!-- Titulo -->
+		<div class="box-title">
+			<h2 class="title-text">Generador de Contraseñas</h2>
+		</div>
+
+		<div class="group-box">
+			<!-- Boton -->
+			<div class="box-button">
+				<a class="btn-add" asp-controller="Password" asp-action="Create">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
+						<path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+						<path d="M9 12h6"></path>
+						<path d="M12 9v6"></path>
+					</svg>
+					Agregar Contraseña
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<div class="main-container">
+		<div class="container">
+			<h2>Genera tu Contraseña</h2>
+
+			<label for="length">Longitud de la contraseña:</label>
+			<input type="number" id="length" value="12" min="8" max="20">
+
+			<div class="options">
+				<label><input type="checkbox" id="uppercase"> Incluir letras Mayúsculas</label>
+				<label><input type="checkbox" id="lowercase"> Incluir letras minúsculas</label>
+				<label><input type="checkbox" id="numbers"> Incluir números</label>
+				<label><input type="checkbox" id="special"> Incluir caracteres especiales</label>
+				<label for="keyword">Palabra clave adicional (opcional):</label>
+				<input type="text" id="keyword" placeholder="Ejemplo: Seguridad">
+			</div>
+
+			<button onclick="generatePassword()">Generar Contraseña</button>
+			<div class="password" id="password">Tu contraseña aparecerá aquí</div>
+		</div>
+	</div>
+</section>
+
+<script src="~/js/generador.js" asp-append-version="true"></script>
