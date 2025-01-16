@@ -1,0 +1,76 @@
+﻿@model PasswordManager.Models.Tarjeta
+
+@{
+	ViewData["title"] = "Editar Datos";
+}
+
+<link rel="stylesheet" href="~/css/card.css" />
+
+<section class="card-main">
+
+	<div class="card-container">
+		<div class="titulo">
+			<h2>Edita los Datos</h2>
+			<p>
+				Actualiza los detalles de la Tarjeta.
+			</p>
+		</div>
+
+		<form class="card-info" asp-controller="Tarjeta" asp-action="Edit" method="post">
+
+			<div class="info-input">
+				<label for="descripcion">Descripción</label>
+				<input type="text" id="descripcion" asp-for="Descripcion" required />
+			</div>
+
+			<div class="info-input">
+				<label for="numeracion">Numeración</label>
+				<input type="number" id="numeracion" asp-for="Numeracion" required />
+			</div>
+
+			<div class="info-input">
+				<label for="fecha">Fecha de Expiración</label>
+				<input type="month" id="fecha" asp-for="FechaExpiracion" required />
+			</div>
+
+			<div class="info-input">
+				<label class="name">Nombre del Titular</label>
+				<input type="text" id="name" asp-for="NombreTitular" required />
+			</div>
+
+			<div class="info-input">
+				<label for="red">Red de Tarjeta</label>
+				<select id="red" asp-for="RedTarjeta" required>
+					<option value="">Seleccione la Red</option>
+					<option value="Visa">Visa</option>
+					<option value="Mastercard">Mastercard</option>
+				</select>
+			</div>
+
+			<div class="info-input">
+				<label for="tipo">Tipo de Tarjeta</label>
+				<select id="tipo" asp-for="TipoTarjeta" required>
+					<option value="">Seleccione el Tipo</option>
+					<option value="Débito">Débito</option>
+					<option value="Crédito">Crédito</option>
+					<option value="Prepago">Prepago</option>
+				</select>
+			</div>
+
+			<div class="box-btn">
+				<button type="submit">Actualizar Datos</button>
+			</div>
+
+			<!-- Mwnsaje de Alerta -->
+			@if (TempData["Mensaje"] != null)
+			{
+				<div class="alert alert-warning text-center" role="alert">
+					@TempData["Mensaje"]
+				</div>
+			}
+
+		</form>
+
+	</div>
+
+</section>

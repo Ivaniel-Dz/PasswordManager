@@ -6,18 +6,21 @@ body {
 }
 
 .nav-container {
-    background-color: #313A46;
+    background-color: #0D6EFD;
 }
 
 .nav .nav-item .nav-link {
     font-size: 15px;
+    color: white;
 }
 
-.nav .nav-item .nav-link:hover {
-    background-color: #6d7888;
-}
+    .nav .nav-item .nav-link:hover {
+        background-color: #F9FAFD;
+        color: black;
+    }
 
 
-.nav .nav-item .nav-link.active {
-    background-color: #6d7888;
-}
+    .nav .nav-item .nav-link.active {
+        background-color: #F9FAFD;
+        color: black;
+    }

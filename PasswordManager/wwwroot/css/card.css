@@ -12,7 +12,7 @@
 
     .card-main .card-container {
         background-color: #fff;
-        max-width: 425px;
+        max-width: 500px;
         border-radius: 8px;
         border: 1px solid rgb(229 231 235);
         padding: 22px;
@@ -54,11 +54,12 @@
         }
 
             .card-main .card-container .card-info .box-btn button {
-                background-color: #181C14;
+                background-color: #198754;
                 color: white;
                 padding: 0 16px;
                 padding-bottom: 6px;
                 padding-top: 7px;
+                border: 2px solid #198754;
                 border-radius: 7px;
                 text-decoration: none;
                 font-size: 14px;
@@ -68,7 +69,7 @@
 
                 .card-main .card-container .card-info .box-btn button:hover {
                     background-color: white;
-                    color: #181C14;
-                    border: 2px solid #181C14;
+                    color: #198754;
+                    border: 2px solid #198754;
                     cursor: pointer;
                 }

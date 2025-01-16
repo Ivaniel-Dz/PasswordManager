@@ -34,10 +34,10 @@
                         var categoria = ViewContext.HttpContext.Request.Query["categoria"].ToString();
                     }
 
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start text-white gap-2" id="menu">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start gap-2" id="menu">
                         <!-- Enlace 'Todas las contraseñas' (activo cuando no hay categoría seleccionada) -->
                         <li class="nav-item w-100">
-                            <a class="nav-link align-middle px-2 text-white text-small @(controller == "Password" && action == "Index" && string.IsNullOrEmpty(categoria) ? "active" : "")"
+                            <a class="nav-link align-middle px-2 text-small @(controller == "Password" && action == "Index" && string.IsNullOrEmpty(categoria) ? "active" : "")"
                                asp-controller="Password" asp-action="Index">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="20">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
@@ -48,7 +48,7 @@
 
                         <!-- Enlace 'Sitios Web' -->
                         <li class="nav-item w-100">
-                            <a class="nav-link align-middle px-2 text-white @(controller == "Password" && action == "Categoria" && categoria == "Sitio web" ? "active" : "")"
+                            <a class="nav-link align-middle px-2 @(controller == "Password" && action == "Categoria" && categoria == "Sitio web" ? "active" : "")"
                                asp-controller="Password" asp-action="Categoria" asp-route-categoria="Sitio web">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="20">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
@@ -59,7 +59,7 @@
 
                         <!-- Enlace 'Aplicaciones' -->
                         <li class="nav-item w-100">
-                            <a class="nav-link align-middle px-2 text-white @(controller == "Password" && action == "Categoria" && categoria == "Aplicación" ? "active" : "")"
+                            <a class="nav-link align-middle px-2 @(controller == "Password" && action == "Categoria" && categoria == "Aplicación" ? "active" : "")"
                                asp-controller="Password" asp-action="Categoria" asp-route-categoria="Aplicación">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="20">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
@@ -70,8 +70,8 @@
 
                         <!-- Enlace 'Tarjetas' -->
                         <li class="nav-item w-100">
-                            <a class="nav-link align-middle px-2 text-white @(controller == "Password" && action == "Categoria" && categoria == "Tarjeta" ? "active" : "")"
-                               asp-controller="Password" asp-action="Categoria" asp-route-categoria="Tarjeta">
+                            <a class="nav-link align-middle px-2 @(controller == "Tarjeta" && action == "Index" && string.IsNullOrEmpty(categoria) ? "active" : "")"
+                               asp-controller="Tarjeta" asp-action="Index" >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="20">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
                                 </svg>
@@ -79,8 +79,10 @@
                             </a>
                         </li>
 
+                        <!-- Enlace Generador de Contraseña -->
                         <li class="nav-item w-100">
-                            <a asp-controller="Utility" asp-action="PassGenerator" class="nav-link align-middle px-2 text-white">
+                            <a class="nav-link align-middle px-2 @(controller == "Utility" && action == "PassGenerator" && string.IsNullOrEmpty(categoria) ? "active" : "")"
+                               asp-controller="Utility" asp-action="PassGenerator">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="20">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
                                 </svg>
@@ -88,6 +90,7 @@
                             </a>
                         </li>
                     </ul>
+
                     <hr>
                     <div class="dropdown pb-4">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -99,7 +102,7 @@
                                 </span>
                             }
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                        <ul class="dropdown-menu dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
                             <li><a class="dropdown-item" asp-controller="Usuario" asp-action="Edit" asp-route-id="@User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault()">Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" asp-controller="Login" asp-action="Exit">Salir</a></li>

@@ -9,5 +9,6 @@
 
         // Propiedad de navegación
         public ICollection<Password> Passwords { get; set; } // Relación con Password
+        public ICollection<Tarjeta> Tarjetas { get; set; } // Relación con Tarjeta
     }
 }

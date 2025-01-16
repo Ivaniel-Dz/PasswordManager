@@ -15,6 +15,7 @@ namespace PasswordManager.Data
         // Definir las tablas del contexto
         public DbSet<User> Users { get; set; }
         public DbSet<Password> Passwords  { get; set; }
+        public DbSet<Tarjeta> Tarjetas { get; set; }
 
         // Método para configurar la base de datos (se deja vacío para evitar sobreescritura)
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
@@ -49,7 +50,26 @@ namespace PasswordManager.Data
                           .WithMany(u => u.Passwords)
                           .HasForeignKey(p => p.UserId)
                           .OnDelete(DeleteBehavior.Cascade);
-            });       
+            });
+
+            modelBuilder.Entity<Tarjeta>(tb => {
+                tb.ToTable("Tarjeta");
+                tb.HasKey(col => col.Id);
+                tb.Property(col => col.Id).UseIdentityColumn().ValueGeneratedOnAdd();
+                tb.Property(col => col.UserId).HasColumnType("int");
+                tb.Property(col => col.Numeracion).HasColumnType("int");
+                tb.Property(col => col.FechaExpiracion).HasColumnType("date");
+                tb.Property(col => col.NombreTitular).HasMaxLength(50);
+                tb.Property(col => col.RedTarjeta).HasMaxLength(50);
+                tb.Property(col => col.TipoTarjeta).HasMaxLength(50);
+                tb.Property(col => col.Descripcion).HasMaxLength(50);
+
+                // Relacion Tarjeta - User
+                tb.HasOne<User>(t => t.User)
+                          .WithMany(u => u.Tarjetas)
+                          .HasForeignKey(t => t.UserId)
+                          .OnDelete(DeleteBehavior.Cascade);
+            });
         }
     }
 }

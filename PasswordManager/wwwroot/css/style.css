@@ -49,13 +49,13 @@
 
 /*Boton de agregar*/
     .box-button .btn-add {
-        background-color: #181C14;
+        background-color: #0D6EFD;
         color: white;
         padding: 0 16px;
         padding-bottom: 6px;
         padding-top: 7px;
         border-radius: 7px;
-        border: 1px solid #181C14;
+        border: 1px solid #0D6EFD;
         text-decoration: none;
         font-size: 14px;
         font-weight: 500;
@@ -64,9 +64,9 @@
 
         .box-button .btn-add:hover {
             background-color: white;
-            color: #181C14;
+            color: #0D6EFD;
             border-radius: 7px;
-            border: 1px solid #181C14;
+            border: 1px solid #0D6EFD;
             cursor: pointer;
         }
 

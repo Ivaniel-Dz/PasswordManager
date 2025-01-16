@@ -1,0 +1,101 @@
+﻿@model List<PasswordManager.Models.Tarjeta>
+
+@{
+    ViewData["Title"] = "Tarjetas Guardadas";
+}
+
+<link rel="stylesheet" href="~/css/style.css" />
+<link rel="stylesheet" href="~/css/table.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+
+<section class="main-box">
+    <!-- Header -->
+    <header class="header-box">
+        <!-- Titulo -->
+        <div class="box-title">
+            <h2 class="title-text">Mis Tarjetas</h2>
+        </div>
+
+        <div class="group-box">
+            <!-- Barra de Búsqueda -->
+            <div class="box-search">
+                <form asp-controller="Tarjeta" asp-action="Index" method="get">
+                    <svg class="icon-search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
+                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                        <path d="M21 21l-6 -6"></path>
+                    </svg>
+                    <input class="search-btn" type="text" name="term" placeholder="Buscar Tarjetas" />
+                </form>
+            </div>
+
+            <!-- Boton -->
+            <div class="box-button">
+                <a class="btn-add" asp-controller="Tarjeta" asp-action="Create">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
+                        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+                        <path d="M9 12h6"></path>
+                        <path d="M12 9v6"></path>
+                    </svg>
+                    Agregar Tarjeta
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="table-container">
+        @if (Model.Any())
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Red</th>
+                        <th>Nombre del Titular</th>
+                        <th>Numeración</th>
+                        <th>Fecha de Expiración</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                @foreach (var card in Model) {
+                <tbody>
+                    <tr>
+                         <td><img src="https://cdn.simpleicons.org/@card.RedTarjeta/000000" alt="Icon-img"></td>
+                        <td>@card.NombreTitular</td>
+                        <td class="card-number" data-number="@card.Numeracion">************</td>
+                        <td>@card.FechaExpiracion.ToString("MM/yy")</td>
+                        <td>@card.TipoTarjeta</td>
+                        <td>@card.Descripcion</td>
+                        <td>
+                            <button class="action-btn show">
+                               <i class="fa-regular fa-eye"></i>
+                             </button>
+                            <a class="action-btn edit" asp-controller="Tarjeta" asp-action="Edit" asp-route-id="@card.Id">
+                               <i class="fa-regular fa-pen-to-square"></i>
+                             </a>
+                             <a class="action-btn delete" asp-controller="Tarjeta" asp-action="Delete" asp-route-id="@card.Id">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                }
+            </table>
+            } else {
+            <p>No tienes Datos Guardadas.</p>
+            }
+
+        <!-- Mensaje de Alerta -->
+        @if (TempData["Mensaje"] != null)
+        {
+            <div class="alert alert-warning text-center" role="alert">
+                @TempData["Mensaje"]
+            </div>
+        }
+        </main>
+
+</section>
+
+<script src="~/js/showNumber.js" asp-append-version="true"></script>
+
