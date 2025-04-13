@@ -1,0 +1,11 @@
+﻿using PasswordServer.DTO;
+
+namespace PasswordServer.Interfaces
+{
+    public interface IAuthService
+    {
+        Task<object> RegistrarUsuarioAsync(RegistroDto registro);
+        Task<object> LoginAsync(LoginDto login);
+        bool ValidarToken(string token);
+    }
+}
