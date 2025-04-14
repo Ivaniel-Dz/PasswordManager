@@ -36,14 +36,22 @@ namespace PasswordServer.Jwt
         }
 
 
+        // Método para verificar que una contraseña coincida con su hash
+        public bool VerificarPassword(string clave, string claveHash)
+        {
+            var claveCodificada = PasswordEncoder(clave);
+            return claveCodificada == claveHash;
+        }
+
+
         // Método para generar un token JWT
-        public string GenerarJWT(Usuario modelo)
+        public string GenerarJWT(Usuario usuario)
         {
             // Crear los claims (información del usuario) que irán dentro del token
             var userClaims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, modelo.Id.ToString()), // Claim con el ID del usuario
-                new Claim(ClaimTypes.Email, modelo.Correo!) // Claim con el correo del usuario
+                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()), // Claim con el ID del usuario
+                new Claim(ClaimTypes.Email, usuario.Correo!) // Claim con el correo del usuario
             };
 
             // Obtener la clave de firma simétrica desde la configuración

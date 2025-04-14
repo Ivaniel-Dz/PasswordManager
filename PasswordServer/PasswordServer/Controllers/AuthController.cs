@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PasswordServer.Data;
-using PasswordServer.Jwt;
 using PasswordServer.DTO;
-using PasswordServer.Models;
-using Microsoft.EntityFrameworkCore;
+using PasswordServer.Interfaces;
 
 
 namespace PasswordServer.Controllers
@@ -15,53 +12,20 @@ namespace PasswordServer.Controllers
     public class AuthController : ControllerBase
     {
         // Inyeccion de dependecias
-        private readonly AppDBContext _appDBContext;
-        private readonly JwtService _jwtService;
+        private readonly IAuthService _authService;
 
-        public AuthController(AppDBContext appDBContext, JwtService jwtService)
+        public AuthController(IAuthService authService)
         {
-            _appDBContext = appDBContext;
-            _jwtService = jwtService;
+            _authService = authService;
         }
 
         // Endpoint para registrar un nuevo usuario
         [HttpPost]
         [Route("Registro")] // Ruta: api/Auth/Registro
-        public async Task<IActionResult> Registro(RegistroDto registro)
+        public async Task<IActionResult> Registro([FromBody] RegistroDto registro)
         {
-            // Verifica si la contraseña coinciden 
-            if (registro.Clave != registro.ConfirClave)
-            {
-                return StatusCode(StatusCodes.Status200OK, new { isSuccess = false, Response = "Las contraseñas no coinciden." });
-            }
-
-            // Verificación si el correo ya está registrado
-            var existsEmail = await _appDBContext.Usuarios.FirstOrDefaultAsync(u => u.Correo == registro.Correo);
-            if (existsEmail != null) {
-                return StatusCode(StatusCodes.Status200OK, new { isSuccess = false, Response = "Ya existe un usuario con este correo." });
-            }
-
-            // Crear un nuevo modelo de usuario a partir de los datos recibidos
-            var usuario = new Usuario
-            {
-                Nombre = registro.Nombre,
-                Correo = registro.Correo,
-                Clave = _jwtService.PasswordEncoder(registro.Clave),
-            };
-
-            // Agregar el nuevo usuario a la base de datos
-            await _appDBContext.Usuarios.AddAsync(usuario);
-            await _appDBContext.SaveChangesAsync(); // Guardar cambios en la base de datos
-
-            // Verificar si el usuario se registró correctamente
-            if (usuario.Id != 0)
-            {
-                return StatusCode(StatusCodes.Status200OK, new { isSuccess = true }); // Éxito
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status200OK, new { isSuccess = false }); // Error
-            }
+            var result = await _authService.RegistroAsync(registro);
+            return Ok(result);
         }
 
         // Endpoint para el login del usuario
@@ -69,23 +33,8 @@ namespace PasswordServer.Controllers
         [Route("Login")] // Ruta: api/Auth/Login
         public async Task<IActionResult> Login(LoginDto login)
         {
-            // Buscar al usuario por correo y clave encriptada
-            var findByUser = await _appDBContext.Usuarios
-                             .Where(u =>
-                                u.Correo == login.Correo && // Verificar si el correo coincide
-                                u.Clave == _jwtService.PasswordEncoder(login.Clave) // Comparar la clave encriptada
-                             ).FirstOrDefaultAsync();
-
-            // Si el usuario no es encontrado, retornar error
-            if (findByUser == null)
-            {
-                return StatusCode(StatusCodes.Status200OK, new { isSuccess = false, token = "" }); // Usuario no encontrado
-            }
-            else
-            {
-                // Usuario encontrado, retornar éxito (token vacío por ahora)
-                return StatusCode(StatusCodes.Status200OK, new { isSuccess = true, token = _jwtService.GenerarJWT(findByUser) });
-            }
+            var result = await _authService.LoginAsync(login);
+            return Ok(result);
         }
 
         // Endpoint para probar la validación
@@ -94,8 +43,8 @@ namespace PasswordServer.Controllers
         [Authorize]
         public IActionResult ValidarToken([FromQuery] string token)
         {
-            bool respuesta = _jwtService.ValidarToken(token);
-            return StatusCode(StatusCodes.Status200OK, new { isSuccess = respuesta }); // Usuario no encontrado
+            var result = _authService.ValidarToken(token);
+            return Ok(new { isSuccess = result });
         }
 
     }

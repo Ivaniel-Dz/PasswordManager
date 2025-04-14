@@ -4,6 +4,8 @@ using Microsoft.IdentityModel.Tokens; // Para configurar la validación de los to
 using System.Text; // Para manejar codificación de cadenas en bytes
 using PasswordServer.Data;
 using PasswordServer.Jwt;
+using PasswordServer.Interfaces;
+using PasswordServer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +22,11 @@ builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CadenaSQL")); // Obtener cadena de conexión de configuración
 });
 
+
 // Registrar servicios personalizados
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 
 // Configuración de la autenticación con JWT
 builder.Services.AddAuthentication(config =>
