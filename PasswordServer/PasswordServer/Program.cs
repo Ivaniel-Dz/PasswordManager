@@ -26,6 +26,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 // Registrar servicios personalizados
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 
 // Configuración de la autenticación con JWT
