@@ -20,19 +20,19 @@ namespace PasswordServer.Services
         }
 
         // Servicio para Registrar Usuario
-        public async Task<object> RegistroAsync(RegistroDto registro)
+        public async Task<ResponseDto> Registro(RegistroDto registro)
         {
             // Verifica si la contraseña coinciden 
             if (registro.Clave != registro.ConfirClave)
             {
-                return new { isSuccess = false, Response = "Las contraseñas no coinciden." };
+                return new ResponseDto { IsSuccess = false, Message = "Las contraseñas no coinciden." };
             }
 
             // Verificación si el correo ya está registrado
             var existsEmail = await _appDBContext.Usuarios.AnyAsync(u => u.Correo == registro.Correo);
             if (existsEmail)
             {
-                return new { isSuccess = false, Response = "Ya existe un usuario con este correo." };
+                return new ResponseDto { IsSuccess = false, Message = "Ya existe un usuario con este correo." };
             }
 
             // Crear un nuevo modelo de usuario a partir de los datos recibidos
@@ -47,11 +47,11 @@ namespace PasswordServer.Services
             await _appDBContext.Usuarios.AddAsync(usuario);
             await _appDBContext.SaveChangesAsync();
 
-            return new { isSuccess = usuario.Id != 0 };
+            return new ResponseDto { IsSuccess = true, Message = "Usuario registrado." };
         }
 
         // Servicio para Iniciar Session
-        public async Task<object> LoginAsync(LoginDto login)
+        public async Task<ResponseDto> Login(LoginDto login)
         {
             // Buscar al usuario por correo
             var usuario = await _appDBContext.Usuarios.FirstOrDefaultAsync(u => u.Correo == login.Correo);
@@ -59,13 +59,13 @@ namespace PasswordServer.Services
             // Verifica si la contraseña es correcta
             if (usuario == null || !_jwtService.VerificarPassword(login.Clave, usuario.Clave))
             {
-                return new { isSuccess = false, token = "" };
+                return new ResponseDto { IsSuccess = false, Token = "" };
             }
 
             // Genera el token
             var token = _jwtService.GenerarJWT(usuario);
 
-            return new { isSuccess = true, token = token };
+            return new ResponseDto { IsSuccess = true, Token = token };
         }
 
         // Servicio para validar token

@@ -4,8 +4,8 @@ namespace PasswordServer.Interfaces
 {
     public interface IAuthService
     {
-        Task<object> RegistroAsync(RegistroDto registro);
-        Task<object> LoginAsync(LoginDto login);
+        Task<ResponseDto> Registro(RegistroDto registro);
+        Task<ResponseDto> Login(LoginDto login);
         bool ValidarToken(string token);
     }
 }

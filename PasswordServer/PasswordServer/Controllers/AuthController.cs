@@ -24,7 +24,7 @@ namespace PasswordServer.Controllers
         [Route("Registro")] // Ruta: api/Auth/Registro
         public async Task<IActionResult> Registro([FromBody] RegistroDto registro)
         {
-            var result = await _authService.RegistroAsync(registro);
+            var result = await _authService.Registro(registro);
             return Ok(result);
         }
 
@@ -33,7 +33,7 @@ namespace PasswordServer.Controllers
         [Route("Login")] // Ruta: api/Auth/Login
         public async Task<IActionResult> Login(LoginDto login)
         {
-            var result = await _authService.LoginAsync(login);
+            var result = await _authService.Login(login);
             return Ok(result);
         }
 
