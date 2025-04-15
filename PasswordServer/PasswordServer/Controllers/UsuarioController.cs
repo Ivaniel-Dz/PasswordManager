@@ -18,6 +18,9 @@ namespace PasswordServer.Controllers
             _usuarioService = usuarioService;
         }
 
+        // Obtenemos el id del Usuario Autenticado
+        private int GetUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
+
         // Metodo para obtener perfil del usuario autenticado
         [HttpGet]
         [Route("Perfil")] // Ruta: api/Usuario/Perfil
@@ -45,8 +48,8 @@ namespace PasswordServer.Controllers
                 return Forbid(); // No tiene permisos para actualizar este usuario
             }
 
-            var response = await _usuarioService.UpdateAsync(usuarioDto);
-            return Ok(response);
+            var usuario = await _usuarioService.UpdateAsync(usuarioDto);
+            return Ok(usuario);
         }
 
         // Metodo para Eliminar cuenta de usuario
@@ -54,10 +57,10 @@ namespace PasswordServer.Controllers
         [Route("Delete")] // Ruta: api/Usuario/Delete
         public async Task<IActionResult> Delete(int id)
         {
-            var deleted = await _usuarioService.DeleteAsync(id, User);
+            var usuario = await _usuarioService.DeleteAsync(id, User);
 
             // verifica si tiene permisos para Eliminar
-            if (!deleted) return Forbid(); // No tiene
+            if (!usuario) return Forbid(); // No tiene
 
             return Ok(new { isSuccess = true, Response = "La cuenta ha sido eliminada exitosamente." });
         }
