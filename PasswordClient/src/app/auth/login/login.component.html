@@ -1,0 +1,60 @@
+<main class="main-container">
+    <section class="box-section">
+        <!-- Pills navs -->
+        <ul class="nav nav-justified py-3 gap-3" id="ex1" role="tablist">
+            <li class="item-menu" role="presentation">
+                <a class="menu-link active" id="tab-login" data-mdb-pill-init role="tab"
+                aria-controls="pills-login" aria-selected="true" [routerLink]="['/auth/login']">Login</a>
+            </li>
+            <li class="item-menu" role="presentation">
+                <a class="menu-link" id="tab-register" data-mdb-pill-init role="tab"
+                aria-controls="pills-register" aria-selected="false" [routerLink]="['/auth/registro']">Register</a>
+            </li>
+        </ul>
+
+        <!-- Pills content -->
+        <div class="tab-content">
+            <!-- Login Form -->
+            <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                <form asp-controller="Login" asp-action="Index" method="post">
+                    <!-- Email input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label" for="loginName">Email</label>
+                        <input type="email" id="loginName" class="form-control" asp-for="Correo" required/>
+                    </div>
+
+                    <!-- Password input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label" for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" asp-for="ClaveHash" required/>
+                    </div>
+
+                    <!-- 2 column grid layout -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <!-- Checkbox -->
+                            <div class="form-check mb-3 mb-md-0">
+                                <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
+                                <label class="form-check-label" for="loginCheck"> Remember me </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <!-- Simple link -->
+                            <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                               [routerLink]="['/auth/reset-password']">
+                                Forgot password?
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-block mb-4 w-100">Sign in</button>
+
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+</main>

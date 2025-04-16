@@ -59,7 +59,7 @@ namespace PasswordServer.Services
             // Verifica si la contraseña es correcta
             if (usuario == null || !_jwtService.VerificarPassword(login.Clave, usuario.Clave))
             {
-                return new ResponseDto { IsSuccess = false, Token = "" };
+                return new ResponseDto { IsSuccess = false, Message= "Datos Incorrectos", Token = "" };
             }
 
             // Genera el token

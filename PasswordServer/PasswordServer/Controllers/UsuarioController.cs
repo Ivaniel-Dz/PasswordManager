@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using PasswordServer.DTO;
 using PasswordServer.Interfaces;
 using System.Security.Claims;
@@ -18,21 +17,18 @@ namespace PasswordServer.Controllers
             _usuarioService = usuarioService;
         }
 
-        // Obtenemos el id del Usuario Autenticado
-        private int GetUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-
         // Metodo para obtener perfil del usuario autenticado
         [HttpGet]
         [Route("Perfil")] // Ruta: api/Usuario/Perfil
         public async Task<IActionResult> GetPerfil()
         {
-            var perfil = await _usuarioService.GetPerfilAsync(User);
+            var perfil = await _usuarioService.GetPerfil(User);
 
             if (perfil == null) {
-                return NotFound(new { isSuccess = false, Response = "Usuario no encontrado o token inválido." });
+                return NotFound( new ResponseDto { IsSuccess = false, Message = "Usuario no encontrado." });
             }
 
-            return Ok(new { isSuccess = true, Response = perfil });
+            return Ok( new { IsSuccess = true, Response = perfil });
         }
 
         // Metodo para Actualizar perfil
@@ -40,29 +36,23 @@ namespace PasswordServer.Controllers
         [Route("Update")] // Ruta: api/Usuario/Update
         public async Task<IActionResult> Update([FromBody] UsuarioDto usuarioDto)
         {
-            // Verificar que el ID del token coincide con el ID del DTO
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var updated = await _usuarioService.Update(usuarioDto, User);
+            if (updated != null) 
+                return BadRequest( new ResponseDto { IsSuccess = false, Message = "No se pudo actualizar el usuario." });
 
-            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId) || userId != usuarioDto.Id)
-            {
-                return Forbid(); // No tiene permisos para actualizar este usuario
-            }
-
-            var usuario = await _usuarioService.UpdateAsync(usuarioDto);
-            return Ok(usuario);
+            return Ok(new { IsSuccess = true, Response = updated });
         }
 
         // Metodo para Eliminar cuenta de usuario
         [HttpDelete]
         [Route("Delete")] // Ruta: api/Usuario/Delete
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromBody] UsuarioDto usuarioDto)
         {
-            var usuario = await _usuarioService.DeleteAsync(id, User);
-
+            var deleted = await _usuarioService.Delete(usuarioDto, User);
             // verifica si tiene permisos para Eliminar
-            if (!usuario) return Forbid(); // No tiene
+            if (!deleted) return Forbid(); // No tiene
 
-            return Ok(new { isSuccess = true, Response = "La cuenta ha sido eliminada exitosamente." });
+            return Ok(new ResponseDto { IsSuccess = true, Message = "La cuenta ha sido eliminada exitosamente." });
         }
 
     } // Fin de la Clase

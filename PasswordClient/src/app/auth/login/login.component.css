@@ -1,0 +1,52 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 14px;
+  color: var(--color-text);
+  background: #f2b7a5;
+  background: linear-gradient(
+    3600deg,
+    rgba(242, 183, 165, 1) 0%,
+    rgba(244, 243, 239, 1) 50%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+
+.main-container .box-section {
+  width: 100%;
+  max-width: 395px;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: var(--white);
+}
+
+/* Opciones de menu  */
+.nav {
+  justify-content: center;
+  align-items: center;
+}
+
+/* Botones de Opción */
+.nav .item-menu .menu-link{
+    font-size: 18px;
+    text-decoration: none;
+    color: var(--color-text-tertiary);
+    background-color: var(--white);
+}
+
+.nav .item-menu .active{
+    color: var(--orange);
+    font-weight: bold;
+    border-bottom: var(--orange) solid 3px;
+}
+
+/* Submit: Sign In */
+.tab-content .tab-pane .btn {
+    font-size: 16px;
+    background: var(--orange);
+    color: var(--white);
+}

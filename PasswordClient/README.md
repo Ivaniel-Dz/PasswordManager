@@ -52,22 +52,11 @@ npm install ngx-bootstrap
 En `angular.json`:
 ```json
 "styles": [
-  "node_modules/bootstrap/dist/css/bootstrap.min.css",
   "src/styles.css"
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
 ],
 "scripts": [
   "node_modules/@popperjs/core/dist/umd/popper.min.js",
   "node_modules/bootstrap/dist/js/bootstrap.min.js"
 ]
 ```
-
-En `app.module.ts` (si usa ng-bootstrap):
-```typescript
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-@NgModule({
-  imports: [NgbModule, ...],
-  ...
-})
-```
-
