@@ -1,10 +1,18 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistroComponent } from './auth/registro/registro.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { SideNavComponent } from './layouts/side-nav/side-nav.component';
+import { PasswordComponent } from './dashboard/password/password.component';
+import { PerfilComponent } from './dashboard/perfil/perfil.component';
+
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'auth/login',
+    pathMatch: 'full',
+  },
   {
     path: 'auth/login',
     component: LoginComponent,
@@ -22,8 +30,13 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
-    title: 'dashboard',
+    component: SideNavComponent,
+    title: 'SideNav',
+    children: [
+      { path: 'password', component: PasswordComponent },
+      { path: 'perfil', component: PerfilComponent },
+      { path: '', redirectTo: 'password', pathMatch: 'full' },
+    ],
   },
   {
     path: '**',
