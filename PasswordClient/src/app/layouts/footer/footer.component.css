@@ -1,17 +1,19 @@
 /*Container Main*/
 .footer-main {
   position: fixed;
-  display: flex;
-  background: #f17e5d;
-  background: linear-gradient(
-    0deg,
-    rgba(241, 126, 93, 1) 0%,
-    rgba(255, 108, 55, 1) 50%
-  );
+  bottom: 0;
   color: var(--white);
   width: 84%;
   justify-content: space-between;
-  padding: 12px 30px;
+  padding: 0px 10px;
   border-bottom: 1px solid rgb(229 231 235);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+}
+
+.page-item a {
+  color: var(--purple);
+}
+
+.disabled a {
+  color: var(--color-text-secondary)
 }

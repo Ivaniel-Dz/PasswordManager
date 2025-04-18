@@ -8,7 +8,6 @@
   border-radius: 8px;
   border: 1px solid var(--white);
   overflow: auto;
-  gap: 10px;
 }
 
 /*Titulo de la tarjeta*/
@@ -19,7 +18,9 @@
 }
 
 .container-title .title-url {
-  font-size: 16px;
+  color: var(--color-text);
+  font-weight: normal;
+  font-size: var(--text-large);
 }
 
 .container-title .title-icon {
@@ -28,20 +29,22 @@
 
 /* Información de la tarjeta */
 .container-info .info-title {
-  font-size: 14px;
-  color: var(--color-text);
+  color: var(--color-text-tertiary);
+  font-size: var(--text-normal);
   margin-bottom: 0px;
   font-weight: normal;
 }
 
 .container-info .info-user {
-  font-size: 16px;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-normal);
 }
 
-/* Footer Card */
+/* Botones */
 .container-btn .btn-info {
   display: flex;
   width: 100%;
+  font-size: var(--text-normal);
   justify-content: center;
   padding: 4px;
   background-color: transparent;

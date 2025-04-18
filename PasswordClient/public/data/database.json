@@ -1,0 +1,58 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nombre": "Juan Pérez",
+      "correo": "juan.perez@example.com",
+      "clave": "$2a$10$EjemploHashDeClave"
+    },
+    {
+      "id": 2,
+      "nombre": "Ana López",
+      "correo": "ana.lopez@example.com",
+      "clave": "$2a$10$OtroHashEjemplo"
+    }
+  ],
+  "passwords": [
+    {
+      "id": 1,
+      "userId": 1,
+      "titulo": "Correo Gmail",
+      "userEmail": "juan.perez@gmail.com",
+      "passwordHash": "$2a$10$claveGmailHasheada",
+      "url": "https://mail.google.com",
+      "categoria": "Email"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "titulo": "GitHub",
+      "userEmail": "ana.dev@github.com",
+      "passwordHash": "$2a$10$claveGithubHasheada",
+      "url": "https://github.com",
+      "categoria": "Dev"
+    }
+  ],
+  "tarjetas": [
+    {
+      "id": 1,
+      "userId": 1,
+      "numeracion": 1234567812345678,
+      "fechaExpiracion": "2026-08-01",
+      "nombreTitular": "Juan Pérez",
+      "redTarjeta": "Visa",
+      "tipoTarjeta": "Crédito",
+      "descripcion": "Tarjeta principal"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "numeracion": 8765432187654321,
+      "fechaExpiracion": "2025-12-01",
+      "nombreTitular": "Ana López",
+      "redTarjeta": "MasterCard",
+      "tipoTarjeta": "Débito",
+      "descripcion": "Uso diario"
+    }
+  ]
+}

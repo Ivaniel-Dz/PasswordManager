@@ -4,8 +4,9 @@
 />
 <!-- Tabla -->
 <table>
-  <!-- Cabecera -->
+  <!-- Cabecera de la tabla-->
   <thead>
+    <!-- Fila de la cabecera -->
     <tr>
       <th>Red</th>
       <th>Nombre del Titular</th>
@@ -16,19 +17,20 @@
       <th>Acciones</th>
     </tr>
   </thead>
+
 <!-- Cuerpo de la tabla -->
   <tbody>
-    <!-- Filas -->
-    <tr>
+    <!-- Filas del cuerpo-->
+    <tr *ngFor="let item of tarjetas">
       <!-- Datos -->
       <td>
-        <img src="https://cdn.simpleicons.org/mastercard/000000" alt="Icon-img"/>
+        <img [src]="getCardIcon(item.redTarjeta)" alt="Icon-img"/>
       </td>
-      <td>NombreTitular</td>
+      <td> {{ item.nombreTitular }} </td>
       <td class="card-number">************</td>
       <td></td>
-      <td>TipoTarjeta</td>
-      <td>Descripción</td>
+      <td> {{item.tipoTarjeta}} </td>
+      <td> {{item.descripcion}} </td>
       <!-- Botones -->
       <td>
         <button class="action-btn show">
