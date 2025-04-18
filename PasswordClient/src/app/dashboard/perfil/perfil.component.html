@@ -1,36 +1,41 @@
-<div class="container mt-4">
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Nombre</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of paginatedData">
-        <td>{{ item.id }}</td>
-        <td>{{ item.name }}</td>
-      </tr>
-    </tbody>
-  </table>
+<section class="section-main tab-content p-xxl-5">
+    <h1>Actualizar Perfil</h1>
+    <!-- Register Form -->
+    <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+        <form asp-controller="Usuario" asp-action="Edit" method="post">
+            <!-- Name input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+                <label class="form-label" for="registerName">Usuario</label>
+                <input type="text" id="registerName" class="form-control" asp-for="Nombre" />
+            </div>
 
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item" [class.disabled]="currentPage === 1">
-        <a class="page-link" href="#" (click)="goToPreviousPage($event)">Previous</a>
-      </li>
-      <li
-        class="page-item"
-        *ngFor="let page of totalPagesArray"
-        [class.active]="page === currentPage"
-      >
-        <a class="page-link" href="#" (click)="goToPage($event, page)">
-          {{ page }}
-        </a>
-      </li>
-      <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <a class="page-link" href="#" (click)="goToNextPage($event)">Next</a>
-      </li>
-    </ul>
-  </nav>
-</div>
+            <!-- Email input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+                <label class="form-label" for="registerEmail">Email</label>
+                <input type="email" id="registerEmail" class="form-control" asp-for="Correo" />
+            </div>
+
+            <!-- Password input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+                <label class="form-label" for="registerPassword">Password</label>
+                <input type="password" id="registerPassword" class="form-control" asp-for="Clave" />
+            </div>
+
+            <!-- Repeat Password input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+                <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+                <input type="password" id="registerRepeatPassword" class="form-control" asp-for="ConfirClave" />
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-3 w-10">Actualizar</button>
+
+        </form>
+
+        <!-- Formulario de eliminación de cuenta -->
+        <form asp-controller="Usuario" asp-action="Delete" asp-route-id="@User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault()" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')">
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger btn-block mb-3 w-10">Eliminar Cuenta</button>
+        </form>
+
+    </div>
+</section>

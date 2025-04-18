@@ -5,9 +5,9 @@
   background-color: var(--white);
   margin: 10px 0;
   padding: 20px;
-  border-radius: 8px;
-  border: 1px solid var(--white);
   overflow: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 /*Titulo de la tarjeta*/
