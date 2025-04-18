@@ -1,0 +1,121 @@
+:root {
+    --color-input-focus: rgba(255,255,255,1);
+}
+
+/*Container Main*/
+.header-main {
+  position: fixed;
+  display: flex;
+  background: #f17e5d;
+  background: linear-gradient(
+    0deg,
+    rgba(241, 126, 93, 1) 0%,
+    rgba(255, 108, 55, 1) 50%
+  );
+  color: var(--white);
+  width: 84%;
+  justify-content: space-between;
+  padding: 12px 30px;
+  border-bottom: 1px solid rgb(229 231 235);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+}
+
+
+/* Titulo */
+.container-title {
+  display: flex;
+}
+
+.container-title .title-text {
+  display: flex;
+  font-size: 24px;
+  font-weight: lighter;
+  align-items: center;
+  margin: 0px;
+}
+
+
+/* Header */
+.container-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+
+/*Barra de Busqueda*/
+.box-search {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-desactive);
+  border: 1px solid var(--color-text-desactive);
+  border-radius: 5px;
+  padding: 5px 10px;
+  background: #f17e5d;
+  background: linear-gradient(
+    0deg,
+    rgba(241, 126, 93, 1) 0%,
+    rgba(255, 108, 55, 1) 50%
+  );
+  transition: all 0.3s ease; /* Transición suave para efectos hover/focus */
+}
+
+.box-search .icon-search {
+  margin-right: 8px;
+  color: var(--color-text-desactive);
+  transition: color 0.3s ease; /* Transición para el icono */
+}
+
+.box-search .input-search {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  padding: 5px;
+  font-size: 14px;
+  background: transparent;
+  color: var(--color-text-desactive);
+  transition: color 0.3s ease; /* Transición para el icono */
+}
+
+.box-search .input-search::placeholder {
+  color: var(--color-text-desactive);
+  transition: color 0.3s ease; /* Transición para el placeholder */
+}
+
+/* Efecto cuando el input está enfocado */
+.box-search:focus-within {
+  border-color: rgba(255,255,255,1); /* Borde blanco sólido */
+}
+
+.box-search:focus-within .icon-search,
+.box-search:focus-within .input-search,
+.box-search:focus-within .input-search::placeholder {
+  color: rgba(255,255,255,1); /* Texto e icono blanco sólido */
+}
+
+
+/*Botón de agregar*/
+.box-button {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+.box-button .btn-add {
+  background-color: var(--btn-primary);
+  color: var(--white);
+  padding: 10px;
+  border: 1px solid var(--purple);
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.box-button .btn-add:hover {
+  background-color: var(--white);
+  color: var(--btn-primary);
+  border-radius: 5px;
+  border: 1px solid var(--purple);
+  cursor: pointer;
+}

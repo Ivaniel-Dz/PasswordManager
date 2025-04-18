@@ -5,6 +5,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { SideNavComponent } from './layouts/side-nav/side-nav.component';
 import { PasswordComponent } from './dashboard/password/password.component';
 import { PerfilComponent } from './dashboard/perfil/perfil.component';
+import { TarjetasComponent } from './dashboard/tarjetas/tarjetas.component';
 
 
 export const routes: Routes = [
@@ -34,6 +35,7 @@ export const routes: Routes = [
     title: 'SideNav',
     children: [
       { path: 'password', component: PasswordComponent },
+      { path: 'tarjetas', component: TarjetasComponent },
       { path: 'perfil', component: PerfilComponent },
       { path: '', redirectTo: 'password', pathMatch: 'full' },
     ],

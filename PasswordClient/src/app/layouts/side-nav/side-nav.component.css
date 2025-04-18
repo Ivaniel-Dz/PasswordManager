@@ -18,7 +18,7 @@
 /* Opciones de Menu */
 .nav .nav-item .nav-link {
     font-size: 14px;
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
 }
 
 /* Opciones de Menu: Hover */
@@ -36,7 +36,7 @@
 
 /* Dropdown de Perfil */
 .user-name {
-  color: var(--color-text);
+  color: var(--color-text-tertiary);
 }
 
 /* Dropdown de Perfil: Opciones */
@@ -52,11 +52,11 @@
 
 /* Cambiar color del hover en los dropdown-items */
 .dropdown-link .dropdown-item:hover {
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   cursor: pointer;
 }
 
 /* Opcional: cambiar también el estilo del enlace principal cuando está abierto */
 .dropdown-link.show .dropdown-toggle {
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
 }
