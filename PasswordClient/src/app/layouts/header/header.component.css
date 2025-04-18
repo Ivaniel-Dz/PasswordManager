@@ -28,7 +28,7 @@
 
 .container-title .title-text {
   display: flex;
-  font-size: 24px;
+  font-size: var(--text-title);
   font-weight: lighter;
   align-items: center;
   margin: 0px;
@@ -71,7 +71,7 @@
   outline: none;
   flex-grow: 1;
   padding: 5px;
-  font-size: 14px;
+  font-size: var(--text-normal);
   background: transparent;
   color: var(--color-text-desactive);
   transition: color 0.3s ease; /* Transición para el icono */
@@ -108,7 +108,7 @@
   border: 1px solid var(--purple);
   border-radius: 5px;
   text-decoration: none;
-  font-size: 14px;
+  font-size: var(--text-normal);
   transition: all 0.3s ease;
 }
 

@@ -12,9 +12,17 @@
     --color-text-tertiary: #66615b;
     --color-text-desactive: rgba(255,255,255,.6);
 
+    /* Tamaño de texto */
+    --text-title: 24px;
+    --text-large: 15px;
+    --text-normal: 14px;
+    --text-medium: 13px;
+    --text-small: 12px;
+
     /* Botones */
     --btn-primary: #675ac8;
     --btn-secondary: #ff6c37;
+    --btn-tertiary: #c33535;
     
     /* Modo Dark */
     --color-dark-background: #2f4858;
