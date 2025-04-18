@@ -1,0 +1,59 @@
+/*Tarjeta Principal*/
+.card-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  margin: 10px 0;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--white);
+  overflow: auto;
+  gap: 10px;
+}
+
+/*Titulo de la tarjeta*/
+.container-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container-title .title-url {
+  font-size: 16px;
+}
+
+.container-title .title-icon {
+  width: 28px;
+}
+
+/* Información de la tarjeta */
+.container-info .info-title {
+  font-size: 14px;
+  color: var(--color-text);
+  margin-bottom: 0px;
+  font-weight: normal;
+}
+
+.container-info .info-user {
+  font-size: 16px;
+}
+
+/* Footer Card */
+.container-btn .btn-info {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 4px;
+  background-color: transparent;
+  color: var(--purple);
+  border-radius: 5px;
+  border: 1px solid var(--purple);
+  transition: all 0.3s ease;
+}
+
+.container-btn .btn-info:hover {
+  border-radius: 5px;
+  background-color: var(--btn-primary);
+  color: var(--white);
+  cursor: pointer;
+}
