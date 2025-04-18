@@ -14,6 +14,8 @@
 
     /* Tamaño de texto */
     --text-title: 24px;
+    --text-xxl: 18px;
+    --text-xl: 16px;
     --text-large: 15px;
     --text-normal: 14px;
     --text-medium: 13px;

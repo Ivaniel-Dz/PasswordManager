@@ -4,11 +4,11 @@ import { TableComponent } from '../../components/table/table.component';
 import { FooterComponent } from '../../layouts/footer/footer.component';
 
 @Component({
-  selector: 'app-tarjetas',
-  imports: [HeaderComponent, TableComponent, FooterComponent,],
-  templateUrl: './tarjetas.component.html',
-  styleUrl: './tarjetas.component.css'
+  selector: 'app-tarjeta',
+  imports: [HeaderComponent, TableComponent, FooterComponent],
+  templateUrl: './tarjeta.component.html',
+  styleUrl: './tarjeta.component.css'
 })
-export class TarjetasComponent {
+export class TarjetaComponent {
 
 }
