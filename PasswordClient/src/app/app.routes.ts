@@ -7,6 +7,9 @@ import { PasswordComponent } from './dashboard/password/password.component';
 import { PerfilComponent } from './dashboard/perfil/perfil.component';
 import { TarjetaComponent } from './dashboard/tarjeta/tarjeta.component';
 import { PasswordGeneratorComponent } from './pages/password/password-generator/password-generator.component';
+import { PasswordFormComponent } from './pages/password/password-form/password-form.component';
+import { PasswordDetailComponent } from './pages/password/password-detail/password-detail.component';
+import { TarjetaFormComponent } from './pages/tarjeta/tarjeta-form/tarjeta-form.component';
 
 
 export const routes: Routes = [
@@ -36,7 +39,10 @@ export const routes: Routes = [
     title: 'SideNav',
     children: [
       { path: 'password', component: PasswordComponent },
+      { path: 'password-detail', component: PasswordDetailComponent },
+      { path: 'password-form', component: PasswordFormComponent },
       { path: 'tarjetas', component: TarjetaComponent },
+      { path: 'tarjeta-form', component: TarjetaFormComponent },
       { path: 'generator', component: PasswordGeneratorComponent },
       { path: 'perfil', component: PerfilComponent },
       { path: '', redirectTo: 'password', pathMatch: 'full' },

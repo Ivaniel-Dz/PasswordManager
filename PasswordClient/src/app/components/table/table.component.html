@@ -1,7 +1,9 @@
+<!-- Icono -->
 <link
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
   rel="stylesheet"
 />
+
 <!-- Tabla -->
 <table>
   <!-- Cabecera de la tabla-->
@@ -36,7 +38,7 @@
         <button class="action-btn show">
           <i class="fa-regular fa-eye"></i>
         </button>
-        <a class="action-btn edit">
+        <a class="action-btn edit" [routerLink]="['/dashboard/tarjeta-form']">
           <i class="fa-regular fa-pen-to-square"></i>
         </a>
         <a class="action-btn delete">

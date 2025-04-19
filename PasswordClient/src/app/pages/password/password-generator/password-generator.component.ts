@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterModule } from '@angular/router';
+import { HeaderComponent } from '../../../layouts/header/header.component';
 
 @Component({
   selector: 'app-password-generator',
-  imports: [CommonModule,FormsModule],
+  imports: [HeaderComponent,CommonModule,FormsModule,RouterModule],
   templateUrl: './password-generator.component.html',
   styleUrl: './password-generator.component.css',
 })

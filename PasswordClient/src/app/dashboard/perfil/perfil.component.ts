@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { HeaderComponent } from '../../layouts/header/header.component';
+import { FormComponent } from '../../components/form/form.component';
 
 @Component({
   selector: 'app-perfil',
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent, FormComponent],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.css',
 })

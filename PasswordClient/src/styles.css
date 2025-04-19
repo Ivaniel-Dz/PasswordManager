@@ -33,6 +33,9 @@
     --orange: #ff6c37;
     --white: #FFFFFF;
     --purple: #675ac8;
+
+    /* size */
+    --m-rem: 6rem;
 }
 
 * {
