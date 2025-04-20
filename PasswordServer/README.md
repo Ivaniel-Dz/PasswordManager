@@ -34,8 +34,75 @@ Remove-Migration
 ```
 > Si tienes problemas con la creación de las tablas o base de datos, elimina las migraciones para crear las tablas sin errores.
 
-## Probar cada endpoint
+## Ejemplos de peticiones y respuestas
+> Desplegar para ver detalles sobre las peticiones y respuestas de ejemplo para cada endpoint.
 
-###  Prueba de Registro (POST /api/auth/register)
-###  Prueba de Login (POST /api/auth/login)
-### Prueba de Password
+### Registro: POST
+> Registrar Usuario
+```bash
+https://localhost:44369/api/Auth/Registro
+```
+```json
+{
+  "nombre": "string",
+  "correo": "string",
+  "clave": "string",
+  "confirClave": "string"
+}
+```
+
+###  Login: POST
+> Inicio de Session
+```bash
+https://localhost:44369/api/Auth/Login
+```
+
+```json
+{
+  "correo": "string",
+  "clave": "string"
+}
+```
+
+### Usuario: Get
+> Obtener los datos del Usuario Autenticado
+```bash
+https://localhost:44369/api/Usuario/Perfil
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+
+### Usuario: PUT
+> Actualizar los datos del Usuario
+```bash
+https://localhost:44369/api/Usuario/Update
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+
+```json
+{
+    "id": 1,
+    "nombre": "Nuevo Nombre",
+    "correo": "correoexistente@example.com", 
+    "clave": "nuevaclave123"
+}
+```
+
+### Usuario: DELETE
+> Eliminar Cuenta del Usuario
+```bash
+https://localhost:44369
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+---
+
+### Password: GET
+> Obtener la lista de Contraseñas

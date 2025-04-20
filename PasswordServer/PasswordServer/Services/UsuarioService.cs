@@ -74,18 +74,23 @@ namespace PasswordServer.Services
 
 
         // Servicio para eliminar cuenta del usuario
-        public async Task<bool> Delete(UsuarioDto usuarioDto, ClaimsPrincipal userClaims)
+        public async Task<bool> Delete(int id, ClaimsPrincipal userClaims)
         {
-            var userId = GetUserIdFromClaims(userClaims);
-            if (userId == null || userId != usuarioDto.Id) return false;
+            // Obtengo el id del Usuario Auth
+            var claimId = GetUserIdFromClaims(userClaims);
+            // Compara el id del auth con el id del usuario
+            if (claimId == null || claimId != id)
+                return false;
 
-            var usuario = await _appDBContext.Usuarios.FindAsync(userId);
-            if (usuario == null) return false;
+            var usuario = await _appDBContext.Usuarios.SingleOrDefaultAsync(u => u.Id == id);
+            if (usuario == null)
+                return false;
 
             _appDBContext.Usuarios.Remove(usuario);
             await _appDBContext.SaveChangesAsync();
             return true;
         }
+
 
         private int? GetUserIdFromClaims(ClaimsPrincipal claims)
         {

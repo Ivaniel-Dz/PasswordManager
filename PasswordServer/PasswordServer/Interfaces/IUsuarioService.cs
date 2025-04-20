@@ -10,6 +10,6 @@ namespace PasswordServer.Interfaces
 
         Task<UsuarioDto?> Update(UsuarioDto usuarioDto, ClaimsPrincipal userClaims);
 
-        Task<bool> Delete(UsuarioDto usuarioDto, ClaimsPrincipal userClaims);
+        Task<bool> Delete(int id, ClaimsPrincipal userClaims);
     }
 }

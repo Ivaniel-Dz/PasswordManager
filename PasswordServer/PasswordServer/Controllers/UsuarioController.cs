@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PasswordServer.DTO;
 using PasswordServer.Interfaces;
-using System.Security.Claims;
+using PasswordServer.Models;
 
 namespace PasswordServer.Controllers
 {
@@ -19,7 +19,7 @@ namespace PasswordServer.Controllers
 
         // Metodo para obtener perfil del usuario autenticado
         [HttpGet]
-        [Route("Perfil")] // Ruta: api/Usuario/Perfil
+        [Route("Perfil")] // api/Usuario/Perfil
         public async Task<IActionResult> GetPerfil()
         {
             var perfil = await _usuarioService.GetPerfil(User);
@@ -33,11 +33,11 @@ namespace PasswordServer.Controllers
 
         // Metodo para Actualizar perfil
         [HttpPut]
-        [Route("Update")] // Ruta: api/Usuario/Update
+        [Route("Update")] // api/Usuario/Update
         public async Task<IActionResult> Update([FromBody] UsuarioDto usuarioDto)
         {
             var updated = await _usuarioService.Update(usuarioDto, User);
-            if (updated != null) 
+            if (updated == null) 
                 return BadRequest( new ResponseDto { IsSuccess = false, Message = "No se pudo actualizar el usuario." });
 
             return Ok(new { IsSuccess = true, Response = updated });
@@ -45,15 +45,27 @@ namespace PasswordServer.Controllers
 
         // Metodo para Eliminar cuenta de usuario
         [HttpDelete]
-        [Route("Delete")] // Ruta: api/Usuario/Delete
-        public async Task<IActionResult> Delete([FromBody] UsuarioDto usuarioDto)
+        [Route("Delete/{id}")] // api/Usuario/Delete/id
+        public async Task<IActionResult> Delete(int id)
         {
-            var deleted = await _usuarioService.Delete(usuarioDto, User);
-            // verifica si tiene permisos para Eliminar
-            if (!deleted) return Forbid(); // No tiene
+            var deleted = await _usuarioService.Delete(id, User);
 
-            return Ok(new ResponseDto { IsSuccess = true, Message = "La cuenta ha sido eliminada exitosamente." });
+            if (!deleted)
+            {
+                return NotFound(new ResponseDto
+                {
+                    IsSuccess = false,
+                    Message = "Usuario no encontrado o no tienes permisos para eliminarlo"
+                });
+            }
+
+            return Ok(new ResponseDto
+            {
+                IsSuccess = true,
+                Message = "La cuenta ha sido eliminada exitosamente."
+            });
         }
+
 
     } // Fin de la Clase
 } // Fin
