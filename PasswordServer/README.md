@@ -77,7 +77,7 @@ https://localhost:44369/api/Usuario/Perfil
 ### Usuario: PUT
 > Actualizar los datos del Usuario
 ```bash
-https://localhost:44369/api/Usuario/Update
+https://localhost:44369/api/Usuario/Update/id
 ```
 
 ```pgsql
@@ -96,7 +96,7 @@ https://localhost:44369/api/Usuario/Update
 ### Usuario: DELETE
 > Eliminar Cuenta del Usuario
 ```bash
-https://localhost:44369
+https://localhost:44369/api/Usuario/Delete/id
 ```
 
 ```pgsql
