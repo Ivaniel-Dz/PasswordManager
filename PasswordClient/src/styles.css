@@ -23,8 +23,11 @@
 
     /* Botones */
     --btn-primary: #675ac8;
+    --btn-pr-disabled: #b4acf1;
     --btn-secondary: #ff6c37;
+    --btn-sc-disabled: #f2b7a5;
     --btn-tertiary: #c33535;
+    --btn-tr-disabled: #e68d8d;
     
     /* Modo Dark */
     --color-dark-background: #2f4858;

@@ -51,6 +51,6 @@
     color: var(--white);
 }
 
-/* Alert */
-.alert {
+.tab-content .tab-pane .btn:disabled {
+  background-color: var(--btn-sc-disabled);
 }
