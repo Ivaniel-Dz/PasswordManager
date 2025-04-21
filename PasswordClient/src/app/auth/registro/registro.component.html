@@ -16,29 +16,39 @@
         <div class="tab-content">
             <!-- Register Form -->
             <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                <form method="post">
+                <form [formGroup]="registroForm" (ngSubmit)="signUp()">
                     <!-- Name input -->
                     <div data-mdb-input-init class="form-outline mb-4">
-                        <label class="form-label" for="registerName">Usuario</label>
-                        <input type="text" id="registerName" class="form-control" asp-for="Nombre" required />
+                        <label class="form-label" for="nombre">Usuario</label>
+                        <input type="text" id="nombre" formControlName="nombre" class="form-control" required minlength="3" />
+                        <!-- Alert -->
+                        @if (registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched) {
+                            <p class="alert alert-warning text-center p-0 m-0" role="alert"> Ingrese un nombre valido </p>
+                        }
                     </div>
-
                     <!-- Email input -->
                     <div data-mdb-input-init class="form-outline mb-4">
-                        <label class="form-label" for="registerEmail">Email</label>
-                        <input type="email" id="registerEmail" class="form-control" asp-for="Correo" required />
+                        <label class="form-label" for="correo">Correo</label>
+                        <input type="email" id="correo" formControlName="correo" class="form-control" required />
+                        <!-- Alert -->
+                        @if (registroForm.get('correo')?.invalid && registroForm.get('correo')?.touched) {
+                            <p class="alert alert-warning text-center p-0 m-0" role="alert"> Ingrese un Correo valido </p>
+                        }
                     </div>
 
                     <!-- Password input -->
                     <div data-mdb-input-init class="form-outline mb-4">
-                        <label class="form-label" for="registerPassword">Password</label>
-                        <input type="password" id="registerPassword" class="form-control" asp-for="Clave" required />
+                        <label class="form-label" for="clave">Password</label>
+                        <input type="password" id="clave" class="form-control" required />
+                        @if (registroForm.get('clave')?.invalid && registroForm.get('clave')?.touched) {
+                            <p class="alert alert-warning text-center p-0 m-0" role="alert"> Ingrese mínimo 5 caracteres </p>
+                        }
                     </div>
 
                     <!-- Repeat Password input -->
                     <div data-mdb-input-init class="form-outline mb-4">
                         <label class="form-label" for="registerRepeatPassword">Repeat password</label>
-                        <input type="password" id="registerRepeatPassword" class="form-control" asp-for="ConfirClave" required />
+                        <input type="password" id="registerRepeatPassword" class="form-control" required />
                     </div>
 
                     <!-- Submit button -->

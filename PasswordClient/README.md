@@ -9,6 +9,12 @@ El proyecto probablemente usa Bootstrap y posiblemente alguna librería como ng-
 npm install
 ```
 
+### 1.2 Reinstalar si no aparece en ``package.json``
+Instalar JWT Decode si no esta instalado
+```bash
+npm i jwt-decode
+```
+
 Esto instalará todas las dependencias listadas en el `package.json`, incluyendo Angular, Bootstrap y cualquier otra librería que el proyecto utilice.
 
 ### 2. Verificar la configuración de Bootstrap
