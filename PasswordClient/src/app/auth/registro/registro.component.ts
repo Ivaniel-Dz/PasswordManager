@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Registro } from '../../interfaces/registro';
@@ -12,39 +12,46 @@ import { CommonModule } from '@angular/common';
   styleUrl: '../login/login.component.css', // Reutiliza el css de Login
 })
 
-export class RegistroComponent {
+export class RegistroComponent implements OnInit{
   // Inyección de dependencias
   private authService = inject(AuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
 
-  public registroForm: FormGroup; // Define el formulario reactivo
-  public errors: string[] = []; // Arreglo para almacenar errores
+  registroForm!: FormGroup; // Define el formulario reactivo
+  errors: string[] = []; // Arreglo para almacenar errores
 
-  constructor() {
+  ngOnInit(): void {
     // Inicializa el formulario con validaciones
     this.registroForm = this.fb.group({
       nombre: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
       clave: ['', [Validators.required, Validators.minLength(5)]],
-      confirClave: ['', [Validators.required, Validators.minLength(5)]],
-    });
+      confirClave: ['', Validators.required]
+    }, { validators: this.passwordMatchValidator });
   }
 
+  // Método para validar que las contraseñas coincidan
+  passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+    const password = group.get('clave')?.value;
+    const confirm = group.get('confirClave')?.value;
+    return password === confirm ? null : { passwordMismatch: true };
+  }
 
   // Método para registrar al usuario
   signUp(): void {
-    if (this.registroForm.invalid) {
-      return; // No proceder si el formulario es inválido
-    }
+    if (this.registroForm.invalid) return; // No proceder si el formulario es inválido
 
-    const newUser: Registro = this.registroForm.value;
+    // const newUser: Registro = this.registroForm.value;
+    const registro = this.registroForm.value;
 
-    this.authService.register(newUser).subscribe({
-      next: (response) => {
-        console.log('Registro exitoso:', response); // Muestra el mensaje del servidor
-        alert(response); // Muestra el mensaje en una alerta
-        this.router.navigate(['/login']); // Redirige al usuario a la página de login
+    this.authService.register(registro).subscribe({
+      next: (data) => {
+        if (data.isSuccess) {
+          this.router.navigate(['/auth/login']);
+        }else {
+          alert('Error en el registro:'+ data.message);
+        }
       },
       error: (error) => {
         this.errors = [error.message]; // Muestra el mensaje de error

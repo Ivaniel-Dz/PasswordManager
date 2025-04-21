@@ -39,7 +39,7 @@
                     <!-- Password input -->
                     <div class="form-outline mb-4">
                         <label class="form-label" for="clave">Password</label>
-                        <input type="password" id="clave" class="form-control" required />
+                        <input type="password" id="clave" class="form-control" formControlName="clave" required />
                         @if (registroForm.get('clave')?.invalid && registroForm.get('clave')?.touched) {
                             <p class="alert alert-warning text-center p-0 m-0" role="alert"> La contraseña debe tener al menos 5 caracteres.</p>
                         }
@@ -47,8 +47,14 @@
 
                     <!-- Repeat Password input -->
                     <div class="form-outline mb-4">
-                        <label class="form-label" for="registerRepeatPassword">Repeat password</label>
-                        <input type="password" id="registerRepeatPassword" class="form-control" required />
+                        <label class="form-label" for="confirClave">Repetir password</label>
+                        <input type="password" id="confirClave" class="form-control" formControlName="confirClave" required />
+
+                        <p class="alert alert-warning text-center p-0 m-0" role="alert"
+                        *ngIf="registroForm.hasError('passwordMismatch') && registroForm.get('confirClave')?.touched">
+                        Las contraseñas no coinciden.
+                        </p>
+                        
                     </div>
 
                     <!-- Submit button -->
