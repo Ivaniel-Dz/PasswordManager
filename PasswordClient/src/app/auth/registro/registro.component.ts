@@ -1,5 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Registro } from '../../interfaces/registro';
@@ -11,8 +18,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './registro.component.html',
   styleUrl: '../login/login.component.css', // Reutiliza el css de Login
 })
-
-export class RegistroComponent implements OnInit{
+export class RegistroComponent implements OnInit {
   // Inyección de dependencias
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -23,12 +29,15 @@ export class RegistroComponent implements OnInit{
 
   ngOnInit(): void {
     // Inicializa el formulario con validaciones
-    this.registroForm = this.fb.group({
-      nombre: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      clave: ['', [Validators.required, Validators.minLength(5)]],
-      confirClave: ['', Validators.required]
-    }, { validators: this.passwordMatchValidator });
+    this.registroForm = this.fb.group(
+      {
+        nombre: ['', Validators.required],
+        correo: ['', [Validators.required, Validators.email]],
+        clave: ['', [Validators.required, Validators.minLength(5)]],
+        confirClave: ['', Validators.required],
+      },
+      { validators: this.passwordMatchValidator }
+    );
   }
 
   // Método para validar que las contraseñas coincidan
@@ -49,8 +58,8 @@ export class RegistroComponent implements OnInit{
       next: (data) => {
         if (data.isSuccess) {
           this.router.navigate(['/auth/login']);
-        }else {
-          alert('Error en el registro:'+ data.message);
+        } else {
+          alert('Error en el registro:' + data.message);
         }
       },
       error: (error) => {
@@ -59,5 +68,4 @@ export class RegistroComponent implements OnInit{
       },
     });
   }
-
 }
