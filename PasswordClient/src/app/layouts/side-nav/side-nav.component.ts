@@ -2,7 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
 import { JwtService } from '../../services/jwt.service';
-import { Usuario } from '../../interfaces/usuario';
 
 @Component({
   selector: 'app-side-nav',
@@ -16,7 +15,7 @@ export class SideNavComponent  implements OnInit {
   private jwtService = inject(JwtService);
   private router = inject(Router);
 
-  perfil!: Usuario;
+  perfil: any = {};
 
   constructor() {}
 
@@ -27,8 +26,8 @@ export class SideNavComponent  implements OnInit {
   // Datos para el SideNav
   perfilNav(): void {
     this.usuarioService.getPerfil().subscribe({
-      next: (usuario) => {
-        this.perfil = usuario;
+      next: (res) => {
+        this.perfil = res.response; // perfil = response<usuario>
       },
       error: (err) => {
         console.error('Usuario no encontrado',err);

@@ -10,6 +10,7 @@ import { PasswordGeneratorComponent } from './pages/password/password-generator/
 import { PasswordFormComponent } from './pages/password/password-form/password-form.component';
 import { PasswordDetailComponent } from './pages/password/password-detail/password-detail.component';
 import { TarjetaFormComponent } from './pages/tarjeta/tarjeta-form/tarjeta-form.component';
+import { authGuard } from './guards/auth.guard';
 
 
 export const routes: Routes = [
@@ -37,6 +38,7 @@ export const routes: Routes = [
     path: 'dashboard',
     component: SideNavComponent,
     title: 'SideNav',
+    canActivate: [authGuard],
     children: [
       { path: 'password', component: PasswordComponent },
       { path: 'password-detail', component: PasswordDetailComponent },
