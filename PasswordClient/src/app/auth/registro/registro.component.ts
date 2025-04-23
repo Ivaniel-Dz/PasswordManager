@@ -1,15 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  ValidationErrors,
-  Validators,
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Registro } from '../../interfaces/registro';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -18,6 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './registro.component.html',
   styleUrl: '../login/login.component.css', // Reutiliza el css de Login
 })
+
 export class RegistroComponent implements OnInit {
   // Inyección de dependencias
   private authService = inject(AuthService);
@@ -51,7 +45,6 @@ export class RegistroComponent implements OnInit {
   signUp(): void {
     if (this.registroForm.invalid) return; // No proceder si el formulario es inválido
 
-    // const newUser: Registro = this.registroForm.value;
     const registro = this.registroForm.value;
 
     this.authService.register(registro).subscribe({
@@ -59,7 +52,7 @@ export class RegistroComponent implements OnInit {
         if (data.isSuccess) {
           this.router.navigate(['/auth/login']);
         } else {
-          alert('Error en el registro:' + data.message);
+          this.errors = [data.message || 'Error al registrarse']; // Muestra el mensaje de error en html
         }
       },
       error: (error) => {
@@ -68,4 +61,5 @@ export class RegistroComponent implements OnInit {
       },
     });
   }
+  
 }

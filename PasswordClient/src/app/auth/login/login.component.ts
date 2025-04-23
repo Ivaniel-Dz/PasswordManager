@@ -1,11 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators,
 } from '@angular/forms';
 import { JwtService } from '../../services/jwt.service';
 import { Login } from '../../interfaces/login';
@@ -17,6 +13,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
+
 export class LoginComponent {
   // Intención de dependencias
   private authService = inject(AuthService);
@@ -27,10 +24,11 @@ export class LoginComponent {
   errors: string[] = [];
 
   public formLogin: FormGroup = this.fb.group({
-    correo: ['', Validators.required],
+    correo: ['', [Validators.required, Validators.email]],
     clave: ['', Validators.required],
   });
 
+  // Método para ingresar al dashboard
   signIn() {
     if (this.formLogin.invalid) return;
 
@@ -45,13 +43,14 @@ export class LoginComponent {
           this.jwtService.setToken(data.token);
           this.router.navigate(['/dashboard/password']);
         } else {
-          alert('Revise sus datos,' + data.message);
+          this.errors = [data.message || 'Error en el inicio de sesión']; // Muestra el mensaje de error en html
         }
       },
-      error: (error) => {
-        this.errors = [error.message]; // Muestra el mensaje de error
-        console.error('Error en el registro:', error); // Muestra el error en la consola
+      error: (data) => {
+        console.error('Revise sus datos: ', data); // Muestra el error en la consola
+        this.errors = data.error.errors || [data.error.message || 'Credenciales incorrectas']; // Muestra el mensaje de error
       },
     });
   }
+
 }
