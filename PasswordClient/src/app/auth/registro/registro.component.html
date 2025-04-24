@@ -40,6 +40,7 @@
                     <div class="form-outline mb-4">
                         <label class="form-label" for="clave">Password</label>
                         <input type="password" id="clave" class="form-control" formControlName="clave" required />
+                        <!-- Alert -->
                         @if (registroForm.get('clave')?.invalid && registroForm.get('clave')?.touched) {
                             <p class="alert alert-warning text-center p-0 m-0" role="alert"> La contraseña debe tener al menos 5 caracteres.</p>
                         }

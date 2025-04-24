@@ -66,3 +66,8 @@ form div input {
   color: var(--btn-tertiary);
   border: 1px solid var(--btn-tertiary);
 }
+
+.btn-edit:disabled {
+   background-color: var(--btn-pr-disabled);
+   border: 1px solid var(--btn-pr-disabled);
+}
