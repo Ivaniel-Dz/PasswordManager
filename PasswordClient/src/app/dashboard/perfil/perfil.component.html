@@ -1,13 +1,18 @@
 <section class="section-main">
     <!-- Header -->
-    <app-header></app-header>
+    <app-header
+        [titulo]="'Perfil'"
+        [showSearch]="false"
+        [showButton]="false">
+    </app-header>
+
+    <!-- Main -->
     <main class="form-container">
         <!-- Formulario -->
 <h2 class="mt-3">Perfil de Usuario</h2>
 
 @if (perfilForm) {
   <form [formGroup]="perfilForm" (ngSubmit)="updatePerfil()" class="mt-3">
-    <input type="number" formControlName="id">
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre</label>
       <input type="text" id="nombre" class="form-control" formControlName="nombre" />

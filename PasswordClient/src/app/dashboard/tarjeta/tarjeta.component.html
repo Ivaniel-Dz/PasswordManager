@@ -1,14 +1,23 @@
 <section class="section-main">
     <!-- Header -->
-    <app-header></app-header>
+    <app-header
+        [titulo]="'Tarjeta'"
+        [textButton]="'Agregar Tarjeta'"
+        [route]="'/dashboard/tarjeta-form'">
+    </app-header>
 
     <!-- Contenido del component -->
     <main class="table-container">
         <!-- Tabla de Datos -->
-        <app-table></app-table>
+        <app-table
+            >
+        </app-table>
         
     </main>
 
     <!-- Footer -->
-     <app-footer></app-footer>
+     <app-footer
+        >
+     </app-footer>
+
 </section>

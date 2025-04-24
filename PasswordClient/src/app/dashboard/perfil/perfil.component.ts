@@ -54,7 +54,7 @@ export class PerfilComponent implements OnInit {
 
   // Método para actualizar Perfil
   updatePerfil(): void {
-    if (this.perfilForm.invalid) return;
+    // if (this.perfilForm.invalid) return;
 
     // Copia del valor original
     const datos = { ...this.perfilForm.value };
