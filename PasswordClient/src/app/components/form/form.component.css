@@ -9,7 +9,7 @@ form div input, form div select {
     font-size: var(--text-normal);
 }
 
-/*  */
+/* Botón  */
 form button {
   background-color: var(--btn-secondary);
   color: var(--white);

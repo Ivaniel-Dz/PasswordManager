@@ -77,13 +77,13 @@ https://localhost:44369/api/Usuario/Perfil
 ### Usuario: PUT
 > Actualizar los datos del Usuario
 ```bash
-https://localhost:44369/api/Usuario/Update/id
+https://localhost:44369/api/Usuario/Update
 ```
 
 ```pgsql
 **Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
 ```
-
+> el ``id`` del usuario es obligatorio, los demás campos son opcionales según el dato a actualizar. 
 ```json
 {
     "id": 1,

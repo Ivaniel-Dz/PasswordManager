@@ -8,36 +8,39 @@
 
     <!-- Main -->
     <main class="form-container">
-        <!-- Formulario -->
-<h2 class="mt-3">Perfil de Usuario</h2>
+      
+      @if (perfilForm) {
+      <!-- Formulario -->
+        <form [formGroup]="perfilForm" (ngSubmit)="updatePerfil()">
+          <!-- Nombre -->
+          <div class="mb-3">
+            <label class="form-label" for="nombre"> Nombre </label>
+            <input type="text" id="nombre" class="form-control" formControlName="nombre"/>
+          </div>
 
-@if (perfilForm) {
-  <form [formGroup]="perfilForm" (ngSubmit)="updatePerfil()" class="mt-3">
-    <div class="mb-3">
-      <label for="nombre" class="form-label">Nombre</label>
-      <input type="text" id="nombre" class="form-control" formControlName="nombre" />
-    </div>
+          <div class="mb-3">
+            <label class="form-label" for="correo">Correo</label>
+            <input type="email" class="form-control" id="correo" formControlName="correo"/>
+          </div>
 
-    <div class="mb-3">
-      <label for="correo" class="form-label">Correo</label>
-      <input type="email" id="correo" class="form-control" formControlName="correo" />
-    </div>
+          <div class="mb-3">
+            <label class="form-label" for="clave"> Contraseña Nueva </label>
+            <input type="password" class="form-control" id="clave" formControlName="clave"/>
+          </div>
 
-    <div class="mb-3">
-      <label for="clave" class="form-label">Nueva Contraseña (opcional)</label>
-      <input type="password" id="clave" class="form-control" formControlName="clave" />
-    </div>
+          <div class="d-flex justify-content-center gap-4">
+            <button type="submit" class="btn btn-edit">Actualizar</button>
+            <button type="button" class="btn btn-delete" (click)="deletePerfil()">Eliminar Cuenta</button>
+          </div>
 
-    <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
-    <button type="button" class="btn btn-danger ms-2" (click)="deletePerfil()">Eliminar Cuenta</button>
-  </form>
-} @else {
-  <p>Cargando perfil...</p>
-}
+          <div *ngIf="mensaje" class="alert alert-success d-flex justify-content-center mt-3 p-2" role="alert">
+            {{ mensaje }}
+          </div>
 
-<div *ngIf="mensaje" class="alert alert-info mt-3">{{ mensaje }}</div>
-
-        <!-- Fin del formulario -->
+        </form>
+      } @else {
+        <p>Cargando datos del perfil...</p>
+      }
 
     </main>
 
