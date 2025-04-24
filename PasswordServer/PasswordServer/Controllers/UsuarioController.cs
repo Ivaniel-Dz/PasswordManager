@@ -36,12 +36,20 @@ namespace PasswordServer.Controllers
         [Route("Update")] // api/Usuario/Update
         public async Task<IActionResult> Update([FromBody] UsuarioDto usuarioDto)
         {
-            var updated = await _usuarioService.Update(usuarioDto, User);
-            if (updated == null) 
-                return BadRequest( new ResponseDto { IsSuccess = false, Message = "No se pudo actualizar el usuario." });
+            try
+            {
+                var updated = await _usuarioService.Update(usuarioDto, User);
+                if (updated == null)
+                    return BadRequest(new ResponseDto { IsSuccess = false, Message = "No se pudo actualizar el usuario." });
 
-            return Ok(new { IsSuccess = true, Response = updated });
+                return Ok(new { IsSuccess = true, Response = updated });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseDto { IsSuccess = false, Message = ex.Message });
+            }
         }
+
 
         // Metodo para Eliminar cuenta de usuario
         [HttpDelete]

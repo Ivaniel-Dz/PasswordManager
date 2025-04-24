@@ -54,12 +54,12 @@ export class PerfilComponent implements OnInit {
 
   // Método para actualizar Perfil
   updatePerfil(): void {
-    // if (this.perfilForm.invalid) return;
+    if (this.perfilForm.invalid) return;
 
     // Copia del valor original
     const datos = { ...this.perfilForm.value };
 
-    // Si la clave está vacía, eliminara del objeto
+    // Eliminar campo clave si está vacío
     if (!datos.clave || datos.clave.trim() === '') {
       delete datos.clave;
     }
@@ -68,9 +68,12 @@ export class PerfilComponent implements OnInit {
       next: (res) => {
         this.mensaje = res.isSuccess
           ? 'Perfil actualizado'
-          : res.message ?? 'Error';
+          : res.message ?? 'Error al actualizar el perfil';
       },
-      error: (err) => console.error(err),
+      error: (err) => {
+        // Mostrar mensaje de backend si existe
+        this.mensaje = err?.error?.mensaje || 'Ocurrió un error al actualizar el perfil';
+      }
     });
   }
 

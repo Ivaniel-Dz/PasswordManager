@@ -52,7 +52,7 @@ namespace PasswordServer.Services
             // Verificar si el correo ya está en uso por otro usuario
             if (await _appDBContext.Usuarios.AnyAsync(u => u.Correo == usuarioDto.Correo && u.Id != usuarioDto.Id))
             {
-                return null;
+                throw new Exception("El correo ya está en uso por otro usuario.");
             }
 
             // Actualizar nombre y correo si no están vacíos
