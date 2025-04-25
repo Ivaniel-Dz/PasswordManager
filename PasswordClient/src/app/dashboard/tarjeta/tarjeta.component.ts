@@ -10,5 +10,5 @@ import { FooterComponent } from '../../layouts/footer/footer.component';
   styleUrl: './tarjeta.component.css'
 })
 export class TarjetaComponent {
-
+  
 }

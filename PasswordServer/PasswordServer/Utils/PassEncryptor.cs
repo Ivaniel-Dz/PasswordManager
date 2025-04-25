@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace PasswordServer.Services
+namespace PasswordServer.Utils
 {
     public class PassEncryptor
     {

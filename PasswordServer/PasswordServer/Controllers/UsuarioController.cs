@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PasswordServer.DTO;
 using PasswordServer.Interfaces;
-using PasswordServer.Models;
 
 namespace PasswordServer.Controllers
 {

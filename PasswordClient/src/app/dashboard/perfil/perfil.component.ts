@@ -72,7 +72,7 @@ export class PerfilComponent implements OnInit {
       },
       error: (err) => {
         // Mostrar mensaje de backend si existe
-        this.mensaje = err?.error?.mensaje || 'Ocurrió un error al actualizar el perfil';
+        this.mensaje = err?.error?.message || 'Ocurrió un error al actualizar el perfil';
       }
     });
   }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PasswordServer.Data;
 using PasswordServer.DTO;
 using PasswordServer.Interfaces;
@@ -17,8 +16,8 @@ namespace PasswordServer.Services
             _appDBContext = appDBContext;
         }
 
-        // Obtiene todas las tarjetas de un usuario, con opción de búsqueda
-        public async Task<IEnumerable<TarjetaDto>> GetAllAsync(int userId, string? term)
+        // Método para Obtener toda la lista y buscar
+        public async Task<IEnumerable<TarjetaDto>> Get(int userId, string? term)
         {
             return await _appDBContext.Tarjetas
                 // Filtra por usuario y término de búsqueda (si existe)
@@ -42,18 +41,13 @@ namespace PasswordServer.Services
                 .ToListAsync(); // Ejecuta la consulta asíncronamente
         }
 
-
-        // Obtiene una tarjeta específica por ID y verifica pertenencia al usuario
-        public async Task<TarjetaDto?> GetByIdAsync(int id, int userId)
+        // Método para mostrar una tarjeta por id
+        public async Task<TarjetaDto?> GetById(int id, int userId)
         {
-            // Busca la tarjeta que coincida con ID y usuario
             var tarjeta = await _appDBContext.Tarjetas
                 .FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
 
-            if (tarjeta == null) return null; // Si no existe, retorna null
-
-            // Mapea a DTO
-            return new TarjetaDto
+            return tarjeta == null ? null : new TarjetaDto
             {
                 Id = tarjeta.Id,
                 Numeracion = tarjeta.Numeracion,
@@ -65,64 +59,64 @@ namespace PasswordServer.Services
             };
         }
 
-        // Crea una nueva tarjeta para el usuario
-        public async Task<object> CreateAsync(TarjetaDto dto, int userId)
+
+        // Método para Agregar
+        public async Task<ResponseDto> Add(TarjetaDto tarjetaDto, int userId)
         {
-            // Crea nueva entidad Tarjeta con datos del DTO
-            var nueva = new Tarjeta
+            // Verificar si ya existe una tarjeta con la misma Numeración
+            var existeTarjeta = await _appDBContext.Tarjetas.AnyAsync(t => t.Numeracion == tarjetaDto.Numeracion);
+
+            if (existeTarjeta)
+                return new ResponseDto { IsSuccess = false, Message = "Ya existe una tarjeta con esta Numeración." };
+
+            // Crear nueva entidad Tarjeta a partir del DTO
+            var nuevaTarjeta = new Tarjeta
             {
-                UserId = userId, // Asigna el usuario propietario
-                Numeracion = dto.Numeracion,
-                FechaExpiracion = dto.FechaExpiracion,
-                NombreTitular = dto.NombreTitular,
-                RedTarjeta = dto.RedTarjeta,
-                TipoTarjeta = dto.TipoTarjeta,
-                Descripcion = dto.Descripcion
+                // Mapear propiedades
+                UserId = userId,
+                Numeracion = tarjetaDto.Numeracion,
+                FechaExpiracion = tarjetaDto.FechaExpiracion,
+                NombreTitular = tarjetaDto.NombreTitular,
+                RedTarjeta = tarjetaDto.RedTarjeta,
+                TipoTarjeta = tarjetaDto.TipoTarjeta,
+                Descripcion = tarjetaDto.Descripcion,
             };
 
-            await _appDBContext.Tarjetas.AddAsync(nueva); // Añade a la base de datos
-            await _appDBContext.SaveChangesAsync(); // Guarda cambios
+            await _appDBContext.Tarjetas.AddAsync(nuevaTarjeta);
+            await _appDBContext.SaveChangesAsync();
 
-            // Retorna resultado exitoso
-            return new { isSuccess = true, Response = "Tarjeta creada correctamente." };
+            return new ResponseDto { IsSuccess = true, Message = "Tarjeta creada correctamente." };
         }
 
-
-        // Actualiza una tarjeta existente
-        public async Task<object> UpdateAsync(TarjetaDto dto, int userId)
+        // Método para Actualizar
+        public async Task<ResponseDto> Update(TarjetaDto tarjetaDto, int userId)
         {
-            // Busca tarjeta por ID y verifica pertenencia al usuario
-            var tarjeta = await _appDBContext.Tarjetas
-                .FirstOrDefaultAsync(t => t.Id == dto.Id && t.UserId == userId);
+            var cardForChanges = await _appDBContext.Tarjetas.FirstOrDefaultAsync(t => t.Id == tarjetaDto.Id && t.UserId == userId);
+            if (cardForChanges == null)
+                return new ResponseDto { IsSuccess = false, Message = "Tarjeta no encontrada." };
 
-            if (tarjeta == null)
-                return new { isSuccess = false, Response = "Dato no encontrado." };
+            cardForChanges.Numeracion = tarjetaDto.Numeracion != 0 ? tarjetaDto.Numeracion : cardForChanges.Numeracion;
+            cardForChanges.NombreTitular = !string.IsNullOrWhiteSpace(tarjetaDto.NombreTitular) ? tarjetaDto.NombreTitular : cardForChanges.NombreTitular;
+            cardForChanges.RedTarjeta = !string.IsNullOrWhiteSpace(tarjetaDto.RedTarjeta) ? tarjetaDto.RedTarjeta : cardForChanges.RedTarjeta;
+            cardForChanges.TipoTarjeta = !string.IsNullOrWhiteSpace(tarjetaDto.TipoTarjeta) ? tarjetaDto.TipoTarjeta : cardForChanges.TipoTarjeta;
+            cardForChanges.Descripcion = !string.IsNullOrWhiteSpace(tarjetaDto.Descripcion) ? tarjetaDto.Descripcion : cardForChanges.Descripcion;
 
-            // Actualiza todos los campos con los nuevos valores
-            tarjeta.Numeracion = dto.Numeracion;
-            tarjeta.FechaExpiracion = dto.FechaExpiracion;
-            tarjeta.NombreTitular = dto.NombreTitular;
-            tarjeta.RedTarjeta = dto.RedTarjeta;
-            tarjeta.TipoTarjeta = dto.TipoTarjeta;
-            tarjeta.Descripcion = dto.Descripcion;
+            _appDBContext.Tarjetas.Update(cardForChanges);
+            await _appDBContext.SaveChangesAsync();
 
-            _appDBContext.Tarjetas.Update(tarjeta); // Marca como modificada
-            await _appDBContext.SaveChangesAsync(); // Guarda cambios
-
-            return new { isSuccess = true, Response = "Tarjeta actualizada exitosamente." };
+            return new ResponseDto { IsSuccess = true, Message = "Tarjeta actualizada correctamente." };
         }
 
-
-        // Elimina una tarjeta
-        public async Task<bool> DeleteAsync(int id, int userId)
+        // Método para Elimina una tarjeta
+        public async Task<bool> Delete(int id, int userId)
         {
             // Busca tarjeta por ID y verifica pertenencia al usuario
-            var tarjeta = await _appDBContext.Tarjetas
+            var cardForDelete = await _appDBContext.Tarjetas
                 .FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
 
-            if (tarjeta == null) return false; // Si no existe, retorna false
+            if (cardForDelete == null) return false; // Si no existe, retorna false
 
-            _appDBContext.Tarjetas.Remove(tarjeta); // Elimina la tarjeta
+            _appDBContext.Tarjetas.Remove(cardForDelete); // Elimina la tarjeta
             await _appDBContext.SaveChangesAsync(); // Guarda cambios
             return true; // Retorna éxito
         }

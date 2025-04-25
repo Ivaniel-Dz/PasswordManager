@@ -2,16 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using PasswordServer.DTO;
 using PasswordServer.Interfaces;
-using PasswordServer.Services;
-using System.Security.Claims;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using PasswordServer.Utils;
 
 namespace PasswordServer.Controllers
 {
-    [Route("api/[controller]")]
     [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class TarjetaController : ControllerBase
     {
         //Inyeccion de dependencias
@@ -22,15 +19,17 @@ namespace PasswordServer.Controllers
             _tarjetaService = tarjetaService;
         }
 
-        // Obtenemos el id del Usuario Autenticado
-        private int GetUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
         // Metodo para obtener todas las contraseña de un Usuario
         [HttpGet]
         [Route("GetAll")] // Ruta: api/Tarjeta/GetAll
-        public async Task<IActionResult> GetAll(string? term)
+        public async Task<IActionResult> GetAll([FromQuery] string? term)
         {
-            var tarjetas = await _tarjetaService.GetAllAsync(GetUserId(), term);
+            var userId = ClaimUtils.GetUserIdFromClaims(User);
+            if (userId == null) return Unauthorized();
+
+            var tarjetas = await _tarjetaService.Get(userId.Value, term);
+
             return Ok(tarjetas);
         }
 
@@ -39,40 +38,64 @@ namespace PasswordServer.Controllers
         [Route("Get")] // Ruta: api/Tarjeta/Get
         public async Task<IActionResult> Get(int id)
         {
-            var tarjeta = await _tarjetaService.GetByIdAsync(id, GetUserId());
-            if (tarjeta == null)
-                return NotFound(new { Response = "Tarjeta no encontrada." });
+            var userId = ClaimUtils.GetUserIdFromClaims(User);
+            if (userId == null) return Unauthorized();
 
+            var tarjeta = await _tarjetaService.GetById(id, userId.Value);
             return Ok(tarjeta);
         }
 
         // Metodo para crear una nueva tarjeta
         [HttpPost]
-        [Route("Create")] // Ruta: api/Tarjeta/Create
-        public async Task<IActionResult> Create([FromBody] TarjetaDto tarjetaDto)
+        [Route("Add")] // Ruta: api/Tarjeta/Add
+        public async Task<IActionResult> Add([FromBody] TarjetaDto tarjetaDto)
         {
-            var tarjeta = await _tarjetaService.CreateAsync(tarjetaDto, GetUserId());
-            return Ok(tarjeta);
+            if (!ModelState.IsValid)
+                return BadRequest(new ResponseDto { IsSuccess = false, Message = "Datos inválidos." });
+
+            var userId = ClaimUtils.GetUserIdFromClaims(User);
+            if (userId == null)
+                return Unauthorized(new ResponseDto { IsSuccess = false, Message = "Usuario no identificado." });
+
+            var result = await _tarjetaService.Add(tarjetaDto, userId.Value);
+
+            return result.IsSuccess
+                ? Ok(result)
+                : BadRequest(result);
         }
 
         [HttpPut]
         [Route("Update")] // Ruta: api/Tarjeta/Update
         public async Task<IActionResult> Update([FromBody] TarjetaDto tarjetaDto)
         {
-            var tarjeta = await _tarjetaService.UpdateAsync(tarjetaDto, GetUserId());
-            return Ok(tarjeta);
+            var userId = ClaimUtils.GetUserIdFromClaims(User);
+            if (userId == null) return Unauthorized();
+
+            var result = await _tarjetaService.Update(tarjetaDto, userId.Value);
+            return result.IsSuccess ? Ok(result) : NotFound(result);
         }
 
         [HttpDelete]
-        [Route("Delete")] // Ruta: api/Tarjeta/Delete
+        [Route("Delete/{id}")] // Ruta: api/Tarjeta/Delete/id
         public async Task<IActionResult> Delete(int id)
         {
-            var tarjeta = await _tarjetaService.DeleteAsync(id, GetUserId());
-            
-            if (!tarjeta)
-                return NotFound(new { Response = "Tarjeta no encontrada o no autorizada." });
+            var userId = ClaimUtils.GetUserIdFromClaims(User);
+            if (userId == null) return Unauthorized();
 
-            return Ok(new { Response = "Tarjeta eliminada correctamente." });
+            var deleted = await _tarjetaService.Delete(id, userId.Value);
+            
+            if (!deleted)
+                return NotFound(new ResponseDto 
+                { 
+                    IsSuccess = false ,
+                    Message = "Tarjeta no encontrada o no autorizada." 
+                });
+
+            return Ok(new ResponseDto
+            { 
+                IsSuccess = true ,
+                Message = "Tarjeta eliminada correctamente." 
+            });
         }
 
     } // Fin de la clase

@@ -91,7 +91,7 @@ namespace PasswordServer.Services
             return true;
         }
 
-
+        //Borrar y usar el static class
         private int? GetUserIdFromClaims(ClaimsPrincipal claims)
         {
             var claim = claims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
