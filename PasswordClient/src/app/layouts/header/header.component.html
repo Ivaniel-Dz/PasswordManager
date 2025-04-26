@@ -8,11 +8,13 @@
 			<!-- Barra de Búsqueda -->
 			<div class="box-search" *ngIf="showSearch">
 				<form >
-					<svg class="icon-search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
+					<input class="input-search" type="text" name="term" [(ngModel)]="searchTerm"  placeholder="Buscar..." />
+					<button class="bg-transparent border-0" (click)="onSearch()">
+						<svg class="icon-search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
 						<path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
 						<path d="M21 21l-6 -6"></path>
 					</svg>
-					<input class="input-search" type="text" name="term" placeholder="Buscar" />
+					</button>
 				</form>
 			</div>
 

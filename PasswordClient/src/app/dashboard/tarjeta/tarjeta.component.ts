@@ -17,15 +17,14 @@ import { RouterModule } from '@angular/router';
 export class TarjetaComponent implements OnInit {
   tarjetaService = inject(TarjetaService);
   tarjetas: Tarjeta[] = [];
-  term: string = '';
 
   ngOnInit(): void {
     this.loadTarjetas();
   }
 
   // Carga la lista de Tarjetas
-  loadTarjetas(): void {
-    this.tarjetaService.getAll(this.term).subscribe({
+  loadTarjetas(term?: string): void {
+    this.tarjetaService.getAll(term).subscribe({
       next: (res) => {
         console.log('Tarjetas recibidas:', res);
         this.tarjetas = res;
@@ -37,7 +36,7 @@ export class TarjetaComponent implements OnInit {
   }
 
   // Método para buscar
-  onSearch(): void {
-    this.loadTarjetas();
+  onSearch(term: string): void {
+    this.loadTarjetas(term);
   }
 }

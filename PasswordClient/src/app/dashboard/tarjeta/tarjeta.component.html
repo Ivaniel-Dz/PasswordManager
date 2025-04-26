@@ -3,7 +3,9 @@
     <app-header
         [titulo]="'Tarjeta'"
         [textButton]="'Agregar Tarjeta'"
-        [route]="'/dashboard/tarjeta-form'">
+        [route]="'/dashboard/tarjeta-form'"
+        (search)="onSearch($event)"
+        >
     </app-header>
 
     <!-- Contenido del component -->
