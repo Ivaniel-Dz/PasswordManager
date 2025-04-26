@@ -36,7 +36,7 @@
         <td> {{item.nombreTarjeta}} </td>
         <!-- Botones -->
         <td>
-          <a class="action-btn show" [routerLink]="['/dashboard/tarjeta-detail']">
+          <a class="action-btn show" [routerLink]="['/dashboard/tarjeta-detail', item.id]">
             <i class="fa-regular fa-eye"></i>
           </a>
           <a class="action-btn edit" [routerLink]="['/dashboard/tarjeta-form']">

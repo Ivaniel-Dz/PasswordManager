@@ -1,8 +1,8 @@
-import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ResponseApi } from '../interfaces/response-api';
+import { environment } from '../../environments/environment';
+import { ResponseMessage } from '../interfaces/response-message';
 import { Tarjeta } from '../interfaces/tarjeta';
 
 @Injectable({
@@ -15,6 +15,7 @@ export class TarjetaService {
 
   constructor() {}
 
+  // Método para obtener toda la lista
   getAll(term?: string): Observable<Tarjeta[]> {
     let params = new HttpParams();
     if (term) {
@@ -24,5 +25,22 @@ export class TarjetaService {
     return this.http.get<Tarjeta[]>(`${this.apiUrl}/GetAll`, {
       params,
     });
+  }
+
+  // Método para obtener una tarjeta
+  get(id: number): Observable<Tarjeta> {
+    return this.http.get<Tarjeta>(`${this.apiUrl}/Get/${id}`);
+  }
+
+  add(tarjeta: Tarjeta): Observable<ResponseMessage> {
+    return this.http.post<ResponseMessage>(`${this.apiUrl}/Add`, tarjeta);
+  }
+
+  update(tarjeta: Tarjeta): Observable<ResponseMessage> {
+    return this.http.put<ResponseMessage>(`${this.apiUrl}/Update`, tarjeta);
+  }
+
+  delete(id: number): Observable<ResponseMessage> {
+    return this.http.delete<ResponseMessage>(`${this.apiUrl}/Delete/${id}`);
   }
 }

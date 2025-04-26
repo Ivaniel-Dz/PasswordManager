@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Tarjeta } from '../../interfaces/tarjeta';
 
@@ -32,5 +32,5 @@ export class TableComponent {
       .toString()
       .slice(-2)}`;
   }
-  
+
 }

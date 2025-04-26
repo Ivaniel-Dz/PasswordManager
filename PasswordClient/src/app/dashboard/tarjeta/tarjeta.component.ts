@@ -5,8 +5,7 @@ import { FooterComponent } from '../../layouts/footer/footer.component';
 import { TarjetaService } from '../../services/tarjeta.service';
 import { Tarjeta } from '../../interfaces/tarjeta';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tarjeta',
@@ -39,4 +38,5 @@ export class TarjetaComponent implements OnInit {
   onSearch(term: string): void {
     this.loadTarjetas(term);
   }
+  
 }

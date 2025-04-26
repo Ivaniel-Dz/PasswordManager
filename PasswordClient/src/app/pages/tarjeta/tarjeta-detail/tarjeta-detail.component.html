@@ -1,1 +1,63 @@
-<p>tarjeta-detail works!</p>
+<section class="section-main">
+  <!-- Header -->
+
+  <app-header
+    [titulo]="' Detalles de la Tarjeta '"
+    [showSearch]="false"
+    [showButton]="false"
+    >
+  </app-header>
+
+  <!-- Lista de Detalles -->
+  <main class="detail-container">
+
+    <div class="flow-root" *ngIf="tarjeta">
+      <dl class="definition-list">
+
+        <div class="definition-item">
+          <dt class="term">Nombre del Titular</dt>
+          <dd class="desc"> {{tarjeta.nombreTitular}} </dd>
+        </div>
+        
+        <div class="definition-item">
+          <dt class="term">Nombre de la Tarjeta</dt>
+          <dd class="desc"> {{tarjeta.nombreTarjeta}} </dd>
+        </div>
+
+        <div class="definition-item">
+          <dt class="term">Numero</dt>
+          <dd class="desc"> {{tarjeta.numeracion}} </dd>
+        </div>
+
+        <div class="definition-item">
+          <dt class="term">Fecha de Expiración</dt>
+          <dd class="desc"> {{tarjeta.fechaExpiracion | date:"MM/yy"}} </dd>
+        </div>
+
+        <div class="definition-item">
+          <dt class="term">Red</dt>
+          <dd class="desc"> {{tarjeta.redNombre}} </dd>
+        </div>        
+
+        <div class="definition-item">
+          <dt class="term">Tipo</dt>
+          <dd class="desc"> {{tarjeta.tipoNombre}} </dd>
+        </div>
+        
+        <div class="definition-item">
+          <dt class="term"> Descripción </dt>
+          <dd class="desc"> {{tarjeta.descripcion}} </dd>
+        </div> 
+
+      </dl>
+
+      <div class="button-container d-flex justify-content-center gap-4">
+        <a class="btn btn-edit" [routerLink]="['/dashboard/password-form']">Editar</a>
+        <a class="btn btn-delete">Eliminar</a>
+      </div>
+
+    </div>
+
+  </main>
+
+</section>
