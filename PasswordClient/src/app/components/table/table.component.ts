@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Tarjeta } from '../../interfaces/tarjeta';
 
 @Component({
   selector: 'app-table',
@@ -9,96 +10,27 @@ import { RouterModule } from '@angular/router';
   styleUrl: './table.component.css',
 })
 export class TableComponent {
-  // Datos de ejemplos para la tabla
-  tarjetas = [
-    {
-      id: 1,
-      userId: 1,
-      numeracion: 1234567812345678,
-      fechaExpiracion: '2026-08-01',
-      nombreTitular: 'Juan Pérez',
-      redTarjeta: 'visa',
-      tipoTarjeta: 'Crédito',
-      descripcion: 'Tarjeta principal',
-    },
-    {
-      id: 2,
-      userId: 2,
-      numeracion: 8765432187654321,
-      fechaExpiracion: '2025-12-01',
-      nombreTitular: 'Ana López',
-      redTarjeta: 'mastercard',
-      tipoTarjeta: 'Débito',
-      descripcion: 'Uso diario',
-    },
-    {
-      id: 3,
-      userId: 2,
-      numeracion: 8765432187654321,
-      fechaExpiracion: '2025-12-01',
-      nombreTitular: 'Ana López',
-      redTarjeta: 'mastercard',
-      tipoTarjeta: 'Débito',
-      descripcion: 'Uso diario',
-    },
-    {
-      id: 4,
-      userId: 2,
-      numeracion: 8765432187654321,
-      fechaExpiracion: '2025-12-01',
-      nombreTitular: 'Ana López',
-      redTarjeta: 'mastercard',
-      tipoTarjeta: 'Débito',
-      descripcion: 'Uso diario',
-    },
-    {
-      id: 5,
-      userId: 2,
-      numeracion: 8765432187654321,
-      fechaExpiracion: '2025-12-01',
-      nombreTitular: 'Ana López',
-      redTarjeta: 'mastercard',
-      tipoTarjeta: 'Débito',
-      descripcion: 'Uso diario',
-    },
-    {
-      id: 6,
-      userId: 2,
-      numeracion: 8765432187654321,
-      fechaExpiracion: '2025-12-01',
-      nombreTitular: 'Ana López',
-      redTarjeta: 'mastercard',
-      tipoTarjeta: 'Débito',
-      descripcion: 'Uso diario',
-    },
-    {
-      id: 7,
-      userId: 2,
-      numeracion: 8765432187654321,
-      fechaExpiracion: '2025-12-01',
-      nombreTitular: 'Ana López',
-      redTarjeta: 'mastercard',
-      tipoTarjeta: 'Débito',
-      descripcion: 'Uso diario',
-    },
-    {
-      id: 8,
-      userId: 2,
-      numeracion: 8765432187654321,
-      fechaExpiracion: '2025-12-01',
-      nombreTitular: 'Ana López',
-      redTarjeta: 'mastercard',
-      tipoTarjeta: 'Débito',
-      descripcion: 'Uso diario',
-    },
-  ];
+  //Recibe el arreglo del padre
+  @Input() tarjetas: Tarjeta[] = [];
 
-  getMaskedNumber(num: number): string {
-    const str = num.toString();
-    return '*'.repeat(str.length - 4) + str.slice(-4);
-  }
-
+  // Obtiene el Icono en base al nombre de la red
   getCardIcon(red: string): string {
     return `https://cdn.simpleicons.org/${red}/000000`;
   }
+
+  // Toma los 4 primeros dígitos
+  formatCardNumber(numeracion: string): string {
+    if (!numeracion || numeracion.length < 4) return '****';
+
+    return `${numeracion.substring(0, 4)} **** **** ****`;
+  }
+
+  // Formatear la fecha
+  formatExpiry(date: Date): string {
+    return `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date
+      .getFullYear()
+      .toString()
+      .slice(-2)}`;
+  }
+  
 }

@@ -11,43 +11,47 @@
     <!-- Fila de la cabecera -->
     <tr>
       <th>Red</th>
+      <th>Tipo</th>
       <th>Nombre del Titular</th>
       <th>Numeración</th>
       <th>Fecha de Expiración</th>
-      <th>Tipo</th>
-      <th>Descripción</th>
+      <th>Nombre</th>
       <th>Acciones</th>
     </tr>
   </thead>
 
 <!-- Cuerpo de la tabla -->
-  <tbody>
-    <!-- Filas del cuerpo-->
-    <tr *ngFor="let item of tarjetas">
-      <!-- Datos -->
-      <td>
-        <img [src]="getCardIcon(item.redTarjeta)" alt="Icon-img"/>
-      </td>
-      <td> {{ item.nombreTitular }} </td>
-      <td class="card-number">************</td>
-      <td></td>
-      <td> {{item.tipoTarjeta}} </td>
-      <td> {{item.descripcion}} </td>
-      <!-- Botones -->
-      <td>
-        <button class="action-btn show">
-          <i class="fa-regular fa-eye"></i>
-        </button>
-        <a class="action-btn edit" [routerLink]="['/dashboard/tarjeta-form']">
-          <i class="fa-regular fa-pen-to-square"></i>
-        </a>
-        <a class="action-btn delete">
-          <i class="fa-regular fa-trash-can"></i>
-        </a>
-      </td>
+@if (tarjetas.length !== 0) {
+    <tbody>
+      <!-- Filas del cuerpo-->
+      <tr *ngFor="let item of tarjetas">
+        <!-- Datos -->
+        <td>
+          <img [src]="getCardIcon(item.redNombre)" alt="Icon-img"/>
+        </td>
+        <td> {{ item.tipoNombre }} </td>
+        <td> {{ item.nombreTitular }} </td>
+        <td class="card-number"> {{ formatCardNumber(item.numeracion) }} </td>
+        <td> {{ item.fechaExpiracion | date:'MM/YY' }} </td>
+        <td> {{item.nombreTarjeta}} </td>
+        <!-- Botones -->
+        <td>
+          <a class="action-btn show" [routerLink]="['/dashboard/tarjeta-detail']">
+            <i class="fa-regular fa-eye"></i>
+          </a>
+          <a class="action-btn edit" [routerLink]="['/dashboard/tarjeta-form']">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </a>
+          <a class="action-btn delete">
+            <i class="fa-regular fa-trash-can"></i>
+          </a>
+        </td>
 
-    </tr>
+      </tr>
 
-  </tbody>
+    </tbody>
+  } @else {
+      <p class="p-3">No tienes Datos Guardadas.</p>
+    }
 
 </table>

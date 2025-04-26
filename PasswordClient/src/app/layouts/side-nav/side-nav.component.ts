@@ -27,7 +27,7 @@ export class SideNavComponent  implements OnInit {
   perfilNav(): void {
     this.usuarioService.getPerfil().subscribe({
       next: (res) => {
-        this.perfil = res.response; // perfil = response<usuario>
+        this.perfil = res.response; // perfil = response<Usuario>
       },
       error: (err) => {
         console.error('Usuario no encontrado',err);

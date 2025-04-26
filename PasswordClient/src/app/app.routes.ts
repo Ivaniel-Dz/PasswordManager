@@ -11,6 +11,7 @@ import { PasswordFormComponent } from './pages/password/password-form/password-f
 import { PasswordDetailComponent } from './pages/password/password-detail/password-detail.component';
 import { TarjetaFormComponent } from './pages/tarjeta/tarjeta-form/tarjeta-form.component';
 import { authGuard } from './guards/auth.guard';
+import { TarjetaDetailComponent } from './pages/tarjeta/tarjeta-detail/tarjeta-detail.component';
 
 
 export const routes: Routes = [
@@ -45,6 +46,7 @@ export const routes: Routes = [
       { path: 'password-form', component: PasswordFormComponent },
       { path: 'tarjetas', component: TarjetaComponent },
       { path: 'tarjeta-form', component: TarjetaFormComponent },
+      { path: 'tarjeta-detail', component: TarjetaDetailComponent },
       { path: 'generator', component: PasswordGeneratorComponent },
       { path: 'perfil', component: PerfilComponent },
       { path: '', redirectTo: 'password', pathMatch: 'full' },

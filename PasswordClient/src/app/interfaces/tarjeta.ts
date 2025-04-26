@@ -1,10 +1,13 @@
 export interface Tarjeta {
   id: number;
   userId: number;
-  numeracion: number;
-  fechaExpiracion: Date;
+  numeracion: string;
+  fechaExpiracion: string;
   nombreTitular: string;
-  redTarjeta: string;
-  tipoTarjeta: string;
+  nombreTarjeta: string;
   descripcion: string;
+  redId: number;
+  tipoId: number;
+  redNombre: string;
+  tipoNombre: string;
 }
