@@ -35,7 +35,7 @@ Remove-Migration
 > Si tienes problemas con la creación de las tablas o base de datos, elimina las migraciones para crear las tablas sin errores.
 
 ## Ejemplos de peticiones y respuestas
-> Desplegar para ver detalles sobre las peticiones y respuestas de ejemplo para cada endpoint.
+> Desplegar para ver detalles sobre las peticiones y respuestas de ejemplo para cada endpoint. Revisar su numero de puerto: localhost:``port`` para evitar error al ejecutar los endPoint.
 
 ### Registro: POST
 > Registrar Usuario
@@ -102,7 +102,142 @@ https://localhost:44369/api/Usuario/Delete/id
 ```pgsql
 **Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
 ```
----
+-----------------
+
+### Tarjeta: GET
+> Obtener la lista de Tarjetas
+```bash
+https://localhost:44369/api/Tarjeta/GetAll
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+
+### Tarjeta: GET
+> Obtener una tarjeta
+```bash
+https://localhost:44369/api/Tarjeta/Get
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+
+### Tarjeta: POST
+> Agregar Tarjeta Nueva
+```bash
+https://localhost:44369/api/Tarjeta/Add
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+
+```json
+{
+  "numeracion": "string",
+  "fechaExpiracion": "2025-04-26",
+  "nombreTitular": "string",
+  "nombreTarjeta": "string",
+  "descripcion": "string",
+  "redId": 0,
+  "tipoId": 0
+}
+```
+
+### Tarjeta: PUT
+> Actualizar Tarjeta
+```bash
+https://localhost:44369/api/Tarjeta/Update
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+> el ``id`` de la ``Tarjeta`` es obligatorio, los demás campos son opcionales según el dato a actualizar. 
+```json
+{
+  "id": 0,
+  "numeracion": "string",
+  "fechaExpiracion": "2025-04-26",
+  "nombreTitular": "string",
+  "nombreTarjeta": "string",
+  "descripcion": "string",
+  "redId": 0,
+  "tipoId": 0
+}
+```
+
+### Tarjeta: DELETE
+> Eliminar Tarjeta
+```bash
+https://localhost:44369/api/Tarjeta/Delete/id
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+------------------
 
 ### Password: GET
 > Obtener la lista de Contraseñas
+```bash
+https://localhost:44369/api/Password/GetAll
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+
+### Password: GET
+> Obtener una Contraseña
+```bash
+https://localhost:44369/api/Password/Get
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+
+### Password: POST
+> Agregar Nueva Contraseña
+```bash
+https://localhost:44369/api/Password/Add
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+
+```json
+{
+}
+```
+
+### Password: PUT
+> Actualizar Contraseña
+```bash
+https://localhost:44369/api/Password/Update
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+> el ``id`` de la ``Password`` es obligatorio, los demás campos son opcionales según el dato a actualizar. 
+```json
+{
+  "id": 0,
+}
+```
+
+### Password: DELETE
+> Eliminar Contraseña
+```bash
+https://localhost:44369/api/Password/Delete/id
+```
+
+```pgsql
+**Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
+```
+---
