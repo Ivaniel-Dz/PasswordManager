@@ -17,23 +17,13 @@ namespace PasswordServer.Services
         }
 
         // Método para Obtener toda la lista y buscar
-        public async Task<IEnumerable<TarjetaDto>> Get(int userId, string? term)
+        public async Task<IEnumerable<TarjetaDto>> GetAll(int userId, string? term)
         {
-            return await _appDBContext.Tarjetas
-                // Filtra por usuario y término de búsqueda (si existe)
-                .Where(t => t.UserId == userId &&
-                    (string.IsNullOrEmpty(term) || // Si no hay término, devuelve todas
-                     t.NombreTitular.Contains(term)))
-                 // Mapea a DTO para no exponer la entidad completa
-                .Select(t => new TarjetaDto
-                {
-                    Id = t.Id,
-                    Numeracion = t.Numeracion,
-                    FechaExpiracion = t.FechaExpiracion,
-                    NombreTitular = t.NombreTitular,
-                    Descripcion = t.Descripcion
-                })
-                .ToListAsync(); // Ejecuta la consulta asíncronamente
+            // Verifica si el id del usuario es mismo del autenticado
+            var query = _appDBContext.Tarjetas.Where(t => t.UserId == userId);
+
+
+
         }
 
         // Método para mostrar una tarjeta por id

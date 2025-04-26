@@ -28,7 +28,7 @@ namespace PasswordServer.Controllers
             var userId = ClaimUtils.GetUserIdFromClaims(User);
             if (userId == null) return Unauthorized();
 
-            var tarjetas = await _tarjetaService.Get(userId.Value, term);
+            var tarjetas = await _tarjetaService.GetAll(userId.Value, term);
 
             return Ok(tarjetas);
         }
@@ -41,7 +41,16 @@ namespace PasswordServer.Controllers
             var userId = ClaimUtils.GetUserIdFromClaims(User);
             if (userId == null) return Unauthorized();
 
-            var tarjeta = await _tarjetaService.GetById(id, userId.Value);
+            var tarjeta = await _tarjetaService.Get(id, userId.Value);
+            if (tarjeta == null)
+            {
+                return NotFound( new ResponseDto
+                {
+                    IsSuccess = false,
+                    Message = "Tarjeta no encontrada."
+                });
+            }
+
             return Ok(tarjeta);
         }
 
