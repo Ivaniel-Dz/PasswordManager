@@ -23,7 +23,6 @@ namespace PasswordServer.Services
                 // Filtra por usuario y término de búsqueda (si existe)
                 .Where(t => t.UserId == userId &&
                     (string.IsNullOrEmpty(term) || // Si no hay término, devuelve todas
-                     t.Descripcion.Contains(term) || // Busca en descripción
                      t.NombreTitular.Contains(term)))
                  // Mapea a DTO para no exponer la entidad completa
                 .Select(t => new TarjetaDto
@@ -71,7 +70,10 @@ namespace PasswordServer.Services
                 Numeracion = tarjetaDto.Numeracion,
                 FechaExpiracion = tarjetaDto.FechaExpiracion,
                 NombreTitular = tarjetaDto.NombreTitular,
+                NombreTarjeta = tarjetaDto.NombreTarjeta,
                 Descripcion = tarjetaDto.Descripcion,
+                RedId = tarjetaDto.RedId,
+                TipoId = tarjetaDto.TipoId
             };
 
             await _appDBContext.Tarjetas.AddAsync(nuevaTarjeta);

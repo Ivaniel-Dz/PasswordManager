@@ -88,7 +88,7 @@ namespace PasswordServer.Controllers
                 return NotFound(new ResponseDto 
                 { 
                     IsSuccess = false ,
-                    Message = "Tarjeta no encontrada o no autorizada." 
+                    Message = "Tarjeta no encontrada." 
                 });
 
             return Ok(new ResponseDto
