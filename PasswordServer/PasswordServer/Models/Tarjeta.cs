@@ -8,11 +8,15 @@
         public DateOnly FechaExpiracion { get; set; }  // Fecha de expiración (solo mes y año)
         public string NombreTitular { get; set; }
         public string NombreTarjeta { get; set; }
-        public string RedTarjeta { get; set; } // Se puede separar en un modelo aparte
-        public string TipoTarjeta { get; set; } // Se puede separar en un modelo aparte
-        public string Descripcion { get; set; }
+        public string? Descripcion { get; set; } = null; // Opcional
 
-        // Propiedad de Navegación
+        // Claves foráneas
+        public int RedId { get; set; }
+        public int TipoId { get; set; }
+        
+        // Propiedad de Navegación (EF Core)
         public Usuario Usuario { get; set; } // Relación con usuario
+        public RedTarjeta RedTarjeta { get; set; } // Relación con RedTarjeta
+        public TipoTarjeta TipoTarjeta { get; set; } // Relación con TipoTarjeta
     }
 }

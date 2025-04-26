@@ -24,9 +24,7 @@ namespace PasswordServer.Services
                 .Where(t => t.UserId == userId &&
                     (string.IsNullOrEmpty(term) || // Si no hay término, devuelve todas
                      t.Descripcion.Contains(term) || // Busca en descripción
-                     t.NombreTitular.Contains(term) || // Busca en nombre del titular
-                     t.RedTarjeta.Contains(term) || // Busca en red de tarjeta
-                     t.TipoTarjeta.Contains(term))) // Busca en tipo de tarjeta
+                     t.NombreTitular.Contains(term)))
                  // Mapea a DTO para no exponer la entidad completa
                 .Select(t => new TarjetaDto
                 {
@@ -34,8 +32,6 @@ namespace PasswordServer.Services
                     Numeracion = t.Numeracion,
                     FechaExpiracion = t.FechaExpiracion,
                     NombreTitular = t.NombreTitular,
-                    RedTarjeta = t.RedTarjeta,
-                    TipoTarjeta = t.TipoTarjeta,
                     Descripcion = t.Descripcion
                 })
                 .ToListAsync(); // Ejecuta la consulta asíncronamente
@@ -53,8 +49,6 @@ namespace PasswordServer.Services
                 Numeracion = tarjeta.Numeracion,
                 FechaExpiracion = tarjeta.FechaExpiracion,
                 NombreTitular = tarjeta.NombreTitular,
-                RedTarjeta = tarjeta.RedTarjeta,
-                TipoTarjeta = tarjeta.TipoTarjeta,
                 Descripcion = tarjeta.Descripcion
             };
         }
@@ -77,8 +71,6 @@ namespace PasswordServer.Services
                 Numeracion = tarjetaDto.Numeracion,
                 FechaExpiracion = tarjetaDto.FechaExpiracion,
                 NombreTitular = tarjetaDto.NombreTitular,
-                RedTarjeta = tarjetaDto.RedTarjeta,
-                TipoTarjeta = tarjetaDto.TipoTarjeta,
                 Descripcion = tarjetaDto.Descripcion,
             };
 
@@ -95,10 +87,10 @@ namespace PasswordServer.Services
             if (cardForChanges == null)
                 return new ResponseDto { IsSuccess = false, Message = "Tarjeta no encontrada." };
 
-            cardForChanges.Numeracion = tarjetaDto.Numeracion != 0 ? tarjetaDto.Numeracion : cardForChanges.Numeracion;
+            //cardForChanges.Numeracion = tarjetaDto.Numeracion != 0 ? tarjetaDto.Numeracion : cardForChanges.Numeracion;
             cardForChanges.NombreTitular = !string.IsNullOrWhiteSpace(tarjetaDto.NombreTitular) ? tarjetaDto.NombreTitular : cardForChanges.NombreTitular;
-            cardForChanges.RedTarjeta = !string.IsNullOrWhiteSpace(tarjetaDto.RedTarjeta) ? tarjetaDto.RedTarjeta : cardForChanges.RedTarjeta;
-            cardForChanges.TipoTarjeta = !string.IsNullOrWhiteSpace(tarjetaDto.TipoTarjeta) ? tarjetaDto.TipoTarjeta : cardForChanges.TipoTarjeta;
+            //cardForChanges.RedTarjeta = !string.IsNullOrWhiteSpace(tarjetaDto.RedTarjeta) ? tarjetaDto.RedTarjeta : cardForChanges.RedTarjeta;
+            //cardForChanges.TipoTarjeta = !string.IsNullOrWhiteSpace(tarjetaDto.TipoTarjeta) ? tarjetaDto.TipoTarjeta : cardForChanges.TipoTarjeta;
             cardForChanges.Descripcion = !string.IsNullOrWhiteSpace(tarjetaDto.Descripcion) ? tarjetaDto.Descripcion : cardForChanges.Descripcion;
 
             _appDBContext.Tarjetas.Update(cardForChanges);
