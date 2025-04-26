@@ -35,7 +35,7 @@ namespace PasswordServer.Controllers
 
         // Metodo para obtener los datos de una Tarjeta
         [HttpGet]
-        [Route("Get")] // Ruta: api/Tarjeta/Get
+        [Route("Get/{id}")] // Ruta: api/Tarjeta/Get/id
         public async Task<IActionResult> Get(int id)
         {
             var userId = ClaimUtils.GetUserIdFromClaims(User);

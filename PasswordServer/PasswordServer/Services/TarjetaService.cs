@@ -20,25 +20,62 @@ namespace PasswordServer.Services
         public async Task<IEnumerable<TarjetaDto>> GetAll(int userId, string? term)
         {
             // Verifica si el id del usuario es mismo del autenticado
-            var query = _appDBContext.Tarjetas.Where(t => t.UserId == userId);
+            var query = _appDBContext.Tarjetas
+                .Include(t => t.RedTarjeta)
+                .Include(t => t.TipoTarjeta)
+                .Where(t => t.UserId == userId);
 
+            // Buscar por termino
+            if (!string.IsNullOrEmpty(term)) 
+            {
+                query = query.Where(t => 
+                t.NombreTitular.Contains(term) ||
+                t.NombreTarjeta.Contains(term) ||
+                t.RedTarjeta.Nombre.Contains(term) ||
+                t.TipoTarjeta.Nombre.Contains(term)
+                );
+            }
 
-
+            return await query.Select(t => new TarjetaDto
+            {
+                Id = t.Id,
+                UserId = t.UserId,
+                Numeracion = t.Numeracion,
+                FechaExpiracion = t.FechaExpiracion,
+                NombreTitular = t.NombreTitular,
+                NombreTarjeta = t.NombreTarjeta,
+                Descripcion = t.Descripcion,
+                RedId = t.RedId,
+                TipoId = t.TipoId,
+                RedNombre = t.RedTarjeta.Nombre,
+                TipoNombre = t.TipoTarjeta.Nombre
+            }).ToListAsync();
         }
 
+
         // Método para mostrar una tarjeta por id
-        public async Task<TarjetaDto?> GetById(int id, int userId)
+        public async Task<TarjetaDto?> Get(int id, int userId)
         {
             var tarjeta = await _appDBContext.Tarjetas
+                .Include(t => t.RedTarjeta)
+                .Include(t => t.TipoTarjeta)
                 .FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
 
-            return tarjeta == null ? null : new TarjetaDto
+            if (tarjeta == null) return null;
+
+            return new TarjetaDto
             {
                 Id = tarjeta.Id,
+                UserId = tarjeta.UserId,
                 Numeracion = tarjeta.Numeracion,
                 FechaExpiracion = tarjeta.FechaExpiracion,
                 NombreTitular = tarjeta.NombreTitular,
-                Descripcion = tarjeta.Descripcion
+                NombreTarjeta = tarjeta.NombreTarjeta,
+                Descripcion = tarjeta.Descripcion,
+                RedId = tarjeta.RedId,
+                TipoId = tarjeta.TipoId,
+                RedNombre = tarjeta.RedTarjeta.Nombre,
+                TipoNombre = tarjeta.TipoTarjeta.Nombre
             };
         }
 
@@ -72,35 +109,62 @@ namespace PasswordServer.Services
             return new ResponseDto { IsSuccess = true, Message = "Tarjeta creada correctamente." };
         }
 
+
         // Método para Actualizar
         public async Task<ResponseDto> Update(TarjetaDto tarjetaDto, int userId)
         {
-            var cardForChanges = await _appDBContext.Tarjetas.FirstOrDefaultAsync(t => t.Id == tarjetaDto.Id && t.UserId == userId);
-            if (cardForChanges == null)
+            var existeTarjeta = await _appDBContext.Tarjetas
+                .FirstOrDefaultAsync(t => t.Id == tarjetaDto.Id && t.UserId == userId);
+
+            if (existeTarjeta == null)
                 return new ResponseDto { IsSuccess = false, Message = "Tarjeta no encontrada." };
 
-            //cardForChanges.Numeracion = tarjetaDto.Numeracion != 0 ? tarjetaDto.Numeracion : cardForChanges.Numeracion;
-            cardForChanges.NombreTitular = !string.IsNullOrWhiteSpace(tarjetaDto.NombreTitular) ? tarjetaDto.NombreTitular : cardForChanges.NombreTitular;
-            //cardForChanges.RedTarjeta = !string.IsNullOrWhiteSpace(tarjetaDto.RedTarjeta) ? tarjetaDto.RedTarjeta : cardForChanges.RedTarjeta;
-            //cardForChanges.TipoTarjeta = !string.IsNullOrWhiteSpace(tarjetaDto.TipoTarjeta) ? tarjetaDto.TipoTarjeta : cardForChanges.TipoTarjeta;
-            cardForChanges.Descripcion = !string.IsNullOrWhiteSpace(tarjetaDto.Descripcion) ? tarjetaDto.Descripcion : cardForChanges.Descripcion;
+            // Verificar si ya existe una tarjeta con la misma Numeración (excluyendo la actual)
+            var existeNumeracion = await _appDBContext.Tarjetas
+                .AnyAsync(t => t.Numeracion == tarjetaDto.Numeracion && t.Id != tarjetaDto.Id);
 
-            _appDBContext.Tarjetas.Update(cardForChanges);
+            if (existeNumeracion)
+                return new ResponseDto { IsSuccess = false, Message = "Ya existe una tarjeta con esta Numeración." };
+
+            // Actualizar solo si hay nuevos valores
+            if (!string.IsNullOrEmpty(tarjetaDto.Numeracion))
+                existeTarjeta.Numeracion = tarjetaDto.Numeracion;
+
+            if (tarjetaDto.FechaExpiracion != default)
+                existeTarjeta.FechaExpiracion = tarjetaDto.FechaExpiracion;
+
+            if (!string.IsNullOrEmpty(tarjetaDto.NombreTitular))
+                existeTarjeta.NombreTitular = tarjetaDto.NombreTitular;
+
+            if (!string.IsNullOrEmpty(tarjetaDto.NombreTarjeta))
+                existeTarjeta.NombreTarjeta = tarjetaDto.NombreTarjeta;
+
+            if (!string.IsNullOrEmpty(tarjetaDto.Descripcion))
+                existeTarjeta.Descripcion = tarjetaDto.Descripcion;
+
+            if (tarjetaDto.RedId != 0)
+                existeTarjeta.RedId = tarjetaDto.RedId;
+
+            if (tarjetaDto.TipoId != 0)
+                existeTarjeta.TipoId = tarjetaDto.TipoId;
+
+            _appDBContext.Tarjetas.Update(existeTarjeta);
             await _appDBContext.SaveChangesAsync();
 
             return new ResponseDto { IsSuccess = true, Message = "Tarjeta actualizada correctamente." };
         }
 
+
         // Método para Elimina una tarjeta
         public async Task<bool> Delete(int id, int userId)
         {
             // Busca tarjeta por ID y verifica pertenencia al usuario
-            var cardForDelete = await _appDBContext.Tarjetas
+            var existeTarjeta = await _appDBContext.Tarjetas
                 .FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
 
-            if (cardForDelete == null) return false; // Si no existe, retorna false
+            if (existeTarjeta == null) return false; // Si no existe, retorna false
 
-            _appDBContext.Tarjetas.Remove(cardForDelete); // Elimina la tarjeta
+            _appDBContext.Tarjetas.Remove(existeTarjeta); // Elimina la tarjeta
             await _appDBContext.SaveChangesAsync(); // Guarda cambios
             return true; // Retorna éxito
         }

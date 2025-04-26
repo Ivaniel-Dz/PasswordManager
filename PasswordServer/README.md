@@ -110,6 +110,11 @@ https://localhost:44369/api/Usuario/Delete/id
 https://localhost:44369/api/Tarjeta/GetAll
 ```
 
+> Buscar Tarjetas por termino
+```bash
+https://localhost:44369/api/Tarjeta/GetAll?term=banco
+```
+
 ```pgsql
 **Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
 ```
@@ -117,7 +122,7 @@ https://localhost:44369/api/Tarjeta/GetAll
 ### Tarjeta: GET
 > Obtener una tarjeta
 ```bash
-https://localhost:44369/api/Tarjeta/Get
+https://localhost:44369/api/Tarjeta/Get/id
 ```
 
 ```pgsql
