@@ -36,15 +36,15 @@
         <td> {{item.nombreTarjeta}} </td>
         <!-- Botones -->
         <td>
-          <a class="action-btn show" [routerLink]="['/dashboard/tarjeta-detail', item.id]">
+          <a class="action-btn show" [routerLink]="['/dashboard/tarjeta/detalle', item.id]">
             <i class="fa-regular fa-eye"></i>
           </a>
-          <a class="action-btn edit" [routerLink]="['/dashboard/tarjeta-form']">
+          <a class="action-btn edit" [routerLink]="['/dashboard/tarjeta/editar', item.id]">
             <i class="fa-regular fa-pen-to-square"></i>
           </a>
-          <a class="action-btn delete">
+          <button class="action-btn delete" (click)="onDelete(item.id)">
             <i class="fa-regular fa-trash-can"></i>
-          </a>
+          </button>
         </td>
 
       </tr>

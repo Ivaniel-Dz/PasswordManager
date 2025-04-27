@@ -6,6 +6,7 @@ import { TarjetaService } from '../../services/tarjeta.service';
 import { Tarjeta } from '../../interfaces/tarjeta';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tarjeta',
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 export class TarjetaComponent implements OnInit {
   tarjetaService = inject(TarjetaService);
   tarjetas: Tarjeta[] = [];
+  router = inject(Router);
 
   ngOnInit(): void {
     this.loadTarjetas();
@@ -37,6 +39,20 @@ export class TarjetaComponent implements OnInit {
   // Método para buscar
   onSearch(term: string): void {
     this.loadTarjetas(term);
+  }
+
+  onDelete(id: number):void {
+    if (confirm('¿Está seguro de elminar la tarjeta?')) {
+      this.tarjetaService.delete(id).subscribe({
+        next: (res) => {
+          if (res.isSuccess){
+            alert(res.message);
+            this.router.navigate(['/dashboard/tarjetas']);
+          }
+        },
+        error: (err) => console.error(err),
+      });
+    }
   }
   
 }

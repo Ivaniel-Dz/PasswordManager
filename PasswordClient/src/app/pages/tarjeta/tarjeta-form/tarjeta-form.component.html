@@ -1,13 +1,62 @@
 <section class="section-main">
     <!-- Header -->
     <app-header
-        [titulo]="'Actualizar Tarjeta'"
+        [titulo]="'Formulario de Tarjeta'"
         [showSearch]="false"
         [showButton]="false"
     />
 
     <main class="form-container">
-        <app-form></app-form>
+        <form *ngIf="form" [formGroup]="form" (ngSubmit)="save()" novalidate>
+            <div class="mb-3">
+                <label class="form-label">Numero de la tarjeta</label>
+                <input type="number" class="form-control" formControlName="numeracion"/>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Fecha de Expiración </label>
+                <input type="month" class="form-control" formControlName="fechaExpiracion" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre del titular</label>
+                <input type="text" class="form-control" formControlName="nombreTitular"/>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre de Tarjeta </label>
+                <input type="text" class="form-control" formControlName="nombreTarjeta"/>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"> Descripción </label>
+                <input type="text" class="form-control" formControlName="descripcion"/>
+            </div>
+
+            <div class="mb-3">
+                <select class="form-select" formControlName="redId">
+                    <option selected *ngFor="let red of redOptions" [value]="red.id">{{ red.nombre }}</option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <select class="form-select" formControlName="tipoId">
+                    <option selected *ngFor="let tipo of tipoOptions" [value]="tipo.id">{{ tipo.nombre }}</option>
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-center gap-4">
+                <button type="button" class="btn btn-primary" (click)="goBack()">Regresar</button>
+                <button type="submit" class="btn btn-secondary"> @if (tarjeta) {Actualizar} @else { Guardar } </button>
+            </div>
+
+                               <!-- Mensajes de error del servidor -->
+            <div *ngIf="errors.length > 0" class="alert alert-danger m-0 d-flex justify-content-center" role="alert">
+                <small *ngFor="let error of errors"> {{ error }} </small>
+            </div>
+            
+        </form>
+
     </main>
 
 </section>

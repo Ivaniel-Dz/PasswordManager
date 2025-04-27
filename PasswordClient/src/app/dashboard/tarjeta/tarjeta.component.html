@@ -3,7 +3,7 @@
     <app-header
         [titulo]="'Tarjeta'"
         [textButton]="'Agregar Tarjeta'"
-        [route]="'/dashboard/tarjeta-form'"
+        [route]="'/dashboard/tarjeta/nueva'"
         (search)="onSearch($event)"
         >
     </app-header>
@@ -13,6 +13,7 @@
         <!-- Tabla de Datos -->
         <app-table
             [tarjetas]="tarjetas"
+            (delete)="onDelete($event)"
             ></app-table>
         
     </main>

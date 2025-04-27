@@ -10,8 +10,14 @@ import { Tarjeta } from '../../interfaces/tarjeta';
   styleUrl: './table.component.css',
 })
 export class TableComponent {
-  //Recibe el arreglo del padre
+  // Recibe el arreglo del padre
   @Input() tarjetas: Tarjeta[] = [];
+  // Emite el evento al padre
+  @Output() delete = new EventEmitter<number>();
+
+  onDelete(id: number): void {
+    this.delete.emit(id);
+  }
 
   // Obtiene el Icono en base al nombre de la red
   getCardIcon(red: string): string {
