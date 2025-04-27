@@ -16,7 +16,7 @@ namespace PasswordServer.Services
             _appDBContext = appDBContext;
         }
 
-        // Método para Obtener toda la lista y buscar
+        // Servicio para Obtener toda la lista y buscar
         public async Task<IEnumerable<TarjetaDto>> GetAll(int userId, string? term)
         {
             // Verifica si el id del usuario es mismo del autenticado
@@ -53,7 +53,7 @@ namespace PasswordServer.Services
         }
 
 
-        // Método para mostrar una tarjeta por id
+        // Servicio para mostrar una tarjeta por id
         public async Task<TarjetaDto?> Get(int id, int userId)
         {
             var tarjeta = await _appDBContext.Tarjetas
@@ -80,7 +80,7 @@ namespace PasswordServer.Services
         }
 
 
-        // Método para Agregar
+        // Servicio para Agregar
         public async Task<ResponseDto> Add(TarjetaDto tarjetaDto, int userId)
         {
             // Verificar si ya existe una tarjeta con la misma Numeración
@@ -110,7 +110,7 @@ namespace PasswordServer.Services
         }
 
 
-        // Método para Actualizar
+        // Servicio para Actualizar
         public async Task<ResponseDto> Update(TarjetaDto tarjetaDto, int userId)
         {
             var existeTarjeta = await _appDBContext.Tarjetas
@@ -155,7 +155,7 @@ namespace PasswordServer.Services
         }
 
 
-        // Método para Elimina una tarjeta
+        // Servicio para Elimina una tarjeta
         public async Task<bool> Delete(int id, int userId)
         {
             // Busca tarjeta por ID y verifica pertenencia al usuario

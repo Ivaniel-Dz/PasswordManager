@@ -217,22 +217,33 @@ https://localhost:44369/api/Password/Add
 
 ```json
 {
+  "nombre": "string",
+  "url": "string",
+  "userEmail": "string",
+  "clave": "string",
+  "notas": "string",
+  "categoriaId": 0
 }
 ```
 
 ### Password: PUT
 > Actualizar Contraseña
 ```bash
-https://localhost:44369/api/Password/Update
+https://localhost:44369/api/Password/Update/id
 ```
 
 ```pgsql
 **Authorization**: Bearer Token <TOKEN_JWT_VALIDO>
 ```
-> el ``id`` de la ``Password`` es obligatorio, los demás campos son opcionales según el dato a actualizar. 
+
 ```json
 {
-  "id": 0,
+  "nombre": "string",
+  "url": "string",
+  "userEmail": "string",
+  "clave": "string",
+  "notas": "string",
+  "categoriaId": 0
 }
 ```
 

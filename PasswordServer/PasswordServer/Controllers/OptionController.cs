@@ -25,7 +25,7 @@ namespace PasswordServer.Controllers
             return Ok(await _optionService.GetCategoria());
         }
 
-        // GET: api/Option/GetCategoria
+        // GET: api/Option/GetRed
         [HttpGet]
         [Route("GetRed")]
         public async Task<ActionResult<IEnumerable<RedTarjeta>>> GetRed()

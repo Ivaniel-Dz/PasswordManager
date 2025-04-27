@@ -6,6 +6,7 @@ using PasswordServer.Data;
 using PasswordServer.Jwt;
 using PasswordServer.Interfaces;
 using PasswordServer.Services;
+using PasswordServer.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,9 +26,12 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 
 // Registrar servicios personalizados
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<PassEncryptor>();
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<ITarjetaService, TarjetaService>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IOptionService, OptionService>();
 
 

@@ -62,7 +62,7 @@ namespace PasswordServer.Jwt
             // Detalles del token (claims, tiempo de expiración y firma)
             var jwtConfig = new JwtSecurityToken(
                 claims: userClaims, // Claims del token
-                expires: DateTime.UtcNow.AddMinutes(10), // Expira en 10 minutos
+                expires: DateTime.UtcNow.AddMinutes(30), // Expira en 30 minutos
                 signingCredentials: credential // Credenciales de firma
                 );
 

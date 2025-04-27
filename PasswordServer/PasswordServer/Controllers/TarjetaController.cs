@@ -68,9 +68,7 @@ namespace PasswordServer.Controllers
 
             var result = await _tarjetaService.Add(tarjetaDto, userId.Value);
 
-            return result.IsSuccess
-                ? Ok(result)
-                : BadRequest(result);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         [HttpPut]
