@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ResponseMessage } from '../interfaces/response-message';
 import { Tarjeta } from '../interfaces/tarjeta';
+import { Option } from '../interfaces/option';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,17 @@ export class TarjetaService {
     return this.http.put<ResponseMessage>(`${this.apiUrl}/Update`, tarjeta);
   }
 
+  // Método para eliminar una tarjeta
   delete(id: number): Observable<ResponseMessage> {
     return this.http.delete<ResponseMessage>(`${this.apiUrl}/Delete/${id}`);
+  }
+
+  // Método para obtener las opciones para select
+  getRedes(): Observable<Option[]> {
+    return this.http.get<Option[]>(`${this.apiUrl}/GetRed`);
+  }
+
+  getTipos(): Observable<Option[]> {
+    return this.http.get<Option[]>(`${this.apiUrl}/GetTipo`);
   }
 }

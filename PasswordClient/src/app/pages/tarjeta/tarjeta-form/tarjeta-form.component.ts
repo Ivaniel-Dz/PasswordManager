@@ -1,10 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { HeaderComponent } from '../../../layouts/header/header.component';
-import { TarjetaService } from '../../../services/tarjeta.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Tarjeta } from '../../../interfaces/tarjeta';
-import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../../layouts/header/header.component';
+import { TarjetaService } from '../../../services/tarjeta.service';
 
 @Component({
   selector: 'app-tarjeta-form',
@@ -34,8 +39,14 @@ export class TarjetaFormComponent implements OnInit {
       this.tarjetaService.get(parseInt(id)).subscribe((tarjeta) => {
         this.tarjeta = tarjeta;
         this.form = this.fb.group({
-          numeracion: [tarjeta.numeracion, [Validators.required]],
-          fechaExpiracion: [tarjeta.fechaExpiracion, [Validators.required]],
+          numeracion: [
+            this.formatCardNumber(tarjeta.numeracion),
+            [Validators.required],
+          ],
+          fechaExpiracion: [
+            this.formatDateToMMYY(tarjeta.fechaExpiracion),
+            [Validators.required],
+          ],
           nombreTitular: [tarjeta.nombreTitular, [Validators.required]],
           nombreTarjeta: [tarjeta.nombreTarjeta, [Validators.required]],
           descripcion: [tarjeta.descripcion],
@@ -56,20 +67,38 @@ export class TarjetaFormComponent implements OnInit {
     }
   }
 
-  // Cargar opciones de Red y Tipo
+  // Cargar opciones de Red y Tipo desde el backend
   loadOptions(): void {
-    // Luego aquí agregas llamada al servicio para RedTarjeta y TipoTarjeta
-    // Por ahora ejemplos fijos
-    this.redOptions = [
-      { id: 1, nombre: 'Visa' },
-      { id: 2, nombre: 'Mastercard' },
-    ];
-    this.tipoOptions = [
-      { id: 1, nombre: 'Débito' },
-      { id: 2, nombre: 'Crédito' },
-    ];
+    this.tarjetaService.getRedes().subscribe((redes) => {
+      this.redOptions = redes.map((red) => ({
+        id: red.id,
+        nombre: red.nombre,
+      }));
+    });
+
+    this.tarjetaService.getTipos().subscribe((tipos) => {
+      this.tipoOptions = tipos.map((tipo) => ({
+        id: tipo.id,
+        nombre: tipo.nombre,
+      }));
+    });
   }
 
+  // Formatear fecha a MM/YY
+  private formatDateToMMYY(date: string): string {
+    const [year, month] = date.split('-');
+    return `${month}/${year.slice(-2)}`;
+  }
+
+  // Formatear numeración de tarjeta
+  private formatCardNumber(number: string): string {
+    return number
+      .replace(/\s?/g, '')
+      .replace(/(\d{4})/g, '$1 ')
+      .trim();
+  }
+
+  // Guardar cambios con formato correcto
   save(): void {
     if (this.form?.invalid) {
       this.form.markAllAsTouched();
@@ -77,6 +106,11 @@ export class TarjetaFormComponent implements OnInit {
     }
 
     const tarjetaForm = this.form!.value;
+    tarjetaForm.numeracion = tarjetaForm.numeracion.replace(/\s/g, ''); // Quitar espacios
+    tarjetaForm.fechaExpiracion = this.formatDateToYYYYMM(
+      tarjetaForm.fechaExpiracion
+    ); // Convertir a YYYY-MM
+
     let request$;
 
     if (this.tarjeta) {
@@ -98,9 +132,14 @@ export class TarjetaFormComponent implements OnInit {
     });
   }
 
+  // Convertir fecha de MM/YY a YYYY-MM
+  private formatDateToYYYYMM(date: string): string {
+    const [month, year] = date.split('/');
+    return `20${year}-${month}`;
+  }
+
   // Método para regresar a la pagina anterior
   goBack(): void {
     window.history.back();
   }
-  
 }
