@@ -10,6 +10,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Tarjeta } from '../../../interfaces/tarjeta';
 import { HeaderComponent } from '../../../layouts/header/header.component';
 import { TarjetaService } from '../../../services/tarjeta.service';
+import { OptionService } from '../../../services/option.service';
 
 @Component({
   selector: 'app-tarjeta-form',
@@ -22,6 +23,7 @@ export class TarjetaFormComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private tarjetaService = inject(TarjetaService);
+    private optionService = inject(OptionService);
 
   form?: FormGroup;
   tarjeta?: Tarjeta;
@@ -69,14 +71,14 @@ export class TarjetaFormComponent implements OnInit {
 
   // Cargar opciones de Red y Tipo desde el backend
   loadOptions(): void {
-    this.tarjetaService.getRedes().subscribe((redes) => {
+    this.optionService.getRedes().subscribe((redes) => {
       this.redOptions = redes.map((red) => ({
         id: red.id,
         nombre: red.nombre,
       }));
     });
 
-    this.tarjetaService.getTipos().subscribe((tipos) => {
+    this.optionService.getTipos().subscribe((tipos) => {
       this.tipoOptions = tipos.map((tipo) => ({
         id: tipo.id,
         nombre: tipo.nombre,

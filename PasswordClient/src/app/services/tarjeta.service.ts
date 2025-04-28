@@ -46,12 +46,4 @@ export class TarjetaService {
     return this.http.delete<ResponseMessage>(`${this.apiUrl}/Delete/${id}`);
   }
 
-  // Método para obtener las opciones para select
-  getRedes(): Observable<Option[]> {
-    return this.http.get<Option[]>(`${this.apiUrl}/GetRed`);
-  }
-
-  getTipos(): Observable<Option[]> {
-    return this.http.get<Option[]>(`${this.apiUrl}/GetTipo`);
-  }
 }

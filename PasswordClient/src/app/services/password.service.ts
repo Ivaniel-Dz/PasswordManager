@@ -46,9 +46,4 @@ export class PasswordService {
     return this.http.delete<ResponseMessage>(`${this.apiUrl}/Delete/${id}`);
   }
 
-  // Método para obtener las opciones para select
-  getCategorias(): Observable<Option[]> {
-    return this.http.get<Option[]>(`${this.apiUrl}/GetCategoria`);
-  }
-
 }
