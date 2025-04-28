@@ -27,6 +27,11 @@ export class TableComponent {
     return `https://cdn.simpleicons.org/${formattedRed}/000000`;
   }
 
+  // se ejecuta cuando hay un error al cargar la imagen
+  onImageError(event: any) {
+    event.target.src = 'https://img.icons8.com/fluency/50/bank-card-front-side.png';
+  }
+
   // Toma los 4 primeros dígitos
   formatCardNumber(numeracion: string): string {
     if (!numeracion || numeracion.length < 4) return '****';

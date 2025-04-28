@@ -2,11 +2,14 @@
   <!-- Title card -->
   <div class="container-title">
     <h3 class="title-name"> {{item.nombre}} </h3>
+
     <img
       class="title-icon"
-      src="https://api.faviconkit.com/{{item.url}}/64"
+      [src]="'https://cdn.simpleicons.org/' + extractUrl(item.url) + '/000000'"
       alt="icon"
+      (error)="onImageError($event)"
     />
+
   </div>
   <!-- Info card -->
   <div class="container-info">
