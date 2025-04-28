@@ -27,7 +27,7 @@
       <tr *ngFor="let item of tarjetas">
         <!-- Datos -->
         <td>
-          <img [src]="getCardIcon(item.redNombre)" alt="Icon-img"/>
+          <img [src]="getCardIcon(item.redNombre)" alt="Icon"/>
         </td>
         <td> {{ item.tipoNombre }} </td>
         <td> {{ item.nombreTitular }} </td>
@@ -36,7 +36,7 @@
         <td> {{item.nombreTarjeta}} </td>
         <!-- Botones -->
         <td>
-          <a class="action-btn show" [routerLink]="['/dashboard/tarjeta/detalle', item.id]">
+          <a class="action-btn show" [routerLink]="['/dashboard/tarjeta/detalles', item.id]">
             <i class="fa-regular fa-eye"></i>
           </a>
           <a class="action-btn edit" [routerLink]="['/dashboard/tarjeta/editar', item.id]">

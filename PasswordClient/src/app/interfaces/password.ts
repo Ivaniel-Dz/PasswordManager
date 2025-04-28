@@ -1,9 +1,13 @@
 export interface Password {
   id: number;
   userId: number;
-  titulo: string;
-  userEmail: string;
-  passwordHash: string;
+  nombre: string;
   url: string;
-  categoria: string;
+  userEmail: string;
+  clave: string;
+  notas: string;
+  fechaCreacion: Date;
+  fechaActualizacion: Date;
+  categoriaId: number;
+  categoriaNombre: string;
 }

@@ -10,38 +10,36 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/*Titulo de la tarjeta*/
+/*Contenedor de Titulo*/
 .container-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.container-title .title-url {
+/* Titulo de nombre y nombre de usuario */
+.container-title .title-name, 
+.container-info .user-name {
   color: var(--color-text);
   font-weight: normal;
   font-size: var(--text-large);
 }
 
+/* Icono de img */
 .container-title .title-icon {
   width: 28px;
 }
 
-/* Información de la tarjeta */
-.container-info .info-title {
+/* Titulo de Usuario/Email */
+.container-info .title-user {
   color: var(--color-text-tertiary);
   font-size: var(--text-normal);
   margin-bottom: 0px;
-  font-weight: normal;
+  font-weight: lighter;
 }
 
-.container-info .info-user {
-  color: var(--color-text-tertiary);
-  font-size: var(--text-normal);
-}
-
-/* Botones */
-.container-btn .btn-info {
+/* Botones de detalles */
+.container-btn .btn-details {
   display: flex;
   width: 100%;
   font-size: var(--text-normal);
@@ -54,7 +52,7 @@
   transition: all 0.3s ease;
 }
 
-.container-btn .btn-info:hover {
+.container-btn .btn-details:hover {
   border-radius: 5px;
   background-color: var(--btn-primary);
   color: var(--white);

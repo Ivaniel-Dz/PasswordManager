@@ -41,7 +41,7 @@ export class LoginComponent {
       next: (data) => {
         if (data.isSuccess && data.token) {
           this.jwtService.setToken(data.token);
-          this.router.navigate(['/dashboard/password']);
+          this.router.navigate(['/dashboard/passwords']);
         } else {
           this.errors = [data.message || 'Error en el inicio de sesión']; // Muestra el mensaje de error en html
         }

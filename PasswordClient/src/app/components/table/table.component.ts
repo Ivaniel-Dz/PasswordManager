@@ -21,7 +21,10 @@ export class TableComponent {
 
   // Obtiene el Icono en base al nombre de la red
   getCardIcon(red: string): string {
-    return `https://cdn.simpleicons.org/${red}/000000`;
+    // Eliminar espacios y caracteres especiales
+    const formattedRed = red.replace(/\s+/g, '');
+
+    return `https://cdn.simpleicons.org/${formattedRed}/000000`;
   }
 
   // Toma los 4 primeros dígitos

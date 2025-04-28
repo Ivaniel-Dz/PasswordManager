@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tarjeta',
-  imports: [CommonModule, FormsModule,HeaderComponent, TableComponent, FooterComponent],
+  imports: [CommonModule,FormsModule,HeaderComponent,TableComponent,FooterComponent],
   templateUrl: './tarjeta.component.html',
   styleUrl: './tarjeta.component.css',
 })
@@ -19,6 +19,8 @@ export class TarjetaComponent implements OnInit {
   tarjetas: Tarjeta[] = [];
   router = inject(Router);
 
+  // Método de ciclo de vida
+  // Se ejecuta al inicializar el componente
   ngOnInit(): void {
     this.loadTarjetas();
   }
@@ -41,11 +43,12 @@ export class TarjetaComponent implements OnInit {
     this.loadTarjetas(term);
   }
 
-  onDelete(id: number):void {
-    if (confirm('¿Está seguro de elminar la tarjeta?')) {
+  // Método para eliminar
+  onDelete(id: number): void {
+    if (confirm('¿Está seguro de eliminar la tarjeta?')) {
       this.tarjetaService.delete(id).subscribe({
         next: (res) => {
-          if (res.isSuccess){
+          if (res.isSuccess) {
             alert(res.message);
             this.router.navigate(['/dashboard/tarjetas']);
           }

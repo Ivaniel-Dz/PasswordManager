@@ -1,21 +1,21 @@
-<div class="card-container">
+<section class="card-container" *ngFor="let item of passwords">
   <!-- Title card -->
   <div class="container-title">
-    <h3 class="title-url">Titulo</h3>
+    <h3 class="title-name"> {{item.nombre}} </h3>
     <img
       class="title-icon"
-      src="https://www.google.com/s2/favicons?domain=@password.URL"
-      alt="Alternate Text"
+      src="https://api.faviconkit.com/{{item.url}}/64"
+      alt="icon"
     />
   </div>
   <!-- Info card -->
   <div class="container-info">
-    <h3 class="info-title">Usuario</h3>
-    <h3 class="info-user">UserEmail</h3>
+    <h3 class="title-user">Usuario/Email</h3>
+    <h3 class="user-name"> {{item.userEmail}} </h3>
   </div>
 
   <!-- Footer card -->
   <div class="container-btn">
-    <button type="submit" class="btn-info" [routerLink]="['/dashboard/password-detail']">Ver detalles</button>
+    <button type="submit" class="btn-details" [routerLink]="['/dashboard/password/detalles', item.id]">Ver detalles</button>
   </div>
-</div>
+</section>
