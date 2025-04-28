@@ -5,7 +5,7 @@ export interface Tarjeta {
   fechaExpiracion: string;
   nombreTitular: string;
   nombreTarjeta: string;
-  descripcion: string;
+  descripcion?: string;
   redId: number;
   tipoId: number;
   redNombre: string;

@@ -1,94 +1,89 @@
-<section class="section-main">
-  <!-- Header -->
-  <app-header
-    [titulo]="'Formulario de Tarjeta'"
-    [showSearch]="false"
-    [showButton]="false"
-  />
+<app-header title="Tarjeta"></app-header>
 
-  <main class="form-container">
-    <form *ngIf="form" [formGroup]="form" (ngSubmit)="save()" novalidate>
-      <div class="mb-3">
-        <label class="form-label">Numero de la tarjeta</label>
-        <!-- <input
-          type="text"
-          class="form-control"
-          formControlName="numeracion"
-          (input)="
-            form.controls['numeracion'].setValue(
-              formatCardNumber($event.target)
-            )
-          "
-        /> -->
+<div class="container mt-4">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Numeración</label>
+        <input type="text" class="form-control" formControlName="numeracion" placeholder="Número de tarjeta" />
+        <div *ngIf="form.get('numeracion')?.invalid && form.get('numeracion')?.touched" class="text-danger">
+          La numeración es obligatoria.
+        </div>
       </div>
 
-      <div class="mb-3">
+      <div class="col-md-6 mb-3">
         <label class="form-label">Fecha de Expiración</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="fechaExpiracion"
-          placeholder="MM/YY"
-          pattern="\d{2}/\d{2}"
-        />
+        <input type="text" class="form-control" formControlName="fechaExpiracion" placeholder="MM/AA" />
+        <div *ngIf="form.get('fechaExpiracion')?.invalid && form.get('fechaExpiracion')?.touched" class="text-danger">
+          La fecha de expiración es obligatoria.
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Nombre del titular</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="nombreTitular"
-        />
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Nombre del Titular</label>
+        <input type="text" class="form-control" formControlName="nombreTitular" placeholder="Nombre del titular" />
+        <div *ngIf="form.get('nombreTitular')?.invalid && form.get('nombreTitular')?.touched" class="text-danger">
+          El nombre del titular es obligatorio.
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Nombre de Tarjeta </label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="nombreTarjeta"
-        />
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Nombre de la Tarjeta</label>
+        <input type="text" class="form-control" formControlName="nombreTarjeta" placeholder="Ej. Tarjeta personal" />
+        <div *ngIf="form.get('nombreTarjeta')?.invalid && form.get('nombreTarjeta')?.touched" class="text-danger">
+          El nombre de la tarjeta es obligatorio.
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label"> Descripción </label>
-        <input type="text" class="form-control" formControlName="descripcion" />
+      <div class="col-md-12 mb-3">
+        <label class="form-label">Descripción</label>
+        <textarea class="form-control" formControlName="descripcion" rows="3"
+          placeholder="Descripción opcional"></textarea>
       </div>
 
-      <div class="mb-3">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Red</label>
         <select class="form-select" formControlName="redId">
-          <option *ngFor="let red of redOptions" [value]="red.id">
-            {{ red.nombre }}
-          </option>
+          <option [value]="null" disabled selected>Seleccione una red</option>
+          <option *ngFor="let red of redes" [value]="red.id">{{ red.id }}</option>
         </select>
+        <div *ngIf="form.get('redId')?.invalid && form.get('redId')?.touched" class="text-danger">
+          Seleccione una red.
+        </div>
       </div>
 
-      <div class="mb-3">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Tipo</label>
         <select class="form-select" formControlName="tipoId">
-          <option *ngFor="let tipo of tipoOptions" [value]="tipo.id">
-            {{ tipo.nombre }}
-          </option>
+          <option [value]="null" disabled selected>Seleccione un tipo</option>
+          <option *ngFor="let tipo of tipos" [value]="tipo.id">{{ tipo.id }}</option>
         </select>
+        <div *ngIf="form.get('tipoId')?.invalid && form.get('tipoId')?.touched" class="text-danger">
+          Seleccione un tipo.
+        </div>
       </div>
 
-      <div class="d-flex justify-content-center gap-4">
-        <button type="button" class="btn btn-primary" (click)="goBack()">
-          Regresar
-        </button>
-        <button type="submit" class="btn btn-secondary">
-          @if (tarjeta) {Actualizar} @else { Guardar }
-        </button>
-      </div>
+    </div>
 
-      <!-- Mensajes de error del servidor -->
-      <div
-        *ngIf="errors.length > 0"
-        class="alert alert-danger m-0 d-flex justify-content-center"
-        role="alert"
-      >
-        <small *ngFor="let error of errors"> {{ error }} </small>
-      </div>
-    </form>
-  </main>
-</section>
+    <!-- Botones -->
+    <div class="d-flex justify-content-between mt-4">
+      <button type="button" class="btn btn-secondary" (click)="goBack()">Cancelar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        {{ tarjeta ? 'Actualizar' : 'Guardar' }}
+      </button>
+    </div>
+
+    <!-- Mensajes de error -->
+    <div *ngIf="errors.length > 0" class="alert alert-danger mt-3">
+      <div *ngFor="let error of errors">{{ error }}</div>
+    </div>
+  </form>
+
+  <!-- Cargando -->
+  <div *ngIf="loading" class="text-center mt-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+</div>
