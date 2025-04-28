@@ -44,7 +44,7 @@
           <dd class="desc"> {{tarjeta.tipoNombre}} </dd>
         </div>
         
-        <div class="definition-item">
+        <div class="definition-item" *ngIf="tarjeta.descripcion !== null">
           <dt class="term"> Descripción </dt>
           <dd class="desc"> {{tarjeta.descripcion}} </dd>
         </div> 

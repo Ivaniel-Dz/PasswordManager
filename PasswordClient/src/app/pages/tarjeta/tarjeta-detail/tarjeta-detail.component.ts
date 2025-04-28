@@ -18,10 +18,12 @@ export class TarjetaDetailComponent implements OnInit {
   private router = inject(Router);
   tarjeta?: Tarjeta;
 
+  // Se ejecuta al inicializar el componente
   ngOnInit(): void {
     this.detailTarjeta();
   }
 
+  // Método para obtener los detalles
   detailTarjeta(): void {
     const id = this.route.snapshot.paramMap.get('id');
 
@@ -42,5 +44,5 @@ export class TarjetaDetailComponent implements OnInit {
       this.router.navigate(['/dashboard/tarjetas']); // Redireccionar si no hay id
     }
   }
-
+  
 }
