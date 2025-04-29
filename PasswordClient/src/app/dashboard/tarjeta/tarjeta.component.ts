@@ -7,6 +7,7 @@ import { Tarjeta } from '../../interfaces/tarjeta';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { paginate } from '../../utils/pagination.util';
 
 @Component({
   selector: 'app-tarjeta',
@@ -15,11 +16,17 @@ import { Router } from '@angular/router';
   styleUrl: './tarjeta.component.css',
 })
 export class TarjetaComponent implements OnInit {
+  // Inyección de dependencias
   tarjetaService = inject(TarjetaService);
-  tarjetas: Tarjeta[] = [];
   router = inject(Router);
+  // Arrays
+  tarjetas: Tarjeta[] = [];
+  paginatedTarjetas: Tarjeta[] = [];
 
-  // Método de ciclo de vida
+  // Paginación
+  currentPage: number = 1;
+  itemsPerPage: number = 7;
+  
   // Se ejecuta al inicializar el componente
   ngOnInit(): void {
     this.loadTarjetas();
@@ -31,6 +38,7 @@ export class TarjetaComponent implements OnInit {
       next: (res) => {
         console.log('Tarjetas recibidas:', res);
         this.tarjetas = res;
+        this.setPaginatedTarjeta();
       },
       error: (err) => {
         console.error('Error cargando tarjetas', err);
@@ -40,6 +48,7 @@ export class TarjetaComponent implements OnInit {
 
   // Método para buscar
   onSearch(term: string): void {
+    this.currentPage = 1;
     this.loadTarjetas(term);
   }
 
@@ -58,4 +67,18 @@ export class TarjetaComponent implements OnInit {
     }
   }
   
+  // Para paginar en frontend
+  setPaginatedTarjeta(): void {
+    this.paginatedTarjetas = paginate(this.tarjetas, this.currentPage, this.itemsPerPage);
+  }
+
+  goToPage(page: number): void {
+    this.currentPage = page;
+    this.setPaginatedTarjeta();
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.tarjetas.length / this.itemsPerPage);
+  }
+
 }

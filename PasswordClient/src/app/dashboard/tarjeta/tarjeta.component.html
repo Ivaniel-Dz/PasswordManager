@@ -5,21 +5,22 @@
         [textButton]="'Agregar Tarjeta'"
         [route]="'/dashboard/tarjeta/nueva'"
         (search)="onSearch($event)"
-        ></app-header>
+    />
 
     <!-- Contenido del component -->
     <main class="table-container">
         <!-- Tabla de Datos -->
         <app-table
-            [tarjetas]="tarjetas"
+            [tarjetas]="paginatedTarjetas"
             (delete)="onDelete($event)"
-            ></app-table>
-        
+        />
     </main>
 
     <!-- Footer -->
-     <app-footer
-        >
-     </app-footer>
+    <app-footer 
+        [currentPage]="currentPage" 
+        [totalPages]="totalPages" 
+        (pageChange)="goToPage($event)"
+    />
 
 </section>
