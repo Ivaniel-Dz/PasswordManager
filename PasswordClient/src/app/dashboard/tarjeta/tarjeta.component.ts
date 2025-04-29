@@ -8,10 +8,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { paginate } from '../../utils/pagination.util';
+// Utils
+import { confirmDialog, showToastAlert } from '../../utils/sweet-alert.util';
 
 @Component({
   selector: 'app-tarjeta',
-  imports: [CommonModule,FormsModule,HeaderComponent,TableComponent,FooterComponent],
+  imports: [CommonModule, FormsModule, HeaderComponent, TableComponent, FooterComponent],
   templateUrl: './tarjeta.component.html',
   styleUrl: './tarjeta.component.css',
 })
@@ -25,7 +27,7 @@ export class TarjetaComponent implements OnInit {
   // Propiedad de paginación
   currentPage: number = 1;
   itemsPerPage: number = 7;
-  
+
   // Se ejecuta al inicializar el componente
   ngOnInit(): void {
     this.loadTarjetas();
@@ -53,19 +55,24 @@ export class TarjetaComponent implements OnInit {
 
   // Método para eliminar
   onDelete(id: number): void {
-    if (confirm('¿Está seguro de eliminar la tarjeta?')) {
-      this.tarjetaService.delete(id).subscribe({
-        next: (res) => {
-          if (res.isSuccess) {
-            alert(res.message);
-            this.router.navigate(['/dashboard/tarjetas']);
-          }
-        },
-        error: (err) => console.error(err),
-      });
-    }
+    // Instancia de util: sweet-alert
+    confirmDialog('¿Estás seguro?', 'Esta acción eliminará la tarjeta.').then((confirmed) => {
+
+      if (confirmed) {
+        this.tarjetaService.delete(id).subscribe({
+          next: (res) => {
+            if (res.isSuccess) {
+              // Instancia de sweet-alert
+              showToastAlert(res.message ?? 'Eliminado correctamente', 'success');
+              this.router.navigate(['/dashboard/tarjetas']);
+            }
+          },
+          error: (err) => console.error(err),
+        });
+      }
+    });
   }
-  
+
   // Para paginar en frontend
   // Método para colocar la paginación
   setPaginatedTarjeta(): void {

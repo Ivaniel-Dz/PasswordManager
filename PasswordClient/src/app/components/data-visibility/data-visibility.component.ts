@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import Swal from 'sweetalert2';
+import { showToastAlert } from '../../utils/sweet-alert.util';
 
 @Component({
   selector: 'app-data-visibility',
@@ -22,13 +23,8 @@ export class DataVisibilityComponent {
   copyClipboard(): void {
     if (this.interfaces) {
       navigator.clipboard.writeText(this.interfaces);
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Copiado al portapapeles",
-        showConfirmButton: false,
-        timer: 1500
-      });
+      // Instancia de sweet-alert
+      showToastAlert('Copiado al portapapeles', 'success');
     }
   }
 

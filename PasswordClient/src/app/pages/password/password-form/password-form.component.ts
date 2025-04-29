@@ -11,6 +11,7 @@ import { ErrorMessagesComponent } from '../../../components/error-messages/error
 import { BackButtonComponent } from '../../../components/back-button/back-button.component';
 import { SpinnerComponent } from '../../../components/spinner/spinner.component';
 import { AlertInvalidComponent } from '../../../components/alert-invalid/alert-invalid.component';
+import { showToastAlert } from '../../../utils/sweet-alert.util';
 
 @Component({
   selector: 'app-password-form',
@@ -92,9 +93,15 @@ export class PasswordFormComponent implements OnInit {
       : this.passwordService.add({ ...passwordForm, id: 0 });
 
     request.subscribe({
-      next: () => this.router.navigate(['/dashboard/passwords']),
-      error: (response) => {
-        this.errors = response.error.errors || ['Ocurrió un error.'];
+      next: (resp) => {
+        if (resp.isSuccess) {
+          // Instancia de sweet-alert
+          showToastAlert(resp.message ?? 'Guardado Correctamente', 'success');
+          this.router.navigate(['/dashboard/passwords'])
+        }
+      },
+      error: (resp) => {
+        this.errors = resp.error.errors || ['Ocurrió un error.'];
       },
     });
   }

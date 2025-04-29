@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../../layouts/header/header.component';
-import Swal from 'sweetalert2';
+// Utils
+import { showToastAlert } from '../../../utils/sweet-alert.util';
 
 @Component({
   selector: 'app-password-generator',
@@ -36,15 +37,8 @@ export class PasswordGeneratorComponent {
     if (this.includeSpecial) characters += specialChars;
 
     if (!characters) {
-      // Alert
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Advertencia",
-        text: "Por favor, selecciona al menos una opción para los tipos de caracteres.",
-        showConfirmButton: false,
-        timer: 1500
-      });
+      // Instancia de sweet-alert
+      showToastAlert('Por favor, selecciona al menos una opción para los tipos de caracteres.', 'error');
       return;
     }
 
@@ -62,14 +56,8 @@ export class PasswordGeneratorComponent {
   copyClipboard(): void {
     if (this.password) {
       navigator.clipboard.writeText(this.password);
-      // Alert
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Copiado al portapapeles",
-        showConfirmButton: false,
-        timer: 1500
-      });
+      // Instancia de sweet-alert
+      showToastAlert('Copiado al portapapeles', 'success');
     }
   }
 

@@ -11,6 +11,7 @@ import { BackButtonComponent } from '../../../components/back-button/back-button
 import { SpinnerComponent } from '../../../components/spinner/spinner.component';
 import { AlertInvalidComponent } from '../../../components/alert-invalid/alert-invalid.component';
 import { ErrorMessagesComponent } from '../../../components/error-messages/error-messages.component';
+import { showToastAlert } from '../../../utils/sweet-alert.util';
 
 @Component({
   selector: 'app-tarjeta-form',
@@ -103,7 +104,13 @@ export class TarjetaFormComponent implements OnInit {
       : this.tarjetaService.add({ ...tarjetaForm, id: 0 });
 
     request.subscribe({
-      next: () => this.router.navigate(['/dashboard/tarjetas']),
+      next: (resp) => {
+        if (resp.isSuccess) {
+          // Instancia de sweet-alert
+          showToastAlert(resp.message ?? 'Guardado Correctamente', 'success');
+          this.router.navigate(['/dashboard/tarjetas'])
+        }
+      },
       error: (resp) => {
         console.error('Error al guardar:', resp);
         this.errors = resp.error.errors || [resp.error.message] || ['Ocurrió un error inesperado.'];

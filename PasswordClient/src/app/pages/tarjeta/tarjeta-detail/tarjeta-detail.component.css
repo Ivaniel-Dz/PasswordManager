@@ -69,8 +69,8 @@
 }
 
 .btn-delete {
-  border: 1px solid var(--btn-tertiary);
-  background-color: var(--btn-tertiary);
+  border: 1px solid var(--btn-secondary);
+  background-color: var(--btn-secondary);
 }
 
 .btn:hover {
@@ -85,6 +85,6 @@
 }
 
 .btn-delete:hover {
-  color: var(--btn-tertiary);
-  border: 1px solid var(--btn-tertiary);
+  color: var(--btn-secondary);
+  border: 1px solid var(--btn-secondary);
 }

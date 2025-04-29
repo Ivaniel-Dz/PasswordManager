@@ -1,10 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../../layouts/header/header.component';
 import { PasswordService } from '../../../services/password.service';
 import { Password } from '../../../interfaces/password';
-import { CommonModule } from '@angular/common';
 import { DataVisibilityComponent } from '../../../components/data-visibility/data-visibility.component';
+// Utils
+import { confirmDialog, showToastAlert } from '../../../utils/sweet-alert.util';
+
 
 @Component({
   selector: 'app-password-detail',
@@ -48,17 +51,23 @@ export class PasswordDetailComponent implements OnInit {
 
   // Método para eliminar
   deletePassword(id: number): void {
-    if (confirm('¿Está seguro de eliminar la contraseña?')) {
-      this.passwordService.delete(id).subscribe({
-        next: (res) => {
-          if (res.isSuccess) {
-            alert(res.message);
-            this.router.navigate(['/dashboard/passwords']);
-          }
-        },
-        error: (err) => console.error(err),
-      });
-    }
+    // Instancia de util: sweet-alert
+    confirmDialog('¿Estás seguro?', 'Esta acción eliminará la contraseña.').then((confirmed) => {
+      
+      if (confirmed) {
+        this.passwordService.delete(id).subscribe({
+          next: (res) => {
+            if (res.isSuccess) {
+              // Instancia de sweet-alert
+              showToastAlert(res.message ?? 'Eliminado correctamente', 'success');
+              this.router.navigate(['/dashboard/passwords']);
+            }
+          },
+          error: (err) => console.error(err),
+        });
+      }
+    });
+
   }
 
 }

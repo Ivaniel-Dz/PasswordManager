@@ -15,6 +15,11 @@ Instalar JWT Decode si no esta instalado
 npm i jwt-decode
 ```
 
+Instalar sweetalert2 si no esta instalado
+```bash
+npm install sweetalert2
+```
+
 Esto instalará todas las dependencias listadas en el `package.json`, incluyendo Angular, Bootstrap y cualquier otra librería que el proyecto utilice.
 
 ### 2. Verificar la configuración de Bootstrap

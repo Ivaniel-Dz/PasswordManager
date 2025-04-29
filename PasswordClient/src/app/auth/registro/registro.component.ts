@@ -5,6 +5,8 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ErrorMessagesComponent } from '../../components/error-messages/error-messages.component';
 import { AlertInvalidComponent } from '../../components/alert-invalid/alert-invalid.component';
+// Utils
+import { showToastAlert } from '../../utils/sweet-alert.util';
 
 @Component({
   selector: 'app-registro',
@@ -51,9 +53,12 @@ export class RegistroComponent implements OnInit {
     this.authService.register(registro).subscribe({
       next: (resp) => {
         if (resp.isSuccess) {
+          // Instancia de sweet-alert
+          showToastAlert(resp.message ?? 'Registrado Correctamente', 'success');
           this.router.navigate(['/auth/login']);
         } else {
-          this.errors = [resp.message || 'Error al registrarse']; // Muestra el mensaje de error en html
+          // Muestra el mensaje de error en html
+          this.errors = [resp.message || 'Error al registrarse']; 
         }
       },
       error: (resp) => {

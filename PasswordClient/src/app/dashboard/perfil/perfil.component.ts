@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Usuario } from '../../interfaces/usuario';
 import { JwtService } from '../../services/jwt.service';
+// Utils
+import { confirmDialog, showToastAlert } from '../../utils/sweet-alert.util';
 
 @Component({
   selector: 'app-perfil',
@@ -66,9 +68,9 @@ export class PerfilComponent implements OnInit {
 
     this.usuarioService.update(datos).subscribe({
       next: (res) => {
-        this.mensaje = res.isSuccess
-          ? 'Perfil actualizado'
-          : res.message ?? 'Error al actualizar el perfil';
+        this.mensaje = res.isSuccess ? 'Perfil actualizado' : res.message ?? 'Error al actualizar el perfil';
+        // Instancia de sweet-alert
+        showToastAlert(this.mensaje, res.isSuccess ? 'success' : 'error');
       },
       error: (err) => {
         // Mostrar mensaje de backend si existe
@@ -79,19 +81,25 @@ export class PerfilComponent implements OnInit {
 
   // Método para eliminar cuenta
   deletePerfil(): void {
-    if (confirm('¿Estás seguro de que deseas eliminar tu cuenta?')) {
-      this.usuarioService.delete(this.usuario.id).subscribe({
-        next: (res) => {
-          if (res.isSuccess) {
-            // Cerrar sesión y redirigir
-            alert(res.message);
-            this.jwtService.logout();
-            this.router.navigate(['/auth/login']);
-          }
-        },
-        error: (err) => console.error(err),
-      });
-    }
+    // Instancia de util: sweet-alert
+    confirmDialog('¿Estás seguro?', 'Esta acción eliminará la cuenta.').then((confirmed) => {
+
+      if (confirmed) {
+        this.usuarioService.delete(this.usuario.id).subscribe({
+          next: (res) => {
+            if (res.isSuccess) {
+              // Cerrar sesión y redirigir
+              // Instancia de sweet-alert
+              showToastAlert(res.message ?? 'Eliminado Correctamente', 'success');
+              this.jwtService.logout();
+              this.router.navigate(['/auth/login']);
+            }
+          },
+          error: (err) => console.error(err),
+        });
+      }
+    });
+
   }
 
 }
