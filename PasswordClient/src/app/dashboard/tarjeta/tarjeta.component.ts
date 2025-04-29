@@ -22,8 +22,7 @@ export class TarjetaComponent implements OnInit {
   // Arrays
   tarjetas: Tarjeta[] = [];
   paginatedTarjetas: Tarjeta[] = [];
-
-  // Paginación
+  // Propiedad de paginación
   currentPage: number = 1;
   itemsPerPage: number = 7;
   
@@ -32,7 +31,7 @@ export class TarjetaComponent implements OnInit {
     this.loadTarjetas();
   }
 
-  // Carga la lista de Tarjetas
+  // Método para carga los datos
   loadTarjetas(term?: string): void {
     this.tarjetaService.getAll(term).subscribe({
       next: (res) => {
@@ -68,15 +67,19 @@ export class TarjetaComponent implements OnInit {
   }
   
   // Para paginar en frontend
+  // Método para colocar la paginación
   setPaginatedTarjeta(): void {
+    // Asignamos al util
     this.paginatedTarjetas = paginate(this.tarjetas, this.currentPage, this.itemsPerPage);
   }
 
+  // Ir a la pagina
   goToPage(page: number): void {
     this.currentPage = page;
     this.setPaginatedTarjeta();
   }
 
+  // Total de paginas
   get totalPages(): number {
     return Math.ceil(this.tarjetas.length / this.itemsPerPage);
   }
