@@ -12,9 +12,9 @@ export const authGuard: CanActivateFn = (route, state) => {
   // Verifica si el token ha expirado
   if (jwtService.isTokenExpired()) {
     jwtService.logout(); // Cierra sesión si expiró
-    return router.createUrlTree(['/login']); // Redirige al login
+    return router.navigate(['/auth/login']); // Redirige al login
   }
 
   // Si está autenticado, permite el acceso
-  return jwtService.isAuthenticated() ? true : router.createUrlTree(['/login']);
+  return jwtService.isAuthenticated() ? true : router.navigate(['/auth/login']);;
 };
