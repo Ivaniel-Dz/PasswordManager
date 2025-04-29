@@ -1,0 +1,58 @@
+.d-flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+/* texto emergente */
+.btn-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--orange);
+    color: var(--white);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 100;
+    margin-bottom: 5px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.btn-tooltip:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% - 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--orange) transparent transparent transparent;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.btn-tooltip:hover::after,
+.btn-tooltip:hover::before {
+    opacity: 1;
+}

@@ -1,0 +1,15 @@
+<!-- Icono fontawesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+<!-- Contenedor -->
+<div class="d-flex align-items-center gap-2">
+    <span>{{ show ? interfaces : maskedData }}</span>
+
+    <button (click)="toggle()" class="btn btn-sm btn-light btn-tooltip"  [attr.data-tooltip]="show ? 'Ocular' : 'Mostrar'">
+        <i class="fa-regular" [class.fa-eye-slash]="show" [class.fa-eye]="!show"></i>
+    </button>
+
+    <button (click)="copyClipboard()" class="btn btn-sm btn-light btn-tooltip" data-tooltip="Copiar">
+        <i class="fa-regular fa-copy"></i>
+    </button>
+</div>

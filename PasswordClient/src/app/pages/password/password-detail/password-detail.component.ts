@@ -4,10 +4,11 @@ import { HeaderComponent } from '../../../layouts/header/header.component';
 import { PasswordService } from '../../../services/password.service';
 import { Password } from '../../../interfaces/password';
 import { CommonModule } from '@angular/common';
+import { DataVisibilityComponent } from '../../../components/data-visibility/data-visibility.component';
 
 @Component({
   selector: 'app-password-detail',
-  imports: [CommonModule, RouterModule, HeaderComponent],
+  imports: [CommonModule, RouterModule, HeaderComponent, DataVisibilityComponent],
   templateUrl: './password-detail.component.html',
   styleUrl: './password-detail.component.css',
 })
