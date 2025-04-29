@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators,
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators, } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -48,18 +47,18 @@ export class RegistroComponent implements OnInit {
     const registro = this.registroForm.value;
 
     this.authService.register(registro).subscribe({
-      next: (data) => {
-        if (data.isSuccess) {
+      next: (resp) => {
+        if (resp.isSuccess) {
           this.router.navigate(['/auth/login']);
         } else {
-          this.errors = [data.message || 'Error al registrarse']; // Muestra el mensaje de error en html
+          this.errors = [resp.message || 'Error al registrarse']; // Muestra el mensaje de error en html
         }
       },
-      error: (error) => {
-        this.errors = [error.message]; // Muestra el mensaje de error
-        console.error('Error en el registro:', error); // Muestra el error en la consola
+      error: (resp) => {
+        this.errors = [resp.message]; // Muestra el mensaje de error
+        console.error('Error en el registro:', resp); // Muestra el error en la consola
       },
     });
   }
-  
+
 }

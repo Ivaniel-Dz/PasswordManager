@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JwtService } from '../../services/jwt.service';
 import { Login } from '../../interfaces/login';
 import { CommonModule } from '@angular/common';
@@ -38,17 +37,17 @@ export class LoginComponent {
     };
 
     this.authService.login(credencial).subscribe({
-      next: (data) => {
-        if (data.isSuccess && data.token) {
-          this.jwtService.setToken(data.token);
+      next: (resp) => {
+        if (resp.isSuccess && resp.token) {
+          this.jwtService.setToken(resp.token);
           this.router.navigate(['/dashboard/passwords']);
         } else {
-          this.errors = [data.message || 'Error en el inicio de sesión']; // Muestra el mensaje de error en html
+          this.errors = [resp.message || 'Error en el inicio de sesión']; // Muestra el mensaje de error en html
         }
       },
-      error: (data) => {
-        console.error('Revise sus datos: ', data); // Muestra el error en la consola
-        this.errors = data.error.errors || [data.error.message || 'Credenciales incorrectas']; // Muestra el mensaje de error
+      error: (resp) => {
+        console.error('Revise sus datos: ', resp); // Muestra el error en la consola
+        this.errors = resp.error.errors || [resp.error.message || 'Credenciales incorrectas']; // Muestra el mensaje de error
       },
     });
   }

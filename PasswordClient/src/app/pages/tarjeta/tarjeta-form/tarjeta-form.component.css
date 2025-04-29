@@ -10,7 +10,7 @@
 .form-container {
   width: 70%;
   margin: var(--m-rem) auto;
-  margin-bottom: 0px;
+  /* margin-bottom: 0px; */
   padding: 20px;
   background-color: var(--white);
   border-radius: 8px;

@@ -1,10 +1,18 @@
-<app-header title="Tarjeta"></app-header>
+<section class="section-main">
 
-<div class="container mt-4">
-  <form [formGroup]="form" (ngSubmit)="save()">
-    <div class="row">
+  <app-header 
+    [titulo]="tarjeta ? 'Editar Tarjeta' : 'Nueva Tarjeta'" 
+    [showSearch]="false"
+    [showButton]="false"
+  ></app-header>
 
-      <div class="col-md-6 mb-3">
+  <!-- Main -->
+  <main class="form-container">
+    <!-- Form -->
+    <form *ngIf="!loading; else loadingTemplate" [formGroup]="form" (ngSubmit)="save()">
+
+      <!-- Numeración -->
+      <div class="mb-3">
         <label class="form-label">Numeración</label>
         <input type="text" class="form-control" formControlName="numeracion" placeholder="Número de tarjeta" />
         <div *ngIf="form.get('numeracion')?.invalid && form.get('numeracion')?.touched" class="text-danger">
@@ -12,7 +20,8 @@
         </div>
       </div>
 
-      <div class="col-md-6 mb-3">
+      <!-- Fecha de Expiración -->
+      <div class="mb-3">
         <label class="form-label">Fecha de Expiración</label>
         <input type="text" class="form-control" formControlName="fechaExpiracion" placeholder="MM/AA" />
         <div *ngIf="form.get('fechaExpiracion')?.invalid && form.get('fechaExpiracion')?.touched" class="text-danger">
@@ -20,7 +29,8 @@
         </div>
       </div>
 
-      <div class="col-md-6 mb-3">
+      <!-- Nombre del Titular -->
+      <div class="mb-3">
         <label class="form-label">Nombre del Titular</label>
         <input type="text" class="form-control" formControlName="nombreTitular" placeholder="Nombre del titular" />
         <div *ngIf="form.get('nombreTitular')?.invalid && form.get('nombreTitular')?.touched" class="text-danger">
@@ -28,7 +38,8 @@
         </div>
       </div>
 
-      <div class="col-md-6 mb-3">
+      <!-- Nombre de la Tarjeta -->
+      <div class="mb-3">
         <label class="form-label">Nombre de la Tarjeta</label>
         <input type="text" class="form-control" formControlName="nombreTarjeta" placeholder="Ej. Tarjeta personal" />
         <div *ngIf="form.get('nombreTarjeta')?.invalid && form.get('nombreTarjeta')?.touched" class="text-danger">
@@ -36,54 +47,64 @@
         </div>
       </div>
 
-      <div class="col-md-12 mb-3">
+      <!-- Descripción -->
+      <div class="mb-3">
         <label class="form-label">Descripción</label>
         <textarea class="form-control" formControlName="descripcion" rows="3"
           placeholder="Descripción opcional"></textarea>
       </div>
 
-      <div class="col-md-6 mb-3">
+      <!-- Red -->
+      <div class="mb-3">
         <label class="form-label">Red</label>
         <select class="form-select" formControlName="redId">
-          <option [value]="null" disabled selected>Seleccione una red</option>
-          <option *ngFor="let red of redes" [value]="red.id">{{ red.id }}</option>
+          <option selected disabled value="">Seleccione una red</option>
+          <option *ngFor="let red of redes" [value]="red.id">{{ red.nombre }}</option>
         </select>
         <div *ngIf="form.get('redId')?.invalid && form.get('redId')?.touched" class="text-danger">
           Seleccione una red.
         </div>
       </div>
 
-      <div class="col-md-6 mb-3">
+      <!-- Tipo -->
+      <div class="mb-3">
         <label class="form-label">Tipo</label>
         <select class="form-select" formControlName="tipoId">
-          <option [value]="null" disabled selected>Seleccione un tipo</option>
-          <option *ngFor="let tipo of tipos" [value]="tipo.id">{{ tipo.id }}</option>
+          <option selected disabled value="">Seleccione un tipo</option>
+          <option *ngFor="let tipo of tipos" [value]="tipo.id">{{ tipo.nombre }}</option>
         </select>
         <div *ngIf="form.get('tipoId')?.invalid && form.get('tipoId')?.touched" class="text-danger">
           Seleccione un tipo.
         </div>
       </div>
 
-    </div>
+      <!-- Lista de Errores -->
+      <div *ngIf="errors.length > 0" class="alert alert-danger">
+        <ul class="mb-0">
+          <li *ngFor="let error of errors">{{ error }}</li>
+        </ul>
+      </div>
 
-    <!-- Botones -->
-    <div class="d-flex justify-content-between mt-4">
-      <button type="button" class="btn btn-secondary" (click)="goBack()">Cancelar</button>
-      <button type="submit" class="btn btn-primary" [disabled]="loading">
-        {{ tarjeta ? 'Actualizar' : 'Guardar' }}
-      </button>
-    </div>
+      <!-- Botones -->
+      <div class="d-flex justify-content-center gap-4 mt-4">
+        <button type="button" class="btn btn-primary" (click)="goBack()">
+          Regresar
+        </button>
+        <button type="submit" class="btn btn-secondary" [disabled]="loading">
+          {{ tarjeta ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
 
-    <!-- Mensajes de error -->
-    <div *ngIf="errors.length > 0" class="alert alert-danger mt-3">
-      <div *ngFor="let error of errors">{{ error }}</div>
-    </div>
-  </form>
+    </form>
 
-  <!-- Cargando -->
-  <div *ngIf="loading" class="text-center mt-3">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Cargando...</span>
-    </div>
-  </div>
-</div>
+    <!-- Spinner -->
+    <ng-template #loadingTemplate>
+      <div class="spinner-container">
+        <div class="spinner"></div>
+        <p>Cargando datos...</p>
+      </div>
+    </ng-template>
+
+  </main>
+
+</section>

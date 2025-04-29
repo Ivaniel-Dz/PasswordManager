@@ -100,8 +100,9 @@ export class TarjetaFormComponent implements OnInit {
 
     request.subscribe({
       next: () => this.router.navigate(['/dashboard/tarjetas']),
-      error: (response) => {
-        this.errors = response.error.errors || ['Ocurrió un error inesperado.'];
+      error: (resp) => {
+        console.error('Error al guardar:', resp);
+        this.errors = resp.error.errors || [resp.error.message] || ['Ocurrió un error inesperado.'];
       },
     });
   }
