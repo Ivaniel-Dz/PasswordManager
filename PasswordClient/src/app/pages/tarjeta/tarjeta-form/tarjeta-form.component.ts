@@ -7,10 +7,14 @@ import { Tarjeta } from '../../../interfaces/tarjeta';
 import { HeaderComponent } from '../../../layouts/header/header.component';
 import { OptionService } from '../../../services/option.service';
 import { TarjetaService } from '../../../services/tarjeta.service';
+import { BackButtonComponent } from '../../../components/back-button/back-button.component';
+import { SpinnerComponent } from '../../../components/spinner/spinner.component';
+import { AlertInvalidComponent } from '../../../components/alert-invalid/alert-invalid.component';
+import { ErrorMessagesComponent } from '../../../components/error-messages/error-messages.component';
 
 @Component({
   selector: 'app-tarjeta-form',
-  imports: [HeaderComponent, CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [HeaderComponent, CommonModule, ReactiveFormsModule, RouterModule, BackButtonComponent, SpinnerComponent, AlertInvalidComponent, ErrorMessagesComponent],
   templateUrl: './tarjeta-form.component.html',
   styleUrl: './tarjeta-form.component.css',
 })
@@ -105,11 +109,6 @@ export class TarjetaFormComponent implements OnInit {
         this.errors = resp.error.errors || [resp.error.message] || ['Ocurrió un error inesperado.'];
       },
     });
-  }
-
-  // Vuelve a la pagina anterior
-  goBack(): void {
-    window.history.back();
   }
 
 }

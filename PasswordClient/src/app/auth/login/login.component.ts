@@ -5,10 +5,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { JwtService } from '../../services/jwt.service';
 import { Login } from '../../interfaces/login';
 import { CommonModule } from '@angular/common';
+import { ErrorMessagesComponent } from '../../components/error-messages/error-messages.component';
+import { AlertInvalidComponent } from '../../components/alert-invalid/alert-invalid.component';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterModule, ReactiveFormsModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule, ErrorMessagesComponent, AlertInvalidComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -22,18 +24,18 @@ export class LoginComponent {
 
   errors: string[] = [];
 
-  public formLogin: FormGroup = this.fb.group({
+  public form: FormGroup = this.fb.group({
     correo: ['', [Validators.required, Validators.email]],
     clave: ['', Validators.required],
   });
 
   // Método para ingresar al dashboard
   signIn() {
-    if (this.formLogin.invalid) return;
+    if (this.form.invalid) return;
 
     const credencial: Login = {
-      correo: this.formLogin.value.correo,
-      clave: this.formLogin.value.clave,
+      correo: this.form.value.correo,
+      clave: this.form.value.clave,
     };
 
     this.authService.login(credencial).subscribe({

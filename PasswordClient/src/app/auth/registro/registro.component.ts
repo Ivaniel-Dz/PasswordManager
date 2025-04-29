@@ -3,10 +3,12 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validatio
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { ErrorMessagesComponent } from '../../components/error-messages/error-messages.component';
+import { AlertInvalidComponent } from '../../components/alert-invalid/alert-invalid.component';
 
 @Component({
   selector: 'app-registro',
-  imports: [RouterModule, ReactiveFormsModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule, ErrorMessagesComponent, AlertInvalidComponent],
   templateUrl: './registro.component.html',
   styleUrl: '../login/login.component.css', // Reutiliza el css de Login
 })
@@ -17,12 +19,12 @@ export class RegistroComponent implements OnInit {
   private router = inject(Router);
   private fb = inject(FormBuilder);
 
-  registroForm!: FormGroup; // Define el formulario reactivo
+  form!: FormGroup; // Define el formulario reactivo
   errors: string[] = []; // Arreglo para almacenar errores
 
   ngOnInit(): void {
     // Inicializa el formulario con validaciones
-    this.registroForm = this.fb.group(
+    this.form = this.fb.group(
       {
         nombre: ['', Validators.required],
         correo: ['', [Validators.required, Validators.email]],
@@ -42,9 +44,9 @@ export class RegistroComponent implements OnInit {
 
   // Método para registrar al usuario
   signUp(): void {
-    if (this.registroForm.invalid) return; // No proceder si el formulario es inválido
+    if (this.form.invalid) return; // No proceder si el formulario es inválido
 
-    const registro = this.registroForm.value;
+    const registro = this.form.value;
 
     this.authService.register(registro).subscribe({
       next: (resp) => {

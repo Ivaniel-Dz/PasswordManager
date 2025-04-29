@@ -1,0 +1,19 @@
+button {
+    color: var(--white);
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: var(--btn-primary);
+    border: 1px solid var(--purple);
+    text-decoration: none;
+    font-size: var(--text-normal);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--white);
+    color: var(--purple);
+    border: 1px solid var(--purple);
+    border-radius: 5px;
+    cursor: pointer;
+}

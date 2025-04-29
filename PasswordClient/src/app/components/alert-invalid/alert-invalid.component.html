@@ -1,0 +1,14 @@
+<!-- version Angular 17+ -->
+@if (formGroup.get(controlName)?.invalid && formGroup.get(controlName)?.touched) {
+<p class="alert alert-warning text-center p-0 m-0" role="alert">
+    {{ message }}
+</p>
+}
+
+<!-- version Angular -16 -->
+ <!-- 
+<p *ngIf="formGroup.get(controlName)?.invalid && formGroup.get(controlName)?.touched"
+    class="alert alert-warning text-center p-0 m-0" role="alert">
+    {{ message }}
+</p>
+-->

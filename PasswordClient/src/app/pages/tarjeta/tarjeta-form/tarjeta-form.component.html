@@ -2,9 +2,9 @@
 
   <app-header 
     [titulo]="tarjeta ? 'Editar Tarjeta' : 'Nueva Tarjeta'" 
-    [showSearch]="false"
-    [showButton]="false"
-  ></app-header>
+    [showSearch]="false" 
+    [showButton]="false" 
+  />
 
   <!-- Main -->
   <main class="form-container">
@@ -15,36 +15,33 @@
       <div class="mb-3">
         <label class="form-label">Numeración</label>
         <input type="text" class="form-control" formControlName="numeracion" placeholder="Número de tarjeta" />
-        <div *ngIf="form.get('numeracion')?.invalid && form.get('numeracion')?.touched" class="text-danger">
-          La numeración es obligatoria.
-        </div>
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="numeracion" message="Numeración es requerido." />
+
       </div>
 
       <!-- Fecha de Expiración -->
       <div class="mb-3">
         <label class="form-label">Fecha de Expiración</label>
         <input type="text" class="form-control" formControlName="fechaExpiracion" placeholder="MM/AA" />
-        <div *ngIf="form.get('fechaExpiracion')?.invalid && form.get('fechaExpiracion')?.touched" class="text-danger">
-          La fecha de expiración es obligatoria.
-        </div>
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="fechaExpiracion" message="Fecha de Expiración es requerido." />
       </div>
 
       <!-- Nombre del Titular -->
       <div class="mb-3">
         <label class="form-label">Nombre del Titular</label>
         <input type="text" class="form-control" formControlName="nombreTitular" placeholder="Nombre del titular" />
-        <div *ngIf="form.get('nombreTitular')?.invalid && form.get('nombreTitular')?.touched" class="text-danger">
-          El nombre del titular es obligatorio.
-        </div>
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="nombreTitular" message="Nombre del Titular es requerido." />
       </div>
 
       <!-- Nombre de la Tarjeta -->
       <div class="mb-3">
         <label class="form-label">Nombre de la Tarjeta</label>
         <input type="text" class="form-control" formControlName="nombreTarjeta" placeholder="Ej. Tarjeta personal" />
-        <div *ngIf="form.get('nombreTarjeta')?.invalid && form.get('nombreTarjeta')?.touched" class="text-danger">
-          El nombre de la tarjeta es obligatorio.
-        </div>
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="nombreTarjeta" message="Nombre de la tarjeta es requerido." />
       </div>
 
       <!-- Descripción -->
@@ -61,9 +58,8 @@
           <option selected disabled value="">Seleccione una red</option>
           <option *ngFor="let red of redes" [value]="red.id">{{ red.nombre }}</option>
         </select>
-        <div *ngIf="form.get('redId')?.invalid && form.get('redId')?.touched" class="text-danger">
-          Seleccione una red.
-        </div>
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="redId" message="Red de tarjeta es requerido." />
       </div>
 
       <!-- Tipo -->
@@ -73,23 +69,18 @@
           <option selected disabled value="">Seleccione un tipo</option>
           <option *ngFor="let tipo of tipos" [value]="tipo.id">{{ tipo.nombre }}</option>
         </select>
-        <div *ngIf="form.get('tipoId')?.invalid && form.get('tipoId')?.touched" class="text-danger">
-          Seleccione un tipo.
-        </div>
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="tipoId" message="Tipo de tarjeta es requerido." />
       </div>
 
-      <!-- Lista de Errores -->
-      <div *ngIf="errors.length > 0" class="alert alert-danger">
-        <ul class="mb-0">
-          <li *ngFor="let error of errors">{{ error }}</li>
-        </ul>
-      </div>
+      <!-- Mensajes de error del servidor -->
+      <app-error-messages [errors]="errors" />
 
       <!-- Botones -->
       <div class="d-flex justify-content-center gap-4 mt-4">
-        <button type="button" class="btn btn-primary" (click)="goBack()">
-          Regresar
-        </button>
+        <!-- Regresar -->
+        <app-back-button />
+        <!-- Submit -->
         <button type="submit" class="btn btn-secondary" [disabled]="loading">
           {{ tarjeta ? 'Actualizar' : 'Guardar' }}
         </button>
@@ -99,10 +90,7 @@
 
     <!-- Spinner -->
     <ng-template #loadingTemplate>
-      <div class="spinner-container">
-        <div class="spinner"></div>
-        <p>Cargando datos...</p>
-      </div>
+      <app-spinner [message]="'Cargando datos...'" />
     </ng-template>
 
   </main>

@@ -16,24 +16,20 @@
         <div class="tab-content">
             <!-- Register Form -->
             <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                <form [formGroup]="registroForm" (ngSubmit)="signUp()">
+                <form [formGroup]="form" (ngSubmit)="signUp()">
                     <!-- Name input -->
                     <div class="form-outline mb-4">
                         <label class="form-label" for="nombre">Usuario</label>
                         <input type="text" id="nombre" formControlName="nombre" class="form-control" required minlength="3" />
                         <!-- Alert -->
-                        @if (registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched) {
-                            <p class="alert alert-warning text-center p-0 m-0" role="alert"> Ingrese un nombre valido. </p>
-                        }
+                        <app-alert-invalid [formGroup]="form" controlName="nombre" message="Nombre es requerido." />
                     </div>
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <label class="form-label" for="correo">Correo</label>
                         <input type="email" id="correo" formControlName="correo" class="form-control" required />
                         <!-- Alert -->
-                        @if (registroForm.get('correo')?.invalid && registroForm.get('correo')?.touched) {
-                            <p class="alert alert-warning text-center p-0 m-0" role="alert"> Ingrese un Correo valido. </p>
-                        }
+                        <app-alert-invalid [formGroup]="form" controlName="correo" message="Correo es requerido." />
                     </div>
 
                     <!-- Password input -->
@@ -41,30 +37,26 @@
                         <label class="form-label" for="clave">Password</label>
                         <input type="password" id="clave" class="form-control" formControlName="clave" required />
                         <!-- Alert -->
-                        @if (registroForm.get('clave')?.invalid && registroForm.get('clave')?.touched) {
-                            <p class="alert alert-warning text-center p-0 m-0" role="alert"> La contraseña debe tener al menos 5 caracteres.</p>
-                        }
+                        <app-alert-invalid [formGroup]="form" controlName="clave" message="La Contraseña debe tener al menos 5 caracteres." />
                     </div>
 
                     <!-- Repeat Password input -->
                     <div class="form-outline mb-4">
                         <label class="form-label" for="confirClave">Repetir password</label>
                         <input type="password" id="confirClave" class="form-control" formControlName="confirClave" required />
-
+                        <!-- Alert -->
                         <p class="alert alert-warning text-center p-0 m-0" role="alert"
-                        *ngIf="registroForm.hasError('passwordMismatch') && registroForm.get('confirClave')?.touched">
+                        *ngIf="form.hasError('passwordMismatch') && form.get('confirClave')?.touched">
                         Las contraseñas no coinciden.
                         </p>
                         
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-block mb-3 w-100" [disabled]="registroForm.invalid"> Registrarse </button>
+                    <button type="submit" class="btn btn-block mb-3 w-100" [disabled]="form.invalid"> Registrarse </button>
 
                     <!-- Mensajes de error del servidor -->
-                    <div *ngIf="errors.length > 0" class="alert alert-danger m-0 d-flex justify-content-center" role="alert">
-                        <small *ngFor="let error of errors"> {{ error }} </small>
-                    </div>
+                    <app-error-messages [errors]="errors"/>
 
                 </form>
             </div>

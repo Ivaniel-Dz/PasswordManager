@@ -7,10 +7,14 @@ import { PasswordService } from '../../../services/password.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../../layouts/header/header.component';
 import { OptionService } from '../../../services/option.service';
+import { ErrorMessagesComponent } from '../../../components/error-messages/error-messages.component';
+import { BackButtonComponent } from '../../../components/back-button/back-button.component';
+import { SpinnerComponent } from '../../../components/spinner/spinner.component';
+import { AlertInvalidComponent } from '../../../components/alert-invalid/alert-invalid.component';
 
 @Component({
   selector: 'app-password-form',
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, HeaderComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, HeaderComponent, BackButtonComponent, ErrorMessagesComponent, SpinnerComponent, AlertInvalidComponent],
   templateUrl: './password-form.component.html',
   styleUrl: './password-form.component.css',
 })
@@ -38,6 +42,7 @@ export class PasswordFormComponent implements OnInit {
     // si hay un id en la url, carga los datos
     if (id) {
       this.loading = true;
+
       this.passwordService.get(+id).subscribe({ // +id convierte a number el id
         next: (password) => {
           this.password = password;
@@ -92,11 +97,6 @@ export class PasswordFormComponent implements OnInit {
         this.errors = response.error.errors || ['Ocurrió un error.'];
       },
     });
-  }
-
-  // Vuelve a la pagina anterior
-  goBack(): void {
-    window.history.back();
   }
 
 }
