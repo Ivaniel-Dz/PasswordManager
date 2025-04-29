@@ -45,7 +45,7 @@ namespace PasswordServer.Data
                 tb.Property(col => col.Clave).HasMaxLength(100);
                 tb.Property(col => col.Notas).HasMaxLength(250);
                 tb.Property(col => col.FechaCreacion).HasDefaultValueSql("CURRENT_TIMESTAMP").ValueGeneratedOnAdd();
-                tb.Property(col => col.FechaActualizacion).HasDefaultValueSql("CURRENT_TIMESTAMP").ValueGeneratedOnAddOrUpdate(); // Se actualiza al crear o modificar
+                tb.Property(col => col.FechaActualizacion).HasDefaultValueSql("CURRENT_TIMESTAMP").ValueGeneratedOnAdd();
                 tb.Property(col => col.CategoriaId).HasColumnType("int");
 
                 // Relacion Password - User
