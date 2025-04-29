@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../../layouts/header/header.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-password-generator',
@@ -11,6 +12,7 @@ import { HeaderComponent } from '../../../layouts/header/header.component';
   styleUrl: './password-generator.component.css',
 })
 export class PasswordGeneratorComponent {
+  // Propiedades para la generación de contraseñas
   length: number = 12;
   includeUppercase: boolean = false;
   includeLowercase: boolean = false;
@@ -19,6 +21,7 @@ export class PasswordGeneratorComponent {
   keyword: string = '';
   password: string = '';
 
+  // Método para generar la contraseña
   generatePassword(): void {
     const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
     const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -33,9 +36,15 @@ export class PasswordGeneratorComponent {
     if (this.includeSpecial) characters += specialChars;
 
     if (!characters) {
-      alert(
-        'Por favor, selecciona al menos una opción para los tipos de caracteres.'
-      );
+      // Alert
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Advertencia",
+        text: "Por favor, selecciona al menos una opción para los tipos de caracteres.",
+        showConfirmButton: false,
+        timer: 1500
+      });
       return;
     }
 
@@ -47,6 +56,21 @@ export class PasswordGeneratorComponent {
     }
 
     this.password = result;
+  }
+
+  // Método par copiar al portapapeles
+  copyClipboard(): void {
+    if (this.password) {
+      navigator.clipboard.writeText(this.password);
+      // Alert
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Copiado al portapapeles",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
   }
 
 }
