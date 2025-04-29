@@ -3,6 +3,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { JwtService } from '../services/jwt.service';
 
 // Guardia para verificar si el usuario está autenticado (Sin roles)
+// Protege rutas privadas
 export const authGuard: CanActivateFn = (route, state) => {
   // Inyecta el servicio
   const jwtService = inject(JwtService);

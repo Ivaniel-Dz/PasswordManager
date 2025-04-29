@@ -12,6 +12,7 @@ import { PasswordDetailComponent } from './pages/password/password-detail/passwo
 import { TarjetaFormComponent } from './pages/tarjeta/tarjeta-form/tarjeta-form.component';
 import { authGuard } from './guards/auth.guard';
 import { TarjetaDetailComponent } from './pages/tarjeta/tarjeta-detail/tarjeta-detail.component';
+import { redirectInvalidRoutesGuard } from './guards/redirect-invalid-routes.guard';
 
 
 export const routes: Routes = [
@@ -56,6 +57,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'auth/login',
-  },
+    canActivate: [redirectInvalidRoutesGuard],
+    component: LoginComponent // este nunca se renderiza, es obligatorio por sintaxis
+  }
 ];
