@@ -30,8 +30,8 @@
 
 /* Opciones de Menu: Active */
 .nav .nav-item .nav-link.active {
-  background-color: var(--color-background);
-  color: var(--color-text);
+  background-color: var(--orange);
+  color: var(--white);
 }
 
 /* Dropdown de Perfil */

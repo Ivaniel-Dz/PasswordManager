@@ -43,6 +43,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'passwords', component: PasswordComponent },
+      { path: 'passwords/:categoria', component: PasswordComponent },
       { path: 'password/detalles/:id', component: PasswordDetailComponent },
       { path: 'password/nueva', component: PasswordFormComponent },
       { path: 'password/editar/:id', component: PasswordFormComponent },

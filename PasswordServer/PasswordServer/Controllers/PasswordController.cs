@@ -18,21 +18,20 @@ namespace PasswordServer.Controllers
             _passwordService = passwordServic;
         }
 
-        
+
         [HttpGet]
         [Route("GetAll")] // api/Password/GetAll
-        public  async Task<IActionResult> GetAll([FromQuery] string? term)
+        public async Task<IActionResult> GetAll([FromQuery] string? categoria, [FromQuery] string? term)
         {
-            // Obtenemos el userId del token JWT
             var userId = ClaimUtils.GetUserIdFromClaims(User);
             if (userId == null) return Unauthorized();
 
-            var password = await _passwordService.GetAll(userId.Value, term);
-
+            var password = await _passwordService.GetAll(userId.Value, categoria, term);
             return Ok(password);
         }
 
-        
+
+
         [HttpGet]
         [Route("Get/{id}")] // api/Password/Get/id
         public async Task<IActionResult> Get(int id)

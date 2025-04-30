@@ -19,26 +19,29 @@ namespace PasswordServer.Services
 
         }
 
-        // Servicio para Obtener todas las contraseñas
-        public async Task<IEnumerable<PasswordDto>> GetAll(int userId, string? term)
+        // Servicio para Obtener todas las contraseñas por: categoria o busqueda
+        public async Task<IEnumerable<PasswordDto>> GetAll(int userId, string? categoria, string? term)
         {
-            // Verifica si el id del usuario es mismo del autenticado
+            // Compara si el id y categoria son iguales a lo ingresado
             var query = _appDBContext.Passwords
                 .Include(p => p.CategoriaPassword)
                 .Where(p => p.UserId == userId);
 
-            // Buscar por termino
-            if (!string.IsNullOrEmpty(term))
-            {
-                query = query.Where(p =>
-                p.Nombre.Contains(term) ||
-                p.UserEmail.Contains(term) ||
-                p.CategoriaPassword.Nombre.Contains(term) ||
-                p.FechaActualizacion.ToString().Contains(term) ||
-                p.FechaCreacion.ToString().Contains(term)
-                );
-            }
+            // Filtra por categoria
+            if (!string.IsNullOrEmpty(categoria))
+                query = query.Where(p => p.CategoriaPassword.Nombre == categoria);
 
+            // Filtra por termino
+            if (!string.IsNullOrEmpty(term))
+                query = query.Where(p =>
+                    p.Nombre.Contains(term) ||
+                    p.UserEmail.Contains(term) ||
+                    p.CategoriaPassword.Nombre.Contains(term) ||
+                    p.FechaActualizacion.ToString().Contains(term) ||
+                    p.FechaCreacion.ToString().Contains(term)
+                );
+
+            // Retorna la lista de datos
             return await query.Select(dto => new PasswordDto
             {
                 Id = dto.Id,
@@ -109,7 +112,7 @@ namespace PasswordServer.Services
             await _appDBContext.Passwords.AddAsync(newPassword);
             await _appDBContext.SaveChangesAsync();
 
-            return new ResponseDto { IsSuccess = true, Message = "Nueva Contraseña creada correctamente." };
+            return new ResponseDto { IsSuccess = true, Message = "Contraseña creada correctamente." };
         }
 
 
@@ -120,7 +123,7 @@ namespace PasswordServer.Services
                 .FirstOrDefaultAsync(p => p.Id == id && p.UserId == userId);
 
             if (existePassword == null)
-                return new ResponseDto { IsSuccess = false, Message = "Password no encontrado." };
+                return new ResponseDto { IsSuccess = false, Message = "Contraseña no encontrado." };
 
             // Actualizar solo si hay nuevos valores
             if (!string.IsNullOrWhiteSpace(passwordDto.Nombre))
@@ -147,7 +150,7 @@ namespace PasswordServer.Services
             _appDBContext.Passwords.Update(existePassword);
             await _appDBContext.SaveChangesAsync();
 
-            return new ResponseDto { IsSuccess = true, Message = "Password actualizado correctamente." };
+            return new ResponseDto { IsSuccess = true, Message = "Contraseña actualizado correctamente." };
         }
 
 

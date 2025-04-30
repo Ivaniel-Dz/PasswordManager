@@ -16,17 +16,15 @@ export class PasswordService {
 
   constructor() {}
 
-  // Método para obtener toda la lista
-  getAll(term?: string): Observable<Password[]> {
-    let params = new HttpParams();
-    if (term) {
-      params = params.set('term', term);
-    }
+  // Método para obtener toda la lista completa | term | categoría
+getAll(term?: string, category?: string): Observable<Password[]> {
+  const params: any = {};
+  if (term) params.term = term;
+  if (category) params.category = category;
 
-    return this.http.get<Password[]>(`${this.apiUrl}/GetAll`, {
-      params,
-    });
-  }
+  return this.http.get<Password[]>(`${this.apiUrl}/GetAll`, { params });
+}
+
 
   // Método para obtener una contraseña
   get(id: number): Observable<Password> {
