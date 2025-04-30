@@ -76,7 +76,7 @@ namespace PasswordServer.Data
                 tb.Property(col => col.Id).UseIdentityColumn().ValueGeneratedOnAdd();
                 tb.Property(col => col.UserId).HasColumnType("int");
                 tb.Property(col => col.Numeracion).HasMaxLength(20);
-                tb.Property(col => col.FechaExpiracion).HasColumnType("date");
+                tb.Property(col => col.FechaExpiracion).HasMaxLength(5);
                 tb.Property(col => col.NombreTitular).HasMaxLength(50);
                 tb.Property(col => col.NombreTarjeta).HasMaxLength(50);
                 tb.Property(col => col.Descripcion).HasMaxLength(250);

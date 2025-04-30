@@ -130,7 +130,10 @@ namespace PasswordServer.Services
             if (!string.IsNullOrEmpty(tarjetaDto.Numeracion))
                 existeTarjeta.Numeracion = tarjetaDto.Numeracion;
 
-            if (tarjetaDto.FechaExpiracion != default)
+            //if (tarjetaDto.FechaExpiracion != default)
+            //    existeTarjeta.FechaExpiracion = tarjetaDto.FechaExpiracion;
+
+            if (!string.IsNullOrEmpty(tarjetaDto.FechaExpiracion))
                 existeTarjeta.FechaExpiracion = tarjetaDto.FechaExpiracion;
 
             if (!string.IsNullOrEmpty(tarjetaDto.NombreTitular))

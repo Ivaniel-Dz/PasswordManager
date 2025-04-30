@@ -64,8 +64,8 @@ export class TarjetaFormComponent implements OnInit {
   private initForm(): void {
     this.form = this.fb.group({
       id: [0], 
-      numeracion: ['', Validators.required],
-      fechaExpiracion: ['', Validators.required],
+      numeracion: ['', [Validators.required, Validators.pattern(/^[0-9]{8,19}$/)]], // Acepta solo enteros
+      fechaExpiracion: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)]], // MM/AA
       nombreTitular: ['', Validators.required],
       nombreTarjeta: ['', Validators.required],
       descripcion: [''],

@@ -14,18 +14,18 @@
       <!-- Numeración -->
       <div class="mb-3">
         <label class="form-label">Numeración</label>
-        <input type="text" class="form-control" formControlName="numeracion" placeholder="Número de tarjeta" />
+        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="19" class="form-control" formControlName="numeracion"
+          placeholder="Número de tarjeta" />
         <!-- alerta -->
-        <app-alert-invalid [formGroup]="form" controlName="numeracion" message="Numeración es requerido." />
-
+        <app-alert-invalid [formGroup]="form" controlName="numeracion" message="Numeración es requerido y debe contener solo números." />
       </div>
 
       <!-- Fecha de Expiración -->
       <div class="mb-3">
         <label class="form-label">Fecha de Expiración</label>
-        <input type="text" class="form-control" formControlName="fechaExpiracion" placeholder="MM/AA" />
+        <input type="text" class="form-control" formControlName="fechaExpiracion" placeholder="MM/AA" maxlength="5"/>
         <!-- alerta -->
-        <app-alert-invalid [formGroup]="form" controlName="fechaExpiracion" message="Fecha de Expiración es requerido." />
+        <app-alert-invalid [formGroup]="form" controlName="fechaExpiracion" message="Formato de fecha inválido. Use MM/AA: 01/25" />
       </div>
 
       <!-- Nombre del Titular -->

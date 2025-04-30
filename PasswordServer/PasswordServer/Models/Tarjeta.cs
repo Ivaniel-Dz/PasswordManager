@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public int UserId { get; set; }
         public string Numeracion { get; set; }
-        public DateOnly FechaExpiracion { get; set; }  // Fecha de expiración (solo mes y año)
+        public string FechaExpiracion { get; set; }  // MM/YY
         public string NombreTitular { get; set; }
         public string NombreTarjeta { get; set; }
         public string? Descripcion { get; set; } = null; // Opcional

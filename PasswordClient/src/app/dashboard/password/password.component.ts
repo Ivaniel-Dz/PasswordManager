@@ -16,17 +16,19 @@ import { paginate } from '../../utils/pagination.util';
 })
 
 export class PasswordComponent implements OnInit {
+  // Inyección de dependencias
   passwordService = inject(PasswordService);
   router = inject(Router);
   route = inject(ActivatedRoute); // nuevo
-
+  // Arrays
   passwords: Password[] = [];
   paginatedPasswords: Password[] = [];
+  // Propiedad de paginación
   currentPage = 1;
   itemsPerPage = 4;
 
+  // Se ejecuta al inicializar el componente
   ngOnInit(): void {
-    // Escuchar cambios de parámetros en la ruta
     this.route.queryParams.subscribe((params) => {
       const category = params['category'];
       this.currentPage = 1;
@@ -34,7 +36,7 @@ export class PasswordComponent implements OnInit {
     });
   }
 
-  // Modifica loadPasswords para aceptar categoría
+  // Método para carga los datos
   loadPasswords(term?: string, category?: string): void {
     this.passwordService.getAll(term, category).subscribe({
       next: (res) => {
@@ -57,16 +59,22 @@ export class PasswordComponent implements OnInit {
     });
   }
 
+  // Para paginar en frontend
+  // Método para colocar la paginación
   setPaginatedPasswords(): void {
+    // Asignamos al util
     this.paginatedPasswords = paginate(this.passwords, this.currentPage, this.itemsPerPage);
   }
 
+  // Ir a la pagina
   goToPage(page: number): void {
     this.currentPage = page;
     this.setPaginatedPasswords();
   }
 
+  // Total de paginas
   get totalPages(): number {
     return Math.ceil(this.passwords.length / this.itemsPerPage);
   }
+  
 }
