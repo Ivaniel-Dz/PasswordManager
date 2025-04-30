@@ -99,7 +99,7 @@ El proyecto pone énfasis en la seguridad mediante las siguientes medidas:
 ![preview](./preview/password-update.jpeg)
 
 ### Password: Detalles
-![preview](./preview/password-detail.jpeg.jpeg)
+![preview](./preview/password-detail.jpeg)
 
 ### Generador de Contraseñas
 ![preview](./preview/password-generator.jpeg)
