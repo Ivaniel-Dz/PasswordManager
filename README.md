@@ -6,13 +6,13 @@ El objetivo principal de este proyecto es desarrollar un gestor de contraseñas 
 El gestor está pensado para mejorar la seguridad digital de los usuarios al centralizar y proteger información sensible en un entorno seguro, eliminando la necesidad de recordar múltiples contraseñas o datos de tarjetas.
 
 ## Tecnologías
-- **C#/ASP.NET**: Lenguaje principal para el desarrollo del backend y la lógica de negocio.
+- **C#/ASP.NET Core Web API**: Lenguaje principal para el desarrollo del backend y la lógica de negocio.
 - **TypeScript**: Utilizado para agregar interactividad y funcionalidades dinámicas en el frontend.
 - **Angular**: Para la estructura de las vistas y componentes.
 - **Bootstrap**: Para el diseño y estilizado de la interfaz de usuario.
 
 ## Paquetes del Proyecto
-### ASP:NET CORE:
+### ASP.NET Core:
 - **Entity Framework Core**: ORM utilizado para interactuar con la base de datos de forma eficiente y sin necesidad de escribir consultas SQL manualmente.
 - **Microsoft Entity Framework Core SqlServer:** Implementación específica para trabajar con SQL Server.
 - **Microsoft Entity Framework Core Tools:** Proporciona herramientas como migraciones para la gestión de la base de datos desde la línea de comandos.
