@@ -12,10 +12,16 @@ El gestor está pensado para mejorar la seguridad digital de los usuarios al cen
 - **Bootstrap**: Para el diseño y estilizado de la interfaz de usuario.
 
 ## Paquetes del Proyecto
+### ASP:NET CORE:
 - **Entity Framework Core**: ORM utilizado para interactuar con la base de datos de forma eficiente y sin necesidad de escribir consultas SQL manualmente.
 - **Microsoft Entity Framework Core SqlServer:** Implementación específica para trabajar con SQL Server.
 - **Microsoft Entity Framework Core Tools:** Proporciona herramientas como migraciones para la gestión de la base de datos desde la línea de comandos.
 - **Microsoft AspNetCore Authentication JwtBearer**: Habilita la autenticación basada en JWT en aplicaciones ASP.NET Core.
+
+### Angular: Librerías
+- **SweetAlert2:** Es una librería de JavaScript para Angular que proporciona ventanas de diálogo (alertas) atractivas y personalizables, reemplazando las alertas nativas del navegador.
+
+- **jwt-decode:** Es una pequeña librería de JavaScript que permite decodificar tokens JWT (JSON Web Tokens) en aplicaciones Angular para acceder a la información que contienen sin verificar su firma.
 
 ## Funcionalidades Principales
 1. **Almacenamiento Seguro:**
@@ -38,6 +44,8 @@ El gestor está pensado para mejorar la seguridad digital de los usuarios al cen
 6. **Cierre de Sesión Seguro:**
     - Proporciona una funcionalidad para que los usuarios cierren sesión de manera segura, eliminando cualquier token de autenticación activo.
 
+7. **Paginación:**
+    - Permite visualizar la lista en una lista terminado, en este caso se configuro desde el lado del cliente (Angular).
 
 ## Seguridad
 El proyecto pone énfasis en la seguridad mediante las siguientes medidas:
@@ -65,11 +73,48 @@ El proyecto pone énfasis en la seguridad mediante las siguientes medidas:
     - Es cifrado simétrico reversible (necesitas poder recuperar las contraseñas originales)
 
 ## Mejoras
-1. **Numeración de Pie de Páginas:** 
-    - Agregar numeración automática en las vistas de listas largas para facilitar la navegación.
-
-2. **Recuperación de Contraseña:**
+1. **Recuperación de Contraseña:**
     - Implementar un sistema de recuperación de contraseña para usuarios que olviden sus credenciales.
     - Enviar enlaces seguros por correo electrónico para restablecer la contraseña.
+2. Agregar sweet alert de confirmación para actualización de datos para Contraseñas y tarjetas.
+3. Remplazar el uso de GetUserIdFromClaims en cada método por el claimUtil.
 
 ## Preview del Proyecto
+![preview](./preview/parte-1.gif)
+![preview](./preview/parte-2.gif)
+
+### Login
+![preview](./preview/login.jpeg)
+
+### Registro
+![preview](./preview/registro.jpeg)
+
+### Password: Lista
+![preview](./preview/password-list.jpeg)
+
+### Password: Form Agregar
+![preview](./preview/password-add.jpeg)
+
+### Password: Form Actualizar
+![preview](./preview/password-update.jpeg)
+
+### Password: Detalles
+![preview](./preview/password-detail.jpeg.jpeg)
+
+### Generador de Contraseñas
+![preview](./preview/password-generator.jpeg)
+
+### Tarjeta: Lista 
+![preview](./preview/card-list.jpeg)
+
+### Tarjeta: Detalles
+![preview](./preview/card-details.jpeg)
+
+### Tarjeta: Form Agregar
+![preview](./preview/card-ad.jpeg)
+
+### Tarjeta: Form Actualizar
+![preview](./preview/card-update.jpeg)
+
+### Perfil: Form Actualizar
+![preview](./preview/perfil.jpeg)
