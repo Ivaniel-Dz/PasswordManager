@@ -6,8 +6,8 @@ const USER_KEY = 'demo-user';
 const DEFAULT_USER: Usuario = {
   id: 1,
   nombre: 'Ivaniel Diaz',
-  correo: 'user@example.com',
-  clave: 'user123'
+  correo: 'user@demo.com',
+  clave: '12345'
 };
 
 @Injectable({

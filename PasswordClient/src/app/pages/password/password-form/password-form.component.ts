@@ -37,23 +37,6 @@ export class PasswordFormComponent implements OnInit {
   ngOnInit(): void {
     // Inicializa el form y categoría si no hay id en la url
     this.initForm();
-    this.loadCategorias();
-
-    const id = this.route.snapshot.paramMap.get('id');
-    // si hay un id en la url, carga los datos
-    if (id) {
-      this.loading = true;
-
-      this.passwordService.get(+id).subscribe({ // +id convierte a number el id
-        next: (password) => {
-          this.password = password;
-          this.form.patchValue(password); // carga los datos al form
-          this.loading = false;
-        },
-        // Redirige si no encuentra
-        error: () => this.router.navigate(['/dashboard/passwords']),
-      });
-    }
   }
 
   // Inicializa el formulario
@@ -68,42 +51,8 @@ export class PasswordFormComponent implements OnInit {
     });
   }
 
-  // Carga las categorías
-  private loadCategorias(): void {
-    this.optionService.getCategorias().subscribe({
-      next: (data) => (this.categorias = data),
-      error: () => (this.errors = ['Error al cargar las categorías']),
-    });
-  }
-
   // Guarda el formulario
   save(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    const passwordForm = this.form.value;
-    // si hay un id en la url, actualiza y si no crea uno nuevo
-    const request = this.password
-      ? this.passwordService.update(this.password.id, {
-        ...passwordForm,
-        id: this.password.id,
-      })
-      : this.passwordService.add({ ...passwordForm, id: 0 });
-
-    request.subscribe({
-      next: (resp) => {
-        if (resp.isSuccess) {
-          // Instancia de sweet-alert
-          showToastAlert(resp.message ?? 'Guardado Correctamente', 'success');
-          this.router.navigate(['/dashboard/passwords'])
-        }
-      },
-      error: (resp) => {
-        this.errors = resp.error.errors || ['Ocurrió un error.'];
-      },
-    });
   }
 
 }

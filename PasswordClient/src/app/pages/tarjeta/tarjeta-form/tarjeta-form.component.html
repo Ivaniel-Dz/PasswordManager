@@ -54,9 +54,8 @@
       <!-- Red -->
       <div class="mb-3">
         <label class="form-label">Red</label>
-        <select class="form-select" formControlName="redId">
+        <select class="form-select" formControlName="red">
           <option selected disabled value="">Seleccione una red</option>
-          <option *ngFor="let red of redes" [value]="red.id">{{ red.nombre }}</option>
         </select>
         <!-- alerta -->
         <app-alert-invalid [formGroup]="form" controlName="redId" message="Red de tarjeta es requerido." />
@@ -65,9 +64,8 @@
       <!-- Tipo -->
       <div class="mb-3">
         <label class="form-label">Tipo</label>
-        <select class="form-select" formControlName="tipoId">
+        <select class="form-select" formControlName="tipo">
           <option selected disabled value="">Seleccione un tipo</option>
-          <option *ngFor="let tipo of tipos" [value]="tipo.id">{{ tipo.nombre }}</option>
         </select>
         <!-- alerta -->
         <app-alert-invalid [formGroup]="form" controlName="tipoId" message="Tipo de tarjeta es requerido." />

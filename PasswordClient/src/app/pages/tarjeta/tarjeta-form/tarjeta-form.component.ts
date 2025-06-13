@@ -38,38 +38,19 @@ export class TarjetaFormComponent implements OnInit {
   ngOnInit(): void {
     // Inicializa el form y las opciones si no hay id en la url
     this.initForm();
-    this.loadRedes();
-    this.loadTipos();
-
   }
 
   // Inicializa el formulario
   private initForm(): void {
     this.form = this.fb.group({
-      id: [0], 
+      id: null, 
       numeracion: ['', [Validators.required, Validators.pattern(/^[0-9]{8,19}$/)]], // Acepta solo enteros
       fechaExpiracion: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)]], // MM/AA
       nombreTitular: ['', Validators.required],
       nombreTarjeta: ['', Validators.required],
+      red: ['', Validators.required],
+      tipo: ['', Validators.required],
       descripcion: [''],
-      redId: [null, Validators.required],
-      tipoId: [null, Validators.required],
-    });
-  }
-
-  // Carga las redes
-  private loadRedes(): void {
-    this.optionService.getRedes().subscribe({
-      next: (data) => (this.redes = data),
-      error: () => (this.errors = ['Error al cargar las redes']),
-    });
-  }
-
-  // Carga los tipos
-  private loadTipos(): void {
-    this.optionService.getTipos().subscribe({
-      next: (data) => (this.tipos = data),
-      error: () => (this.errors = ['Error al cargar los tipos']),
     });
   }
 

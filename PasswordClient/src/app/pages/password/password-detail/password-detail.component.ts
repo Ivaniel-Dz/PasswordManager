@@ -29,45 +29,11 @@ export class PasswordDetailComponent implements OnInit {
 
   // Método para obtener los detalles
   detailPassword(): void {
-    const id = this.route.snapshot.paramMap.get('id');
 
-    if (id) {
-      this.passwordService.get(parseInt(id)).subscribe({
-        next: (data) => {
-          console.log('Contraseña recibida', data);
-          this.password = data;
-        },
-        error: (err) => {
-          console.error('Error al cargar los detalles', err);
-          // redirigir si hay error
-          this.router.navigate(['/dashboard/passwords']);
-        },
-      });
-    } else {
-      console.error('ID no encontrado en la URL');
-      this.router.navigate(['/dashboard/passwords']); // Redireccionar si no hay id
-    }
   }
 
   // Método para eliminar
   deletePassword(id: number): void {
-    // Instancia de util: sweet-alert
-    confirmDialog('¿Estás seguro?', 'Esta acción eliminará la contraseña.').then((confirmed) => {
-      
-      if (confirmed) {
-        this.passwordService.delete(id).subscribe({
-          next: (res) => {
-            if (res.isSuccess) {
-              // Instancia de sweet-alert
-              showToastAlert(res.message ?? 'Eliminado correctamente', 'success');
-              this.router.navigate(['/dashboard/passwords']);
-            }
-          },
-          error: (err) => console.error(err),
-        });
-      }
-    });
-
   }
 
 }

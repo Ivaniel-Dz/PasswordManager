@@ -29,34 +29,15 @@ export class PasswordComponent implements OnInit {
 
   // Se ejecuta al inicializar el componente
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      const category = params['category'];
-      this.currentPage = 1;
-      this.loadPasswords(undefined, category);
-    });
   }
 
   // Método para carga los datos
   loadPasswords(term?: string, category?: string): void {
-    this.passwordService.getAll(term, category).subscribe({
-      next: (res) => {
-        this.passwords = res;
-        this.setPaginatedPasswords();
-      },
-      error: (err) => {
-        console.error('Error al cargar las contraseñas', err);
-      },
-    });
+
   }
 
   // Método para buscar
   onSearch(term: string): void {
-    console.log('Searching for:', term);
-    this.currentPage = 1;
-    this.route.queryParams.subscribe((params) => {
-      const category = params['category'];
-      this.loadPasswords(term, category || undefined);
-    });
   }
 
   // Para paginar en frontend
