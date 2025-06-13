@@ -1,96 +1,46 @@
-<section class="section-main">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Número</label>
+    <input formControlName="numeracion" required />
+  </div>
 
-  <app-header 
-    [titulo]="tarjeta ? 'Editar Tarjeta' : 'Nueva Tarjeta'" 
-    [showSearch]="false" 
-    [showButton]="false" 
-  />
+  <div>
+    <label>Fecha de Expiración</label>
+    <input type="date" formControlName="fechaExpiracion" required />
+  </div>
 
-  <!-- Main -->
-  <main class="form-container">
-    <!-- Form -->
-    <form *ngIf="!loading; else loadingTemplate" [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <label>Titular</label>
+    <input formControlName="titular" required />
+  </div>
 
-      <!-- Numeración -->
-      <div class="mb-3">
-        <label class="form-label">Numeración</label>
-        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="19" class="form-control" formControlName="numeracion"
-          placeholder="Número de tarjeta" />
-        <!-- alerta -->
-        <app-alert-invalid [formGroup]="form" controlName="numeracion" message="Numeración es requerido y debe contener solo números." />
-      </div>
+  <div>
+    <label>Nombre</label>
+    <input formControlName="nombre" required />
+  </div>
 
-      <!-- Fecha de Expiración -->
-      <div class="mb-3">
-        <label class="form-label">Fecha de Expiración</label>
-        <input type="text" class="form-control" formControlName="fechaExpiracion" placeholder="MM/AA" maxlength="5"/>
-        <!-- alerta -->
-        <app-alert-invalid [formGroup]="form" controlName="fechaExpiracion" message="Formato de fecha inválido. Use MM/AA: 01/25" />
-      </div>
+  <div>
+    <label>Red</label>
+    <select formControlName="red" required>
+      <option value="Visa">Visa</option>
+      <option value="MasterCard">MasterCard</option>
+      <option value="American Express">American Express</option>
+    </select>
+  </div>
 
-      <!-- Nombre del Titular -->
-      <div class="mb-3">
-        <label class="form-label">Nombre del Titular</label>
-        <input type="text" class="form-control" formControlName="nombreTitular" placeholder="Nombre del titular" />
-        <!-- alerta -->
-        <app-alert-invalid [formGroup]="form" controlName="nombreTitular" message="Nombre del Titular es requerido." />
-      </div>
+  <div>
+    <label>Tipo</label>
+    <select formControlName="tipo" required>
+      <option value="Crédito">Crédito</option>
+      <option value="Débito">Débito</option>
+      <option value="Prepago">Prepago</option>
+    </select>
+  </div>
 
-      <!-- Nombre de la Tarjeta -->
-      <div class="mb-3">
-        <label class="form-label">Nombre de la Tarjeta</label>
-        <input type="text" class="form-control" formControlName="nombreTarjeta" placeholder="Ej. Tarjeta personal" />
-        <!-- alerta -->
-        <app-alert-invalid [formGroup]="form" controlName="nombreTarjeta" message="Nombre de la tarjeta es requerido." />
-      </div>
+  <div>
+    <label>Descripción (opcional)</label>
+    <textarea formControlName="descripcion"></textarea>
+  </div>
 
-      <!-- Descripción -->
-      <div class="mb-3">
-        <label class="form-label">Descripción</label>
-        <textarea class="form-control" formControlName="descripcion" rows="3"
-          placeholder="Descripción opcional"></textarea>
-      </div>
-
-      <!-- Red -->
-      <div class="mb-3">
-        <label class="form-label">Red</label>
-        <select class="form-select" formControlName="red">
-          <option selected disabled value="">Seleccione una red</option>
-        </select>
-        <!-- alerta -->
-        <app-alert-invalid [formGroup]="form" controlName="redId" message="Red de tarjeta es requerido." />
-      </div>
-
-      <!-- Tipo -->
-      <div class="mb-3">
-        <label class="form-label">Tipo</label>
-        <select class="form-select" formControlName="tipo">
-          <option selected disabled value="">Seleccione un tipo</option>
-        </select>
-        <!-- alerta -->
-        <app-alert-invalid [formGroup]="form" controlName="tipoId" message="Tipo de tarjeta es requerido." />
-      </div>
-
-      <!-- Mensajes de error del servidor -->
-      <app-error-messages [errors]="errors" />
-
-      <!-- Botones -->
-      <div class="d-flex justify-content-center gap-4 mt-4">
-        <!-- Regresar -->
-        <app-back-button />
-        <!-- Submit -->
-        <button type="submit" class="btn btn-secondary" [disabled]="loading">
-          {{ tarjeta ? 'Actualizar' : 'Guardar' }}
-        </button>
-      </div>
-
-    </form>
-
-    <!-- Spinner -->
-    <ng-template #loadingTemplate>
-      <app-spinner [message]="'Cargando datos...'" />
-    </ng-template>
-
-  </main>
-
-</section>
+  <button type="submit">{{ isEdit ? 'Actualizar' : 'Agregar' }} Tarjeta</button>
+</form>

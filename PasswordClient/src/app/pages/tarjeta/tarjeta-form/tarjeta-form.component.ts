@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Option } from '../../../interfaces/option';
@@ -12,51 +12,84 @@ import { SpinnerComponent } from '../../../components/spinner/spinner.component'
 import { AlertInvalidComponent } from '../../../components/alert-invalid/alert-invalid.component';
 import { ErrorMessagesComponent } from '../../../components/error-messages/error-messages.component';
 import { showToastAlert } from '../../../utils/sweet-alert.util';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tarjeta-form',
+  // prettier-ignore
   imports: [HeaderComponent, CommonModule, ReactiveFormsModule, RouterModule, BackButtonComponent, SpinnerComponent, AlertInvalidComponent, ErrorMessagesComponent],
   templateUrl: './tarjeta-form.component.html',
   styleUrl: './tarjeta-form.component.css',
 })
-export class TarjetaFormComponent implements OnInit {
-  // Inyección de dependencias
-  private fb = inject(FormBuilder);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private tarjetaService = inject(TarjetaService);
-  private optionService = inject(OptionService);
-  // Variables
+export class TarjetaFormComponent implements OnInit, OnDestroy {
   form!: FormGroup;
-  redes: Option[] = [];
-  tipos: Option[] = [];
-  tarjeta?: Tarjeta;
-  errors: string[] = [];
-  loading = false;
+  isEdit = false;
+  tarjetaId?: number;
+  private routeSub?: Subscription;
 
-  // Carga el form al iniciar el componente
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private tarjetaService: TarjetaService
+  ) {}
+
   ngOnInit(): void {
-    // Inicializa el form y las opciones si no hay id en la url
-    this.initForm();
-  }
-
-  // Inicializa el formulario
-  private initForm(): void {
     this.form = this.fb.group({
-      id: null, 
-      numeracion: ['', [Validators.required, Validators.pattern(/^[0-9]{8,19}$/)]], // Acepta solo enteros
-      fechaExpiracion: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)]], // MM/AA
-      nombreTitular: ['', Validators.required],
-      nombreTarjeta: ['', Validators.required],
+      numeracion: ['', Validators.required],
+      fechaExpiracion: ['', Validators.required],
+      titular: ['', Validators.required],
+      nombre: ['', Validators.required],
       red: ['', Validators.required],
       tipo: ['', Validators.required],
       descripcion: [''],
     });
+
+    this.routeSub = this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.isEdit = true;
+        this.tarjetaId = +id;
+        const tarjeta = this.tarjetaService.getById(this.tarjetaId);
+        if (tarjeta) {
+          this.form.patchValue({
+            ...tarjeta,
+            fechaExpiracion: this.formatDateInput(tarjeta.fechaExpiracion),
+          });
+        } else {
+          alert('Tarjeta no encontrada');
+          this.router.navigate(['/tarjetas']);
+        }
+      }
+    });
   }
 
-  // Guarda el formulario
-  save(): void {
-
+  private formatDateInput(date: Date | string): string {
+    const d = new Date(date);
+    return d.toISOString().split('T')[0];
   }
 
+  onSubmit(): void {
+    if (this.form.invalid) return;
+
+    const tarjeta: Tarjeta = {
+      id: this.tarjetaId ?? Date.now(),
+      ...this.form.value,
+      fechaExpiracion: new Date(this.form.value.fechaExpiracion),
+    };
+
+    if (this.isEdit) {
+      this.tarjetaService.update(tarjeta);
+      alert('Tarjeta actualizada correctamente.');
+    } else {
+      this.tarjetaService.add(tarjeta);
+      alert('Tarjeta agregada correctamente.');
+    }
+
+    this.router.navigate(['dashboard/tarjetas']);
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
+  }
 }
