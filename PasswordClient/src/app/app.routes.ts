@@ -10,10 +10,7 @@ import { PasswordGeneratorComponent } from './pages/password/password-generator/
 import { PasswordFormComponent } from './pages/password/password-form/password-form.component';
 import { PasswordDetailComponent } from './pages/password/password-detail/password-detail.component';
 import { TarjetaFormComponent } from './pages/tarjeta/tarjeta-form/tarjeta-form.component';
-import { authGuard } from './guards/auth.guard';
 import { TarjetaDetailComponent } from './pages/tarjeta/tarjeta-detail/tarjeta-detail.component';
-import { redirectInvalidRoutesGuard } from './guards/redirect-invalid-routes.guard';
-
 
 export const routes: Routes = [
   {
@@ -40,7 +37,6 @@ export const routes: Routes = [
     path: 'dashboard',
     component: SideNavComponent,
     title: 'Dashboard',
-    canActivate: [authGuard],
     children: [
       { path: 'passwords', component: PasswordComponent, title: 'Lista de Contraseña'},
       { path: 'passwords/:categoria', component: PasswordComponent, title: '' },
@@ -58,7 +54,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    canActivate: [redirectInvalidRoutesGuard],
-    component: LoginComponent // este nunca se renderiza, es obligatorio por sintaxis
+    component: LoginComponent // este nunca se renderizar, es obligatorio por sintaxis
   }
 ];
