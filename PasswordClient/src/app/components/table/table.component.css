@@ -6,7 +6,7 @@ table {
 
 /* Cabecera  de la tabla*/
 thead {
-  background-color: var(--color-background);
+  background-color:var(--btn-primary);
   text-align: left;
 }
 
@@ -19,7 +19,7 @@ td {
 
 /* Titulo de cabecera */
 th {
-  color: var(--color-text);
+  color: #FFFFFF;
   font-weight: normal;
   font-size: var(--text-large);
 }
