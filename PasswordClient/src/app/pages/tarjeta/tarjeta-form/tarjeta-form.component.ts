@@ -1,23 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Option } from '../../../interfaces/option';
+import { Subscription } from 'rxjs';
+import { AlertInvalidComponent } from '../../../components/alert-invalid/alert-invalid.component';
+import { BackButtonComponent } from '../../../components/back-button/back-button.component';
 import { Tarjeta } from '../../../interfaces/tarjeta';
 import { HeaderComponent } from '../../../layouts/header/header.component';
-import { OptionService } from '../../../services/option.service';
 import { TarjetaService } from '../../../services/tarjeta.service';
-import { BackButtonComponent } from '../../../components/back-button/back-button.component';
-import { SpinnerComponent } from '../../../components/spinner/spinner.component';
-import { AlertInvalidComponent } from '../../../components/alert-invalid/alert-invalid.component';
-import { ErrorMessagesComponent } from '../../../components/error-messages/error-messages.component';
 import { showToastAlert } from '../../../utils/sweet-alert.util';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tarjeta-form',
   // prettier-ignore
-  imports: [HeaderComponent, CommonModule, ReactiveFormsModule, RouterModule, BackButtonComponent, SpinnerComponent, AlertInvalidComponent, ErrorMessagesComponent],
+  imports: [HeaderComponent, CommonModule, ReactiveFormsModule, RouterModule, BackButtonComponent, AlertInvalidComponent],
   templateUrl: './tarjeta-form.component.html',
   styleUrl: './tarjeta-form.component.css',
 })
@@ -36,8 +32,8 @@ export class TarjetaFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      numeracion: ['', Validators.required],
-      fechaExpiracion: ['', Validators.required],
+      numeracion: [ '', [Validators.required, Validators.pattern(/^[0-9]{8,19}$/)],], // Acepta solo enteros
+      fechaExpiracion: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)],], // MM/AA
       titular: ['', Validators.required],
       nombre: ['', Validators.required],
       red: ['', Validators.required],
@@ -52,41 +48,32 @@ export class TarjetaFormComponent implements OnInit, OnDestroy {
         this.tarjetaId = +id;
         const tarjeta = this.tarjetaService.getById(this.tarjetaId);
         if (tarjeta) {
-          this.form.patchValue({
-            ...tarjeta,
-            fechaExpiracion: this.formatDateInput(tarjeta.fechaExpiracion),
-          });
+          this.form.patchValue({...tarjeta});
         } else {
-          alert('Tarjeta no encontrada');
+          showToastAlert('Tarjeta no encontrada', 'error');
           this.router.navigate(['/tarjetas']);
         }
       }
     });
   }
 
-  private formatDateInput(date: Date | string): string {
-    const d = new Date(date);
-    return d.toISOString().split('T')[0];
-  }
-
   onSubmit(): void {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched()
+      return;
+    }
 
-    const tarjeta: Tarjeta = {
-      id: this.tarjetaId ?? Date.now(),
-      ...this.form.value,
-      fechaExpiracion: new Date(this.form.value.fechaExpiracion),
-    };
+    const tarjeta: Tarjeta = {...this.form.value};
 
     if (this.isEdit) {
       this.tarjetaService.update(tarjeta);
-      alert('Tarjeta actualizada correctamente.');
+      showToastAlert('Tarjeta actualizada correctamente.', 'success');
     } else {
       this.tarjetaService.add(tarjeta);
-      alert('Tarjeta agregada correctamente.');
+      showToastAlert('Tarjeta agregada correctamente.', 'success');
     }
 
-    this.router.navigate(['dashboard/tarjetas']);
+    this.router.navigate(['/dashboard/tarjetas']);
   }
 
   ngOnDestroy(): void {

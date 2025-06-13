@@ -1,46 +1,96 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div>
-    <label>Número</label>
-    <input formControlName="numeracion" required />
-  </div>
+<section class="section-main">
 
-  <div>
-    <label>Fecha de Expiración</label>
-    <input type="date" formControlName="fechaExpiracion" required />
-  </div>
+  <app-header 
+    [titulo]="isEdit ? 'Editar Tarjeta' : 'Nueva Tarjeta'" 
+    [showSearch]="false" 
+    [showButton]="false" 
+  />
 
-  <div>
-    <label>Titular</label>
-    <input formControlName="titular" required />
-  </div>
+  <!-- Main -->
+  <main class="form-container">
+    <!-- Form -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <div>
-    <label>Nombre</label>
-    <input formControlName="nombre" required />
-  </div>
+      <!-- Numeración -->
+      <div class="mb-3">
+        <label class="form-label">Numeración</label>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="19" class="form-control" formControlName="numeracion"
+          placeholder="Número de tarjeta" />
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="numeracion" message="Numeración es requerido y debe contener solo números." />
+      </div>
 
-  <div>
-    <label>Red</label>
-    <select formControlName="red" required>
-      <option value="Visa">Visa</option>
-      <option value="MasterCard">MasterCard</option>
-      <option value="American Express">American Express</option>
-    </select>
-  </div>
+      <!-- Fecha de Expiración -->
+      <div class="mb-3">
+        <label class="form-label">Fecha de Expiración</label>
+        <input type="text" class="form-control" formControlName="fechaExpiracion" placeholder="MM/AA" maxlength="5"/>
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="fechaExpiracion" message="Formato de fecha inválido. Use MM/AA: 01/25" />
+      </div>
 
-  <div>
-    <label>Tipo</label>
-    <select formControlName="tipo" required>
-      <option value="Crédito">Crédito</option>
-      <option value="Débito">Débito</option>
-      <option value="Prepago">Prepago</option>
-    </select>
-  </div>
+      <!-- Nombre del Titular -->
+      <div class="mb-3">
+        <label class="form-label">Nombre del Titular</label>
+        <input type="text" class="form-control" formControlName="titular" placeholder="Nombre del titular" />
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="titular" message="Nombre del Titular es requerido." />
+      </div>
 
-  <div>
-    <label>Descripción (opcional)</label>
-    <textarea formControlName="descripcion"></textarea>
-  </div>
+      <!-- Nombre de la Tarjeta -->
+      <div class="mb-3">
+        <label class="form-label">Nombre de la Tarjeta</label>
+        <input type="text" class="form-control" formControlName="nombre" placeholder="Ej. Tarjeta personal" />
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="nombre" message="Nombre de la tarjeta es requerido." />
+      </div>
 
-  <button type="submit">{{ isEdit ? 'Actualizar' : 'Agregar' }} Tarjeta</button>
-</form>
+      <!-- Descripción -->
+      <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <textarea class="form-control" formControlName="descripcion" rows="3"
+          placeholder="Descripción opcional"></textarea>
+      </div>
+
+      <!-- Red -->
+      <div class="mb-3">
+        <label class="form-label">Red</label>
+        <select class="form-select" formControlName="red">
+          <option selected disabled value="">Seleccione una red</option>
+          <option value="Visa">Visa</option>
+          <option value="MasterCard">MasterCard</option>
+          <option value="American Express">American Express</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="red" message="Red de tarjeta es requerido." />
+      </div>
+
+      <!-- Tipo -->
+      <div class="mb-3">
+        <label class="form-label">Tipo</label>
+        <select class="form-select" formControlName="tipo">
+          <option selected disabled value="">Seleccione un tipo</option>
+          <option value="Crédito">Crédito</option>
+          <option value="Débito">Débito</option>
+          <option value="Prepago">Prepago</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <!-- alerta -->
+        <app-alert-invalid [formGroup]="form" controlName="tipo" message="Tipo de tarjeta es requerido." />
+      </div>
+
+
+      <!-- Botones -->
+      <div class="d-flex justify-content-center gap-4 mt-4">
+        <!-- Regresar -->
+        <app-back-button />
+        <!-- Submit -->
+        <button type="submit" class="btn btn-secondary" [disabled]="form.invalid">
+          {{ isEdit ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+
+    </form>
+  </main>
+
+</section>

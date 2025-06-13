@@ -170,7 +170,7 @@
     {
       "id": 1,
       "numeracion": "4111111111111111",
-      "fechaExpiracion": "2026-01-01T00:00:00Z",
+      "fechaExpiracion": "01/26",
       "titular": "Ivaniel Diaz",
       "nombre": "Visa Personal",
       "red": "Visa",
@@ -179,7 +179,7 @@
     {
       "id": 2,
       "numeracion": "5500000000000004",
-      "fechaExpiracion": "2025-02-01T00:00:00Z",
+      "fechaExpiracion": "03/28",
       "titular": "Ivaniel Diaz",
       "nombre": "MasterCard Banco",
       "red": "MasterCard",
@@ -188,7 +188,7 @@
     {
       "id": 3,
       "numeracion": "340000000000009",
-      "fechaExpiracion": "2027-03-01T00:00:00Z",
+      "fechaExpiracion": "12/29",
       "titular": "Ivaniel Diaz",
       "nombre": "AmEx Rewards",
       "red": "American Express",
@@ -197,7 +197,7 @@
     {
       "id": 4,
       "numeracion": "4111111111111234",
-      "fechaExpiracion": "2024-06-01T00:00:00Z",
+      "fechaExpiracion": "10/28",
       "titular": "Ivaniel Diaz",
       "nombre": "Visa Prepago",
       "red": "Visa",
@@ -206,7 +206,7 @@
     {
       "id": 5,
       "numeracion": "5500000000001122",
-      "fechaExpiracion": "2026-07-01T00:00:00Z",
+      "fechaExpiracion": "08/29",
       "titular": "Ivaniel Diaz",
       "nombre": "MasterCard Trabajo",
       "red": "MasterCard",
@@ -215,7 +215,7 @@
     {
       "id": 6,
       "numeracion": "340000000000111",
-      "fechaExpiracion": "2028-08-01T00:00:00Z",
+      "fechaExpiracion": "07/26",
       "titular": "Ivaniel Diaz",
       "nombre": "AmEx Viajes",
       "red": "American Express",
@@ -224,7 +224,7 @@
     {
       "id": 7,
       "numeracion": "4111111111115678",
-      "fechaExpiracion": "2025-09-01T00:00:00Z",
+      "fechaExpiracion": "04/30",
       "titular": "Ivaniel Diaz",
       "nombre": "Visa Familiar",
       "red": "Visa",
@@ -233,7 +233,7 @@
     {
       "id": 8,
       "numeracion": "5500000000006789",
-      "fechaExpiracion": "2027-10-01T00:00:00Z",
+      "fechaExpiracion": "02/27",
       "titular": "Ivaniel Diaz",
       "nombre": "MasterCard Personal",
       "red": "MasterCard",
@@ -242,7 +242,7 @@
     {
       "id": 9,
       "numeracion": "340000000000222",
-      "fechaExpiracion": "2024-11-01T00:00:00Z",
+      "fechaExpiracion": "05/30",
       "titular": "Ivaniel Diaz",
       "nombre": "AmEx Business",
       "red": "American Express",
@@ -251,7 +251,7 @@
     {
       "id": 10,
       "numeracion": "4111111111114321",
-      "fechaExpiracion": "2025-12-01T00:00:00Z",
+      "fechaExpiracion": "08/31",
       "titular": "Ivaniel Diaz",
       "nombre": "Visa Compras",
       "red": "Visa",
@@ -260,7 +260,7 @@
     {
       "id": 11,
       "numeracion": "5500000000009876",
-      "fechaExpiracion": "2026-04-01T00:00:00Z",
+      "fechaExpiracion": "09/28",
       "titular": "Ivaniel Diaz",
       "nombre": "MasterCard Tienda",
       "red": "MasterCard",
@@ -269,7 +269,7 @@
     {
       "id": 12,
       "numeracion": "340000000000333",
-      "fechaExpiracion": "2027-05-01T00:00:00Z",
+      "fechaExpiracion": "12/25",
       "titular": "Ivaniel Diaz",
       "nombre": "AmEx Online",
       "red": "American Express",
@@ -278,7 +278,7 @@
     {
       "id": 13,
       "numeracion": "4111111111118765",
-      "fechaExpiracion": "2028-06-01T00:00:00Z",
+      "fechaExpiracion": "11/29",
       "titular": "Ivaniel Diaz",
       "nombre": "Visa Empresa",
       "red": "Visa",
@@ -287,7 +287,7 @@
     {
       "id": 14,
       "numeracion": "5500000000005432",
-      "fechaExpiracion": "2029-07-01T00:00:00Z",
+      "fechaExpiracion": "01/27",
       "titular": "Ivaniel Diaz",
       "nombre": "MasterCard Online",
       "red": "MasterCard",
@@ -296,7 +296,7 @@
     {
       "id": 15,
       "numeracion": "340000000000444",
-      "fechaExpiracion": "2030-08-01T00:00:00Z",
+      "fechaExpiracion": "11/25",
       "titular": "Ivaniel Diaz",
       "nombre": "AmEx Familiar",
       "red": "American Express",
