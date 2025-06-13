@@ -1,58 +1,104 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Option } from '../../../interfaces/option';
+import { Subscription } from 'rxjs';
+import { AlertInvalidComponent } from '../../../components/alert-invalid/alert-invalid.component';
+import { BackButtonComponent } from '../../../components/back-button/back-button.component';
+import { HeaderComponent } from '../../../layouts/header/header.component';
 import { Password } from '../../../interfaces/password';
 import { PasswordService } from '../../../services/password.service';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../../layouts/header/header.component';
-import { OptionService } from '../../../services/option.service';
-import { ErrorMessagesComponent } from '../../../components/error-messages/error-messages.component';
-import { BackButtonComponent } from '../../../components/back-button/back-button.component';
-import { SpinnerComponent } from '../../../components/spinner/spinner.component';
-import { AlertInvalidComponent } from '../../../components/alert-invalid/alert-invalid.component';
 import { showToastAlert } from '../../../utils/sweet-alert.util';
+import { SpinnerComponent } from '../../../components/spinner/spinner.component';
 
 @Component({
   selector: 'app-password-form',
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, HeaderComponent, BackButtonComponent, ErrorMessagesComponent, SpinnerComponent, AlertInvalidComponent],
+  standalone: true,
+  imports: [
+    HeaderComponent,
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    BackButtonComponent,
+    AlertInvalidComponent,
+  ],
   templateUrl: './password-form.component.html',
   styleUrl: './password-form.component.css',
 })
-export class PasswordFormComponent implements OnInit {
-  // Inyección de dependencias
-  private fb = inject(FormBuilder);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private passwordService = inject(PasswordService);
-  private optionService = inject(OptionService);
-  // Variables
+export class PasswordFormComponent implements OnInit, OnDestroy {
   form!: FormGroup;
-  categorias: Option[] = [];
-  password?: Password;
-  errors: string[] = [];
-  loading = false;
+  isEdit = false;
+  passwordId?: number;
+  private routeSub?: Subscription;
 
-  // Carga el form al iniciar el componente
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private passwordService: PasswordService
+  ) {}
+
   ngOnInit(): void {
-    // Inicializa el form y categoría si no hay id en la url
-    this.initForm();
-  }
-
-  // Inicializa el formulario
-  private initForm(): void {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       url: ['', Validators.required],
-      userEmail: ['', Validators.required],
+      userEmail: ['', [Validators.required, Validators.email]],
       clave: ['', Validators.required],
+      categoria: ['', Validators.required],
       notas: [''],
-      categoriaId: [null, Validators.required],
+    });
+
+    this.routeSub = this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.isEdit = true;
+        this.passwordId = +id;
+        const password = this.passwordService.getById(this.passwordId);
+        if (password) {
+          this.form.patchValue({ ...password });
+        } else {
+          showToastAlert('Contraseña no encontrada', 'error');
+          this.router.navigate(['/dashboard/passwords']);
+        }
+      }
     });
   }
 
-  // Guarda el formulario
-  save(): void {
+  onSubmit(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const now = new Date();
+    const formData = this.form.value;
+
+    const password: Password = {
+      ...formData,
+      id: this.isEdit && this.passwordId ? this.passwordId : Date.now(),
+      fechaCreacion: this.isEdit
+        ? this.passwordService.getById(this.passwordId!)?.fechaCreacion || now
+        : now,
+      fechaActualizacion: now,
+    };
+
+    if (this.isEdit) {
+      this.passwordService.update(password);
+      showToastAlert('Contraseña actualizada correctamente.', 'success');
+    } else {
+      this.passwordService.add(password);
+      showToastAlert('Contraseña agregada correctamente.', 'success');
+    }
+
+    this.router.navigate(['/dashboard/passwords']);
   }
 
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
+  }
 }
