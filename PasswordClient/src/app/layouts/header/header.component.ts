@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule, FormsModule ,RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -23,5 +23,4 @@ export class HeaderComponent {
   onSearch(): void {
     this.search.emit(this.searchTerm);
   }
-
 }

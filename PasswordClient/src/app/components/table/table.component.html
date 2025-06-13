@@ -27,13 +27,13 @@
       <tr *ngFor="let item of tarjetas">
         <!-- Datos -->
         <td>
-          <img [src]="getCardIcon(item.redNombre)" alt="Icon" (error)="onImageError($event)"/>
+          <img [src]="getCardIcon(item.red)" alt="Icon" (error)="onImageError($event)"/>
         </td>
-        <td> {{ item.tipoNombre }} </td>
-        <td> {{ item.nombreTitular }} </td>
+        <td> {{ item.tipo }} </td>
+        <td> {{ item.titular }} </td>
         <td class="card-number"> {{ formatCardNumber(item.numeracion) }} </td>
         <td> {{ item.fechaExpiracion }} </td>
-        <td> {{item.nombreTarjeta}} </td>
+        <td> {{item.nombre}} </td>
         <!-- Botones -->
         <td>
           <a class="action-btn show btn-tooltip" data-tooltip="Detalles" [routerLink]="['/dashboard/tarjeta/detalles', item.id]">

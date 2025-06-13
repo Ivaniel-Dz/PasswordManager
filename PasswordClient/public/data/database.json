@@ -1,58 +1,306 @@
 {
-  "usuarios": [
-    {
-      "id": 1,
-      "nombre": "Juan Pérez",
-      "correo": "juan.perez@example.com",
-      "clave": "$2a$10$EjemploHashDeClave"
-    },
-    {
-      "id": 2,
-      "nombre": "Ana López",
-      "correo": "ana.lopez@example.com",
-      "clave": "$2a$10$OtroHashEjemplo"
-    }
-  ],
   "passwords": [
     {
       "id": 1,
-      "userId": 1,
-      "titulo": "Correo Gmail",
-      "userEmail": "juan.perez@gmail.com",
-      "passwordHash": "$2a$10$claveGmailHasheada",
-      "url": "https://mail.google.com",
-      "categoria": "Email"
+      "nombre": "Facebook",
+      "url": "https://www.facebook.com",
+      "userEmail": "user1@example.com",
+      "clave": "Fb$ecure123",
+      "notas": "Cuenta personal",
+      "fechaCreacion": "2023-01-01T12:00:00Z",
+      "fechaActualizacion": "2024-01-01T12:00:00Z",
+      "categoria": "Red Social"
     },
     {
       "id": 2,
-      "userId": 2,
-      "titulo": "GitHub",
-      "userEmail": "ana.dev@github.com",
-      "passwordHash": "$2a$10$claveGithubHasheada",
-      "url": "https://github.com",
-      "categoria": "Dev"
+      "nombre": "Gmail",
+      "url": "https://mail.google.com",
+      "userEmail": "user1@gmail.com",
+      "clave": "Gm@ilSecure456",
+      "notas": "Principal",
+      "fechaCreacion": "2022-11-12T10:30:00Z",
+      "fechaActualizacion": "2024-06-01T09:00:00Z",
+      "categoria": "Correo Electrónico"
+    },
+    {
+      "id": 3,
+      "nombre": "Netflix",
+      "url": "https://www.netflix.com",
+      "userEmail": "user1@example.com",
+      "clave": "Netfl!x2023",
+      "notas": "",
+      "fechaCreacion": "2022-05-10T08:00:00Z",
+      "fechaActualizacion": "2023-06-10T08:00:00Z",
+      "categoria": "Entretenimiento"
+    },
+    {
+      "id": 4,
+      "nombre": "Instagram",
+      "url": "https://www.instagram.com",
+      "userEmail": "user_ig@example.com",
+      "clave": "Insta@2022",
+      "notas": "Cuenta secundaria",
+      "fechaCreacion": "2022-03-01T14:20:00Z",
+      "fechaActualizacion": "2024-03-01T14:20:00Z",
+      "categoria": "Red Social"
+    },
+    {
+      "id": 5,
+      "nombre": "Twitter",
+      "url": "https://www.twitter.com",
+      "userEmail": "user_tw@example.com",
+      "clave": "Tw!tter2023",
+      "notas": "",
+      "fechaCreacion": "2022-07-07T07:07:07Z",
+      "fechaActualizacion": "2023-07-07T07:07:07Z",
+      "categoria": "Red Social"
+    },
+    {
+      "id": 6,
+      "nombre": "Amazon",
+      "url": "https://www.amazon.com",
+      "userEmail": "user_amz@example.com",
+      "clave": "Am@zon456",
+      "notas": "Compras en línea",
+      "fechaCreacion": "2022-08-15T16:00:00Z",
+      "fechaActualizacion": "2024-08-15T16:00:00Z",
+      "categoria": "Compras"
+    },
+    {
+      "id": 7,
+      "nombre": "Spotify",
+      "url": "https://www.spotify.com",
+      "userEmail": "musiclover@example.com",
+      "clave": "Sp0tify!Premium",
+      "notas": "",
+      "fechaCreacion": "2023-02-14T18:00:00Z",
+      "fechaActualizacion": "2024-02-14T18:00:00Z",
+      "categoria": "Música"
+    },
+    {
+      "id": 8,
+      "nombre": "LinkedIn",
+      "url": "https://www.linkedin.com",
+      "userEmail": "user_job@example.com",
+      "clave": "L!nkedIn2024",
+      "notas": "Cuenta profesional",
+      "fechaCreacion": "2021-10-05T08:00:00Z",
+      "fechaActualizacion": "2024-10-05T08:00:00Z",
+      "categoria": "Profesional"
+    },
+    {
+      "id": 9,
+      "nombre": "Banco Popular",
+      "url": "https://www.bancopopular.com",
+      "userEmail": "user_bank@example.com",
+      "clave": "BP@SecureBank",
+      "notas": "Cuenta corriente",
+      "fechaCreacion": "2020-01-01T00:00:00Z",
+      "fechaActualizacion": "2024-01-01T00:00:00Z",
+      "categoria": "Banca"
+    },
+    {
+      "id": 10,
+      "nombre": "GitHub",
+      "url": "https://www.github.com",
+      "userEmail": "dev@example.com",
+      "clave": "GH123!Dev",
+      "notas": "",
+      "fechaCreacion": "2023-03-03T13:00:00Z",
+      "fechaActualizacion": "2024-03-03T13:00:00Z",
+      "categoria": "Desarrollo"
+    },
+    {
+      "id": 11,
+      "nombre": "Coursera",
+      "url": "https://www.coursera.org",
+      "userEmail": "student@example.com",
+      "clave": "Coursera2024!",
+      "notas": "Cursos de desarrollo",
+      "fechaCreacion": "2023-06-06T06:00:00Z",
+      "fechaActualizacion": "2024-06-06T06:00:00Z",
+      "categoria": "Educación"
+    },
+    {
+      "id": 12,
+      "nombre": "Slack",
+      "url": "https://www.slack.com",
+      "userEmail": "team@example.com",
+      "clave": "Slack@Work2023",
+      "notas": "Equipo de trabajo",
+      "fechaCreacion": "2023-04-04T04:00:00Z",
+      "fechaActualizacion": "2024-04-04T04:00:00Z",
+      "categoria": "Trabajo"
+    },
+    {
+      "id": 13,
+      "nombre": "Notion",
+      "url": "https://www.notion.so",
+      "userEmail": "organizer@example.com",
+      "clave": "Notion$Notes123",
+      "notas": "Organización personal",
+      "fechaCreacion": "2023-09-09T09:00:00Z",
+      "fechaActualizacion": "2024-09-09T09:00:00Z",
+      "categoria": "Productividad"
+    },
+    {
+      "id": 14,
+      "nombre": "Steam",
+      "url": "https://store.steampowered.com",
+      "userEmail": "gamer@example.com",
+      "clave": "SteamGam3r!",
+      "notas": "",
+      "fechaCreacion": "2023-05-05T05:00:00Z",
+      "fechaActualizacion": "2024-05-05T05:00:00Z",
+      "categoria": "Juegos"
+    },
+    {
+      "id": 15,
+      "nombre": "Dropbox",
+      "url": "https://www.dropbox.com",
+      "userEmail": "cloud@example.com",
+      "clave": "Dr0pb0x$ync",
+      "notas": "Archivos importantes",
+      "fechaCreacion": "2023-12-12T12:00:00Z",
+      "fechaActualizacion": "2024-12-12T12:00:00Z",
+      "categoria": "Almacenamiento"
     }
   ],
   "tarjetas": [
     {
       "id": 1,
-      "userId": 1,
-      "numeracion": 1234567812345678,
-      "fechaExpiracion": "2026-08-01",
-      "nombreTitular": "Juan Pérez",
-      "redTarjeta": "Visa",
-      "tipoTarjeta": "Crédito",
-      "descripcion": "Tarjeta principal"
+      "numeracion": "4111111111111111",
+      "fechaExpiracion": "2026-01-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "Visa Personal",
+      "red": "Visa",
+      "tipo": "Crédito"
     },
     {
       "id": 2,
-      "userId": 2,
-      "numeracion": 8765432187654321,
-      "fechaExpiracion": "2025-12-01",
-      "nombreTitular": "Ana López",
-      "redTarjeta": "MasterCard",
-      "tipoTarjeta": "Débito",
-      "descripcion": "Uso diario"
+      "numeracion": "5500000000000004",
+      "fechaExpiracion": "2025-02-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "MasterCard Banco",
+      "red": "MasterCard",
+      "tipo": "Débito"
+    },
+    {
+      "id": 3,
+      "numeracion": "340000000000009",
+      "fechaExpiracion": "2027-03-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "AmEx Rewards",
+      "red": "American Express",
+      "tipo": "Crédito"
+    },
+    {
+      "id": 4,
+      "numeracion": "4111111111111234",
+      "fechaExpiracion": "2024-06-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "Visa Prepago",
+      "red": "Visa",
+      "tipo": "Prepago"
+    },
+    {
+      "id": 5,
+      "numeracion": "5500000000001122",
+      "fechaExpiracion": "2026-07-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "MasterCard Trabajo",
+      "red": "MasterCard",
+      "tipo": "Crédito"
+    },
+    {
+      "id": 6,
+      "numeracion": "340000000000111",
+      "fechaExpiracion": "2028-08-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "AmEx Viajes",
+      "red": "American Express",
+      "tipo": "Crédito"
+    },
+    {
+      "id": 7,
+      "numeracion": "4111111111115678",
+      "fechaExpiracion": "2025-09-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "Visa Familiar",
+      "red": "Visa",
+      "tipo": "Débito"
+    },
+    {
+      "id": 8,
+      "numeracion": "5500000000006789",
+      "fechaExpiracion": "2027-10-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "MasterCard Personal",
+      "red": "MasterCard",
+      "tipo": "Prepago"
+    },
+    {
+      "id": 9,
+      "numeracion": "340000000000222",
+      "fechaExpiracion": "2024-11-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "AmEx Business",
+      "red": "American Express",
+      "tipo": "Crédito"
+    },
+    {
+      "id": 10,
+      "numeracion": "4111111111114321",
+      "fechaExpiracion": "2025-12-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "Visa Compras",
+      "red": "Visa",
+      "tipo": "Débito"
+    },
+    {
+      "id": 11,
+      "numeracion": "5500000000009876",
+      "fechaExpiracion": "2026-04-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "MasterCard Tienda",
+      "red": "MasterCard",
+      "tipo": "Crédito"
+    },
+    {
+      "id": 12,
+      "numeracion": "340000000000333",
+      "fechaExpiracion": "2027-05-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "AmEx Online",
+      "red": "American Express",
+      "tipo": "Prepago"
+    },
+    {
+      "id": 13,
+      "numeracion": "4111111111118765",
+      "fechaExpiracion": "2028-06-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "Visa Empresa",
+      "red": "Visa",
+      "tipo": "Crédito"
+    },
+    {
+      "id": 14,
+      "numeracion": "5500000000005432",
+      "fechaExpiracion": "2029-07-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "MasterCard Online",
+      "red": "MasterCard",
+      "tipo": "Débito"
+    },
+    {
+      "id": 15,
+      "numeracion": "340000000000444",
+      "fechaExpiracion": "2030-08-01T00:00:00Z",
+      "titular": "Ivaniel Diaz",
+      "nombre": "AmEx Familiar",
+      "red": "American Express",
+      "tipo": "Débito"
     }
   ]
 }

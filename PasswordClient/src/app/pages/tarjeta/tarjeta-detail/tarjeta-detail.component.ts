@@ -26,24 +26,7 @@ export class TarjetaDetailComponent implements OnInit {
 
   // Método para obtener los detalles
   detailTarjeta(): void {
-    const id = this.route.snapshot.paramMap.get('id');
 
-    if (id) {
-      this.tarjetaService.get(parseInt(id)).subscribe({
-        next: (data) => {
-          console.log('Tarjeta recibida', data);
-          this.tarjeta = data;
-        },
-        error: (err) => {
-          console.error('Error al cargar los detalles', err);
-          // redirigir si hay error
-          this.router.navigate(['/dashboard/tarjetas']);
-        },
-      });
-    } else {
-      console.error('ID no encontrado en la URL');
-      this.router.navigate(['/dashboard/tarjetas']); // Redireccionar si no hay id
-    }
   }
   
 }

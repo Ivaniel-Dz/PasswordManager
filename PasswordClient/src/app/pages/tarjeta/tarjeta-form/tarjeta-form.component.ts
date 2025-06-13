@@ -41,23 +41,6 @@ export class TarjetaFormComponent implements OnInit {
     this.loadRedes();
     this.loadTipos();
 
-    const id = this.route.snapshot.paramMap.get('id');
-    // si hay un id en la url, carga los datos
-    if (id) {
-      this.loading = true;
-      this.tarjetaService.get(+id).subscribe({ // +id convierte a number el id
-        next: (data) => {
-          this.tarjeta = data;
-          this.form.patchValue(data); // carga los datos al form
-          this.loading = false;
-        },
-        error: () => {
-          this.loading = false;
-          // Redirige si no encuentra
-          this.router.navigate(['/dashboard/tarjetas']);
-        },
-      });
-    }
   }
 
   // Inicializa el formulario
@@ -92,30 +75,7 @@ export class TarjetaFormComponent implements OnInit {
 
   // Guarda el formulario
   save(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
 
-    const tarjetaForm: Tarjeta = this.form.value;
-    // si hay un id en la url, actualiza y si no crea uno nuevo
-    const request = tarjetaForm.id && tarjetaForm.id !== 0
-      ? this.tarjetaService.update(tarjetaForm)
-      : this.tarjetaService.add({ ...tarjetaForm, id: 0 });
-
-    request.subscribe({
-      next: (resp) => {
-        if (resp.isSuccess) {
-          // Instancia de sweet-alert
-          showToastAlert(resp.message ?? 'Guardado Correctamente', 'success');
-          this.router.navigate(['/dashboard/tarjetas'])
-        }
-      },
-      error: (resp) => {
-        console.error('Error al guardar:', resp);
-        this.errors = resp.error.errors || [resp.error.message] || ['Ocurrió un error inesperado.'];
-      },
-    });
   }
 
 }

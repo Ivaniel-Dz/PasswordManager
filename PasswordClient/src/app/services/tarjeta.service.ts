@@ -1,49 +1,60 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { ResponseMessage } from '../interfaces/response-message';
+import { Injectable } from '@angular/core';
 import { Tarjeta } from '../interfaces/tarjeta';
-import { Option } from '../interfaces/option';
+
+const CARD_KEY = 'demo-tarjetas';
+const DB_URL = '/data/database.json';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TarjetaService {
-  // Intención de dependencias
-  private apiUrl = `${environment.apiUrl}/Tarjeta`;
-  private http = inject(HttpClient);
+  private initialized = false;
 
-  constructor() {}
+  constructor() {
+    this.init();
+  }
 
-  // Método para obtener toda la lista
-  getAll(term?: string): Observable<Tarjeta[]> {
-    let params = new HttpParams();
-    if (term) {
-      params = params.set('term', term);
+  private async init(): Promise<void> {
+    if (!localStorage.getItem(CARD_KEY)) {
+      const res = await fetch(DB_URL);
+      const db = await res.json();
+      localStorage.setItem(CARD_KEY, JSON.stringify(db.tarjetas));
     }
-
-    return this.http.get<Tarjeta[]>(`${this.apiUrl}/GetAll`, {
-      params,
-    });
+    this.initialized = true;
   }
 
-  // Método para obtener una tarjeta
-  get(id: number): Observable<Tarjeta> {
-    return this.http.get<Tarjeta>(`${this.apiUrl}/Get/${id}`);
+  private getStoredTarjetas(): Tarjeta[] {
+    return JSON.parse(localStorage.getItem(CARD_KEY) || '[]');
   }
 
-  add(tarjeta: Tarjeta): Observable<ResponseMessage> {
-    return this.http.post<ResponseMessage>(`${this.apiUrl}/Add`, tarjeta);
+  private saveTarjetas(tarjetas: Tarjeta[]): void {
+    localStorage.setItem(CARD_KEY, JSON.stringify(tarjetas));
   }
 
-  update(tarjeta: Tarjeta): Observable<ResponseMessage> {
-    return this.http.put<ResponseMessage>(`${this.apiUrl}/Update`, tarjeta);
+  getAll(): Tarjeta[] {
+    return this.getStoredTarjetas();
   }
 
-  // Método para eliminar una tarjeta
-  delete(id: number): Observable<ResponseMessage> {
-    return this.http.delete<ResponseMessage>(`${this.apiUrl}/Delete/${id}`);
+  getById(id: number): Tarjeta | undefined {
+    return this.getStoredTarjetas().find((t) => t.id === id);
   }
 
+  add(tarjeta: Tarjeta): void {
+    const tarjetas = this.getStoredTarjetas();
+    tarjeta.id = Date.now();
+    tarjetas.push(tarjeta);
+    this.saveTarjetas(tarjetas);
+  }
+
+  update(tarjeta: Tarjeta): void {
+    const tarjetas = this.getStoredTarjetas().map((t) =>
+      t.id === tarjeta.id ? tarjeta : t
+    );
+    this.saveTarjetas(tarjetas);
+  }
+
+  delete(id: number): void {
+    const tarjetas = this.getStoredTarjetas().filter((t) => t.id !== id);
+    this.saveTarjetas(tarjetas);
+  }
 }

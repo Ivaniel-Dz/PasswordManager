@@ -10,85 +10,79 @@ import { Router } from '@angular/router';
 import { paginate } from '../../utils/pagination.util';
 // Utils
 import { confirmDialog, showToastAlert } from '../../utils/sweet-alert.util';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-tarjeta',
-  imports: [CommonModule, FormsModule, HeaderComponent, TableComponent, FooterComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    HeaderComponent,
+    TableComponent,
+    FooterComponent,
+  ],
   templateUrl: './tarjeta.component.html',
   styleUrl: './tarjeta.component.css',
 })
+// ...existing code...
 export class TarjetaComponent implements OnInit {
-  // Inyección de dependencias
-  tarjetaService = inject(TarjetaService);
-  router = inject(Router);
-  // Arrays
+  private tarjetaService = inject(TarjetaService);
+  private searchService = inject(SearchService);
   tarjetas: Tarjeta[] = [];
+  filteredTarjeta: Tarjeta[] = [];
   paginatedTarjetas: Tarjeta[] = [];
-  // Propiedad de paginación
   currentPage: number = 1;
   itemsPerPage: number = 7;
 
-  // Se ejecuta al inicializar el componente
   ngOnInit(): void {
     this.loadTarjetas();
   }
 
-  // Método para carga los datos
-  loadTarjetas(term?: string): void {
-    this.tarjetaService.getAll(term).subscribe({
-      next: (res) => {
-        console.log('Tarjetas recibidas:', res);
-        this.tarjetas = res;
-        this.setPaginatedTarjeta();
-      },
-      error: (err) => {
-        console.error('Error cargando tarjetas', err);
-      },
-    });
+  loadTarjetas(): void {
+    this.tarjetas = this.tarjetaService.getAll();
+    this.filteredTarjeta = [...this.tarjetas];
+    this.setPaginatedTarjeta();
   }
 
-  // Método para buscar
   onSearch(term: string): void {
     this.currentPage = 1;
-    this.loadTarjetas(term);
+    this.filteredTarjeta = this.searchService.filter(this.tarjetas, term, [
+      'nombre',
+      'numeracion',
+      'red',
+      'tipo',
+      'titular',
+      'fechaExpiracion',
+    ]);
+    this.setPaginatedTarjeta();
   }
 
-  // Método para eliminar
   onDelete(id: number): void {
-    // Instancia de util: sweet-alert
-    confirmDialog('¿Estás seguro?', 'Esta acción eliminará la tarjeta.').then((confirmed) => {
-
-      if (confirmed) {
-        this.tarjetaService.delete(id).subscribe({
-          next: (res) => {
-            if (res.isSuccess) {
-              // Instancia de sweet-alert
-              showToastAlert(res.message ?? 'Eliminado correctamente', 'success');
-              this.router.navigate(['/dashboard/tarjetas']);
-            }
-          },
-          error: (err) => console.error(err),
-        });
+    confirmDialog('¿Estás seguro?', 'Esta acción eliminará la tarjeta.').then(
+      (confirmed) => {
+        if (confirmed) {
+          showToastAlert('Eliminada Correctamente','success')
+          this.tarjetaService.delete(id);
+          this.loadTarjetas();
+        }
       }
-    });
+    );
   }
 
-  // Para paginar en frontend
-  // Método para colocar la paginación
   setPaginatedTarjeta(): void {
-    // Asignamos al util
-    this.paginatedTarjetas = paginate(this.tarjetas, this.currentPage, this.itemsPerPage);
+    this.paginatedTarjetas = paginate(
+      this.filteredTarjeta,
+      this.currentPage,
+      this.itemsPerPage
+    );
   }
 
-  // Ir a la pagina
   goToPage(page: number): void {
     this.currentPage = page;
     this.setPaginatedTarjeta();
   }
 
-  // Total de paginas
   get totalPages(): number {
-    return Math.ceil(this.tarjetas.length / this.itemsPerPage);
+    return Math.ceil(this.filteredTarjeta.length / this.itemsPerPage);
   }
-
 }
