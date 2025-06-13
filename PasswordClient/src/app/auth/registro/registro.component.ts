@@ -1,24 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+// prettier-ignore
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AlertInvalidComponent } from '../../components/alert-invalid/alert-invalid.component';
 
 @Component({
   selector: 'app-registro',
-  imports: [
-    RouterModule,
-    ReactiveFormsModule,
-    CommonModule,
-    AlertInvalidComponent,
-  ],
+  // prettier-ignore
+  imports: [ RouterModule, ReactiveFormsModule, CommonModule, AlertInvalidComponent,],
   templateUrl: './registro.component.html',
   styleUrl: '../login/login.component.css', // Reutiliza el css de Login
 })
