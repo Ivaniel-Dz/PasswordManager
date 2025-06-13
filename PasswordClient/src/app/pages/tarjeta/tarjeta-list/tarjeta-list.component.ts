@@ -1,19 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { TableComponent } from '../../../components/table/table.component';
 import { Tarjeta } from '../../../interfaces/tarjeta';
+import { FooterComponent } from '../../../layouts/footer/footer.component';
+import { HeaderComponent } from '../../../layouts/header/header.component';
 import { SearchService } from '../../../services/search.service';
 import { TarjetaService } from '../../../services/tarjeta.service';
 import { paginate } from '../../../utils/pagination.util';
 import { confirmDialog, showToastAlert } from '../../../utils/sweet-alert.util';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { TableComponent } from '../../../components/table/table.component';
-import { FooterComponent } from '../../../layouts/footer/footer.component';
-import { HeaderComponent } from '../../../layouts/header/header.component';
 
 @Component({
   selector: 'app-tarjeta-list',
   // prettier-ignore
-  imports: [ CommonModule, FormsModule, HeaderComponent, TableComponent, FooterComponent ],
+  imports: [ CommonModule, HeaderComponent, TableComponent, FooterComponent ],
   templateUrl: './tarjeta-list.component.html',
   styleUrl: './tarjeta-list.component.css',
 })

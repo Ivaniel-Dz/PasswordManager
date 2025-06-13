@@ -1,15 +1,22 @@
 <section class="section-main">
-    <!-- Header -->
-    <app-header [titulo]="'Tarjeta'" [textButton]="'Agregar Tarjeta'" [route]="'/dashboard/tarjeta/nueva'"
-        (search)="onSearch($event)" />
+  <!-- Header -->
+  <app-header
+    [titulo]="'Tarjeta'"
+    [textButton]="'Agregar Tarjeta'"
+    [route]="'/dashboard/tarjeta/nueva'"
+    (search)="onSearch($event)"
+  />
 
-    <!-- Contenido del component -->
-    <main class="table-container">
-        <!-- Tabla de Datos -->
-        <app-table [tarjetas]="paginatedTarjetas" (delete)="onDelete($event)" />
-    </main>
+  <!-- Contenido del component -->
+  <main class="table-container">
+    <!-- Tabla de Datos -->
+    <app-table [tarjetas]="paginatedTarjetas" (delete)="onDelete($event)" />
+  </main>
 
-    <!-- Footer -->
-    <app-footer [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="goToPage($event)" />
-
+  <!-- Footer -->
+  <app-footer
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    (pageChange)="goToPage($event)"
+  />
 </section>
