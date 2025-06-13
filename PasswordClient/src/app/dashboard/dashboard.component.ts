@@ -1,14 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { UsuarioService } from '../../services/usuario.service';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
-  selector: 'app-side-nav',
+  selector: 'app-dashboard',
   imports: [RouterOutlet, RouterModule],
-  templateUrl: './side-nav.component.html',
-  styleUrl: './side-nav.component.css',
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css',
 })
-export class SideNavComponent implements OnInit {
+export class DashboardComponent implements OnInit {
   // Intención de dependencias
   private usuarioService = inject(UsuarioService);
   private router = inject(Router);

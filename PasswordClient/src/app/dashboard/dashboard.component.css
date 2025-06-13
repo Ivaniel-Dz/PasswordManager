@@ -1,0 +1,63 @@
+/* SiderNav */
+.nav-container {
+    background-color: var(--white);
+  }
+  
+  /* Titulo */
+  .nav-container .d-flex .logo-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .nav-container .d-flex .logo-container svg,
+  .nav-container .d-flex .logo-container span {
+    /* color: var(--color-text); */
+    color: var(--orange);
+  }
+  
+  /* Opciones de Menu */
+  .nav .nav-item .nav-link {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+  }
+  
+  /* Opciones de Menu: Hover */
+  .nav .nav-item .nav-link:hover {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    cursor: pointer;
+  }
+  
+  /* Opciones de Menu: Active */
+  .nav .nav-item .nav-link.active {
+    background-color: var(--orange);
+    color: var(--white);
+  }
+  
+  /* Dropdown de Perfil */
+  .user-name {
+    color: var(--color-text-tertiary);
+  }
+  
+  /* Dropdown de Perfil: Opciones */
+  .dropdown-link li a {
+    color: var(--color-text);
+  }
+  
+  /* Cambiar color del texto del dropdown-item cuando está activo (click) */
+  .dropdown-link .dropdown-item:active {
+    background-color: var(--orange);
+    color: var(--white);
+  }
+  
+  /* Cambiar color del hover en los dropdown-items */
+  .dropdown-link .dropdown-item:hover {
+    color: var(--color-text-secondary);
+    cursor: pointer;
+  }
+  
+  /* Opcional: cambiar también el estilo del enlace principal cuando está abierto */
+  .dropdown-link.show .dropdown-toggle {
+    color: var(--color-text-secondary);
+  }
+  
