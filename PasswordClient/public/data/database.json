@@ -20,7 +20,7 @@
       "notas": "Principal",
       "fechaCreacion": "2022-11-12T10:30:00Z",
       "fechaActualizacion": "2024-06-01T09:00:00Z",
-      "categoria": "Correo Electrónico"
+      "categoria": "Aplicación"
     },
     {
       "id": 3,
@@ -31,7 +31,7 @@
       "notas": "",
       "fechaCreacion": "2022-05-10T08:00:00Z",
       "fechaActualizacion": "2023-06-10T08:00:00Z",
-      "categoria": "Entretenimiento"
+      "categoria": "Aplicación"
     },
     {
       "id": 4,
@@ -64,7 +64,7 @@
       "notas": "Compras en línea",
       "fechaCreacion": "2022-08-15T16:00:00Z",
       "fechaActualizacion": "2024-08-15T16:00:00Z",
-      "categoria": "Compras"
+      "categoria": "Sitio Web"
     },
     {
       "id": 7,
@@ -75,7 +75,7 @@
       "notas": "",
       "fechaCreacion": "2023-02-14T18:00:00Z",
       "fechaActualizacion": "2024-02-14T18:00:00Z",
-      "categoria": "Música"
+      "categoria": "Aplicación"
     },
     {
       "id": 8,
@@ -86,7 +86,7 @@
       "notas": "Cuenta profesional",
       "fechaCreacion": "2021-10-05T08:00:00Z",
       "fechaActualizacion": "2024-10-05T08:00:00Z",
-      "categoria": "Profesional"
+      "categoria": "Sitio Web"
     },
     {
       "id": 9,
@@ -97,7 +97,7 @@
       "notas": "Cuenta corriente",
       "fechaCreacion": "2020-01-01T00:00:00Z",
       "fechaActualizacion": "2024-01-01T00:00:00Z",
-      "categoria": "Banca"
+      "categoria": "Aplicación"
     },
     {
       "id": 10,
@@ -108,7 +108,7 @@
       "notas": "",
       "fechaCreacion": "2023-03-03T13:00:00Z",
       "fechaActualizacion": "2024-03-03T13:00:00Z",
-      "categoria": "Desarrollo"
+      "categoria": "Sitio Web"
     },
     {
       "id": 11,
@@ -119,7 +119,7 @@
       "notas": "Cursos de desarrollo",
       "fechaCreacion": "2023-06-06T06:00:00Z",
       "fechaActualizacion": "2024-06-06T06:00:00Z",
-      "categoria": "Educación"
+      "categoria": "Sitio Web"
     },
     {
       "id": 12,
@@ -130,7 +130,7 @@
       "notas": "Equipo de trabajo",
       "fechaCreacion": "2023-04-04T04:00:00Z",
       "fechaActualizacion": "2024-04-04T04:00:00Z",
-      "categoria": "Trabajo"
+      "categoria": "Aplicación"
     },
     {
       "id": 13,
@@ -141,7 +141,7 @@
       "notas": "Organización personal",
       "fechaCreacion": "2023-09-09T09:00:00Z",
       "fechaActualizacion": "2024-09-09T09:00:00Z",
-      "categoria": "Productividad"
+      "categoria": "Aplicación"
     },
     {
       "id": 14,
@@ -152,7 +152,7 @@
       "notas": "",
       "fechaCreacion": "2023-05-05T05:00:00Z",
       "fechaActualizacion": "2024-05-05T05:00:00Z",
-      "categoria": "Juegos"
+      "categoria": "Aplicación"
     },
     {
       "id": 15,
@@ -163,7 +163,7 @@
       "notas": "Archivos importantes",
       "fechaCreacion": "2023-12-12T12:00:00Z",
       "fechaActualizacion": "2024-12-12T12:00:00Z",
-      "categoria": "Almacenamiento"
+      "categoria": "Aplicación"
     }
   ],
   "tarjetas": [

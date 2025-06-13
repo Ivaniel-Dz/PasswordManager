@@ -1,11 +1,7 @@
 <section class="section-main">
   <!-- Header -->
 
-  <app-header
-    [titulo]="' Detalles de la Tarjeta '"
-    [showSearch]="false"
-    [showButton]="false"
-    >
+  <app-header [titulo]="' Detalles de la Tarjeta '" [showSearch]="false" [showButton]="false">
   </app-header>
 
   <!-- Lista de Detalles -->
@@ -18,7 +14,7 @@
           <dt class="term">Nombre del Titular</dt>
           <dd class="desc"> {{tarjeta.titular}} </dd>
         </div>
-        
+
         <div class="definition-item">
           <dt class="term">Nombre de la Tarjeta</dt>
           <dd class="desc"> {{tarjeta.nombre}} </dd>
@@ -37,17 +33,17 @@
         <div class="definition-item">
           <dt class="term">Red</dt>
           <dd class="desc"> {{tarjeta.red}} </dd>
-        </div>        
+        </div>
 
         <div class="definition-item">
           <dt class="term">Tipo</dt>
           <dd class="desc"> {{tarjeta.tipo}} </dd>
         </div>
-        
+
         <div class="definition-item" *ngIf="tarjeta.descripcion !== null">
           <dt class="term"> Descripción </dt>
           <dd class="desc"> {{tarjeta.descripcion}} </dd>
-        </div> 
+        </div>
 
       </dl>
 

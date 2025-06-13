@@ -14,19 +14,25 @@ import { DataVisibilityComponent } from '../../../components/data-visibility/dat
 })
 export class TarjetaDetailComponent implements OnInit {
   //Inyección de dependencias
-  tarjetaService = inject(TarjetaService);
+  private tarjetaService = inject(TarjetaService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  // Variables
   tarjeta?: Tarjeta;
+  tarjetaId!: number
 
   // Se ejecuta al inicializar el componente
   ngOnInit(): void {
+    this.tarjetaId = Number(this.route.snapshot.paramMap.get('id'));
     this.detailTarjeta();
   }
 
   // Método para obtener los detalles
   detailTarjeta(): void {
-
+    this.tarjeta = this.tarjetaService.getById(this.tarjetaId);
+    if (!this.tarjeta) {
+      this.router.navigate(['/dashboard/tarjetas'])
+    }
   }
   
 }
