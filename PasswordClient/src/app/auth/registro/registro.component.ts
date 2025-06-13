@@ -1,28 +1,33 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators, } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { ErrorMessagesComponent } from '../../components/error-messages/error-messages.component';
 import { AlertInvalidComponent } from '../../components/alert-invalid/alert-invalid.component';
-// Utils
-import { showToastAlert } from '../../utils/sweet-alert.util';
 
 @Component({
   selector: 'app-registro',
-  imports: [RouterModule, ReactiveFormsModule, CommonModule, ErrorMessagesComponent, AlertInvalidComponent],
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+    CommonModule,
+    AlertInvalidComponent,
+  ],
   templateUrl: './registro.component.html',
   styleUrl: '../login/login.component.css', // Reutiliza el css de Login
 })
-
 export class RegistroComponent implements OnInit {
   // Inyección de dependencias
-  private authService = inject(AuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
 
   form!: FormGroup; // Define el formulario reactivo
-  errors: string[] = []; // Arreglo para almacenar errores
 
   ngOnInit(): void {
     // Inicializa el formulario con validaciones
@@ -46,26 +51,9 @@ export class RegistroComponent implements OnInit {
 
   // Método para registrar al usuario
   signUp(): void {
-    if (this.form.invalid) return; // No proceder si el formulario es inválido
+    if (this.form.valid) {
+    }
 
-    const registro = this.form.value;
-
-    this.authService.register(registro).subscribe({
-      next: (resp) => {
-        if (resp.isSuccess) {
-          // Instancia de sweet-alert
-          showToastAlert(resp.message ?? 'Registrado Correctamente', 'success');
-          this.router.navigate(['/auth/login']);
-        } else {
-          // Muestra el mensaje de error en html
-          this.errors = [resp.message || 'Error al registrarse']; 
-        }
-      },
-      error: (resp) => {
-        this.errors = [resp.message]; // Muestra el mensaje de error
-        console.error('Error en el registro:', resp); // Muestra el error en la consola
-      },
-    });
+    this.router.navigate(['/auth/login']);
   }
-
 }
