@@ -2,15 +2,15 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistroComponent } from './auth/registro/registro.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { SideNavComponent } from './layouts/side-nav/side-nav.component';
-import { PasswordComponent } from './dashboard/password/password.component';
-import { PerfilComponent } from './dashboard/perfil/perfil.component';
-import { TarjetaComponent } from './dashboard/tarjeta/tarjeta.component';
-import { PasswordGeneratorComponent } from './pages/password/password-generator/password-generator.component';
-import { PasswordFormComponent } from './pages/password/password-form/password-form.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { PasswordDetailComponent } from './pages/password/password-detail/password-detail.component';
-import { TarjetaFormComponent } from './pages/tarjeta/tarjeta-form/tarjeta-form.component';
+import { PasswordFormComponent } from './pages/password/password-form/password-form.component';
+import { PasswordGeneratorComponent } from './pages/password/password-generator/password-generator.component';
+import { PasswordListComponent } from './pages/password/password-list/password-list.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 import { TarjetaDetailComponent } from './pages/tarjeta/tarjeta-detail/tarjeta-detail.component';
+import { TarjetaFormComponent } from './pages/tarjeta/tarjeta-form/tarjeta-form.component';
+import { TarjetaListComponent } from './pages/tarjeta/tarjeta-list/tarjeta-list.component';
 
 export const routes: Routes = [
   {
@@ -35,15 +35,15 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: SideNavComponent,
+    component: DashboardComponent,
     title: 'Dashboard',
     children: [
-      { path: 'passwords', component: PasswordComponent, title: 'Lista de Contraseña'},
-      { path: 'passwords/:categoria', component: PasswordComponent, title: '' },
+      { path: 'passwords', component: PasswordListComponent, title: 'Lista de Contraseña'},
+      { path: 'passwords/:categoria', component: PasswordListComponent },
       { path: 'password/detalles/:id', component: PasswordDetailComponent, title: 'Detalles de contraseña' },
       { path: 'password/nueva', component: PasswordFormComponent, title: 'Contraseña Nueva' },
       { path: 'password/editar/:id', component: PasswordFormComponent, title: 'Contraseña Actualizar' },
-      { path: 'tarjetas', component: TarjetaComponent, title: 'Lista de Tarjeta' },
+      { path: 'tarjetas', component: TarjetaListComponent, title: 'Lista de Tarjeta' },
       { path: 'tarjeta/detalles/:id', component: TarjetaDetailComponent, title: 'Detalles de Tarjeta' },
       { path: 'tarjeta/nueva', component: TarjetaFormComponent, title: 'Tarjeta Nueva' },
       { path: 'tarjeta/editar/:id', component: TarjetaFormComponent, title: 'Tarjeta Actualizar' },
