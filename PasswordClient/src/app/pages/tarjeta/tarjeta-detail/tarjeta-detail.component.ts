@@ -8,6 +8,7 @@ import { DataVisibilityComponent } from '../../../components/data-visibility/dat
 
 @Component({
   selector: 'app-tarjeta-detail',
+  // prettier-ignore
   imports: [CommonModule, RouterModule, HeaderComponent, DataVisibilityComponent],
   templateUrl: './tarjeta-detail.component.html',
   styleUrl: './tarjeta-detail.component.css',
@@ -19,7 +20,7 @@ export class TarjetaDetailComponent implements OnInit {
   private router = inject(Router);
   // Variables
   tarjeta?: Tarjeta;
-  tarjetaId!: number
+  tarjetaId!: number;
 
   // Se ejecuta al inicializar el componente
   ngOnInit(): void {
@@ -31,8 +32,7 @@ export class TarjetaDetailComponent implements OnInit {
   detailTarjeta(): void {
     this.tarjeta = this.tarjetaService.getById(this.tarjetaId);
     if (!this.tarjeta) {
-      this.router.navigate(['/dashboard/tarjetas'])
+      this.router.navigate(['/dashboard/tarjetas']);
     }
   }
-  
 }

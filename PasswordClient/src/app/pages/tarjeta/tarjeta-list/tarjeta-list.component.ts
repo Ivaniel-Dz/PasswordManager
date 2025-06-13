@@ -8,6 +8,7 @@ import { SearchService } from '../../../services/search.service';
 import { TarjetaService } from '../../../services/tarjeta.service';
 import { paginate } from '../../../utils/pagination.util';
 import { confirmDialog, showToastAlert } from '../../../utils/sweet-alert.util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tarjeta-list',
@@ -17,8 +18,11 @@ import { confirmDialog, showToastAlert } from '../../../utils/sweet-alert.util';
   styleUrl: './tarjeta-list.component.css',
 })
 export class TarjetaListComponent implements OnInit {
+  // Inyección de servicios
   private tarjetaService = inject(TarjetaService);
   private searchService = inject(SearchService);
+  private router = inject(Router);
+  // Propiedades
   tarjetas: Tarjeta[] = [];
   filteredTarjeta: Tarjeta[] = [];
   paginatedTarjetas: Tarjeta[] = [];
