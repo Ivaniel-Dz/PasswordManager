@@ -89,7 +89,7 @@
                     <hr>
                     <div class="dropdown pb-4">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://robohash.org/user-profile" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                            <img class="avatar" alt="Perfil" [src]="'https://ui-avatars.com/api/?name=' + perfil.nombre" width="30" height="30" class="rounded-circle" />
                             <span class="user-name d-none d-sm-inline mx-1"> {{perfil.nombre}} </span>
                         </a>
                         <ul class="dropdown-link dropdown-menu dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
