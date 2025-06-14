@@ -14,7 +14,6 @@ import { HeaderComponent } from '../../../layouts/header/header.component';
 import { Password } from '../../../interfaces/password';
 import { PasswordService } from '../../../services/password.service';
 import { showToastAlert } from '../../../utils/sweet-alert.util';
-import { SpinnerComponent } from '../../../components/spinner/spinner.component';
 
 @Component({
   selector: 'app-password-form',

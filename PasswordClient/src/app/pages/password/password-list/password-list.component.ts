@@ -45,13 +45,6 @@ export class PasswordListComponent implements OnInit {
     });
   }
 
-  // Método para carga los datos
-  loadPasswords(): void {
-    this.passwords = this.passwordService.getAll();
-    this.filteredPassword = [...this.passwords];
-    this.setPaginatedPasswords();
-  }
-
   // Método para buscar
   onSearch(term: string): void {
     this.currentPage = 1;
