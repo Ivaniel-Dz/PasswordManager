@@ -7,6 +7,7 @@ import { HeaderComponent } from '../../../layouts/header/header.component';
 import { PasswordService } from '../../../services/password.service';
 import { SearchService } from '../../../services/search.service';
 import { paginate } from '../../../utils/pagination.util';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-password-list',
@@ -18,6 +19,7 @@ export class PasswordListComponent implements OnInit {
   // Inyección de dependencias
   private passwordService = inject(PasswordService);
   private searchService = inject(SearchService);
+  private route = inject(ActivatedRoute);
   passwords: Password[] = [];
   filteredPassword: Password[] = [];
   paginatedPasswords: Password[] = [];
@@ -27,7 +29,20 @@ export class PasswordListComponent implements OnInit {
 
   // Se ejecuta al inicializar el componente
   ngOnInit(): void {
-    this.loadPasswords();
+    this.passwords = this.passwordService.getAll();
+
+    this.route.queryParams.subscribe((params) => {
+      const category = params['category'];
+      if (category) {
+        this.filteredPassword = this.passwords.filter(
+          (p) => p.categoria === category
+        );
+        this.setPaginatedPasswords();
+      } else {
+        this.filteredPassword = this.passwords;
+        this.setPaginatedPasswords();
+      }
+    });
   }
 
   // Método para carga los datos
@@ -70,6 +85,6 @@ export class PasswordListComponent implements OnInit {
 
   // Total de paginas
   get totalPages(): number {
-    return Math.ceil(this.passwords.length / this.itemsPerPage);
+    return Math.ceil(this.filteredPassword.length / this.itemsPerPage);
   }
 }
