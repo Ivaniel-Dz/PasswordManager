@@ -72,7 +72,7 @@ export class PerfilComponent implements OnInit {
       (confirmed) => {
         if (confirmed) {
           this.usuarioService.restoreStorage();
-          this.router.navigate(['auth/login']);
+          this.router.navigate(['/auth/login']);
         }
       }
     );

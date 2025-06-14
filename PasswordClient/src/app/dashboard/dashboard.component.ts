@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
 
   // Método para cerrar sesión
   close() {
+    this.usuarioService.restoreStorage();
     this.router.navigate(['/auth/login']);
   }
 }
