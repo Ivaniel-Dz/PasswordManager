@@ -29,7 +29,9 @@ export class TarjetaListComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 7;
 
-  ngOnInit(): void {
+  // Inicia al cargar el componente
+  async ngOnInit(): Promise<void> {
+    await this.tarjetaService.init(); // Espera la inicialización
     this.loadTarjetas();
   }
 

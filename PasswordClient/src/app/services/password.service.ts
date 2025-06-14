@@ -10,11 +10,7 @@ const DB_URL = '/data/database.json';
 export class PasswordService {
   private initialized = false;
 
-  constructor() {
-    this.init();
-  }
-
-  private async init(): Promise<void> {
+ async init(): Promise<void> {
     if (!localStorage.getItem(PASSWORD_KEY)) {
       const res = await fetch(DB_URL);
       const db = await res.json();

@@ -28,20 +28,25 @@ export class PasswordListComponent implements OnInit {
   itemsPerPage = 4;
 
   // Se ejecuta al inicializar el componente
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.passwordService.init() // <- Asegura que los datos estén listos
+
     this.passwords = this.passwordService.getAll();
 
     this.route.queryParams.subscribe((params) => {
       const category = params['category'];
       if (category) {
+        this.currentPage = 1;
         this.filteredPassword = this.passwords.filter(
           (p) => p.categoria === category
         );
         this.setPaginatedPasswords();
       } else {
+        this.currentPage = 1;
         this.filteredPassword = this.passwords;
         this.setPaginatedPasswords();
       }
+      this.setPaginatedPasswords();
     });
   }
 
