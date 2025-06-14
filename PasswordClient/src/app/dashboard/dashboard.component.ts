@@ -1,6 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { UsuarioService } from '../services/usuario.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,26 +9,24 @@ import { UsuarioService } from '../services/usuario.service';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent implements OnInit {
-  // Intención de dependencias
+export class DashboardComponent implements OnInit, OnDestroy {
   private usuarioService = inject(UsuarioService);
   private router = inject(Router);
   userName: string = '';
   userEmail: string = '';
+  private userSub?: Subscription;
 
   ngOnInit(): void {
-    this.perfilNav();
+    this.userSub = this.usuarioService.user$.subscribe((user) => {
+      this.userName = user.nombre;
+      this.userEmail = user.correo;
+    });
   }
 
-  // Datos para el SideNav
-  perfilNav(): void {
-    const user = this.usuarioService.getUser();
-    if (user) {
-      (this.userName = user.nombre), (this.userEmail = user.correo);
-    }
+  ngOnDestroy(): void {
+    this.userSub?.unsubscribe();
   }
 
-  // Método para cerrar sesión
   close() {
     this.usuarioService.restoreStorage();
     this.router.navigate(['/auth/login']);

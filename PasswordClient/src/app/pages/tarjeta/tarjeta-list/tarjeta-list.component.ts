@@ -27,7 +27,7 @@ export class TarjetaListComponent implements OnInit {
   filteredTarjeta: Tarjeta[] = [];
   paginatedTarjetas: Tarjeta[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 7;
+  itemsPerPage: number = 8;
 
   // Inicia al cargar el componente
   async ngOnInit(): Promise<void> {
