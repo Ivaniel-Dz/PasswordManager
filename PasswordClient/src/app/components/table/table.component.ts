@@ -39,12 +39,4 @@ export class TableComponent {
     return `${numeracion.substring(0, 4)} **** **** ****`;
   }
 
-  // Formatear la fecha
-  formatExpiry(date: Date): string {
-    return `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date
-      .getFullYear()
-      .toString()
-      .slice(-2)}`;
-  }
-
 }

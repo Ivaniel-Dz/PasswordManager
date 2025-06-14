@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlertInvalidComponent } from '../../../components/alert-invalid/alert-invalid.component';
@@ -18,22 +23,26 @@ import { showToastAlert } from '../../../utils/sweet-alert.util';
   styleUrl: './tarjeta-form.component.css',
 })
 export class TarjetaFormComponent implements OnInit, OnDestroy {
+  private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private tarjetaService = inject(TarjetaService);
+  private routeSub?: Subscription;
+
   form!: FormGroup;
   isEdit = false;
   tarjetaId?: number;
-  private routeSub?: Subscription;
-
-  constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private tarjetaService: TarjetaService
-  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      numeracion: [ '', [Validators.required, Validators.pattern(/^[0-9]{8,19}$/)],], // Acepta solo enteros
-      fechaExpiracion: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)],], // MM/AA
+      numeracion: [
+        '',
+        [Validators.required, Validators.pattern(/^[0-9]{8,19}$/)],
+      ], // Acepta solo enteros
+      fechaExpiracion: [
+        '',
+        [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)],
+      ], // MM/AA
       titular: ['', Validators.required],
       nombre: ['', Validators.required],
       red: ['', Validators.required],
@@ -48,10 +57,10 @@ export class TarjetaFormComponent implements OnInit, OnDestroy {
         this.tarjetaId = +id;
         const tarjeta = this.tarjetaService.getById(this.tarjetaId);
         if (tarjeta) {
-          this.form.patchValue({...tarjeta});
+          this.form.patchValue({ ...tarjeta });
         } else {
           showToastAlert('Tarjeta no encontrada', 'error');
-          this.router.navigate(['/tarjetas']);
+          this.router.navigate(['/dashboard/tarjetas']);
         }
       }
     });
@@ -59,11 +68,14 @@ export class TarjetaFormComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.form.invalid) {
-      this.form.markAllAsTouched()
+      this.form.markAllAsTouched();
       return;
     }
 
-    const tarjeta: Tarjeta = {...this.form.value};
+    const tarjeta: Tarjeta = {
+      ...this.form.value,
+      id: this.isEdit && this.tarjetaId ? this.tarjetaId : Date.now(),
+    };
 
     if (this.isEdit) {
       this.tarjetaService.update(tarjeta);

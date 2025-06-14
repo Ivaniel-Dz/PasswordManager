@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -30,17 +30,15 @@ import { showToastAlert } from '../../../utils/sweet-alert.util';
   styleUrl: './password-form.component.css',
 })
 export class PasswordFormComponent implements OnInit, OnDestroy {
+  private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private passwordService = inject(PasswordService);
+  private routeSub?: Subscription;
+
   form!: FormGroup;
   isEdit = false;
   passwordId?: number;
-  private routeSub?: Subscription;
-
-  constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private passwordService: PasswordService
-  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
